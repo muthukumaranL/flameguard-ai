@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import csv
 import platform
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -43,6 +44,29 @@ PASSTHROUGH_KEYS = {
     "hsv_h", "hsv_s", "hsv_v", "degrees", "translate", "scale", "shear",
     "mosaic", "mixup", "close_mosaic", "fliplr", "box", "cls", "dfl", "cos_lr",
 }
+
+
+def describe_weights(weights: str) -> str:
+    """Say honestly where a run started from.
+
+    A bare model name (``yolov8n.pt``) is downloaded COCO-pretrained. A path into
+    ``outputs/training/...`` is one of OUR checkpoints, already fine-tuned on
+    fire and smoke - calling that "COCO-pretrained" in the experiment log would
+    be simply false, and the final model is exactly this case.
+    """
+    p = Path(weights)
+    # A bare Ultralytics model name is the COCO-pretrained release checkpoint,
+    # whether or not it has already been cached into the project directory.
+    if p.parent == Path(".") and re.fullmatch(r"yolo(v\d+|\d+)[nsmlx]\.pt", p.name):
+        return f"{p.name} (COCO-pretrained, downloaded from Ultralytics)"
+    if "training" in p.parts:
+        try:
+            experiment = p.parts[p.parts.index("training") + 1]
+        except (ValueError, IndexError):
+            experiment = p.stem
+        return (f"{p.as_posix()} (continued fine-tuning from our own "
+                f"{experiment} checkpoint)")
+    return f"{p.as_posix()} (local checkpoint)"
 
 
 def ultralytics_data_yaml(data_yaml: Path) -> Path:
@@ -172,7 +196,7 @@ def run_experiment(exp_id: str, overrides: dict[str, Any] | None = None) -> dict
         "experiment_id": exp_id,
         "date_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M"),
         "model": Path(weights).stem,
-        "starting_weights": f"{weights} (COCO-pretrained)",
+        "starting_weights": describe_weights(weights),
         "imgsz": train_kwargs["imgsz"],
         "epochs_requested": train_kwargs["epochs"],
         "batch": args_used.get("batch"),

@@ -32,8 +32,9 @@ step "3/10  Error analysis (+ colour-prior probe)"
 step "4/10  Sample predictions"
 "$PY" scripts/generate_samples.py
 
-step "5/10  Refresh backup demo video with the final model"
+step "5/10  Refresh backup demo video + export ONNX"
 "$PY" scripts/make_demo_video.py
+"$PY" scripts/export_model.py
 
 step "6/10  Automated test suite"
 "$PY" -m pytest tests/ -q | tee outputs/test_report.txt

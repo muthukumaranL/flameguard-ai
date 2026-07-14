@@ -328,7 +328,8 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
         f"Test split evaluated ONCE, after model and threshold were fixed",
         f"Fire: P {fire['precision']:.3f} · R {fire['recall']:.3f} · AP@0.5 {fire['ap50']:.3f}",
         f"Smoke: P {smoke['precision']:.3f} · R {smoke['recall']:.3f} · AP@0.5 {smoke['ap50']:.3f}",
-        f"Speed: {fast['mean_ms']:.0f} ms/image ({fast['fps']:.0f} FPS) on GPU - real-time capable",
+        f"Speed: {fast['mean_ms']:.0f} ms/image ({fast['fps']:.0f} FPS) on "
+        f"{'GPU' if gpu_s else 'CPU'}, measured end-to-end",
     ], top=2.1, size=16)
     _metric_cards(s, [
         ("Precision", f"{tm['precision']:.3f}"),

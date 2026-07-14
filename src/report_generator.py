@@ -240,7 +240,7 @@ class ReportBuilder:
             "RQ2 - Does a larger backbone (YOLOv8s vs YOLOv8n) improve detection, and specifically does it help the harder Smoke class, at equal training budget?",
             "RQ3 - Which confidence threshold best balances precision and recall for a safety-oriented detector, and what does the trade-off actually look like?",
             "RQ4 - What are the dominant failure modes, and what would fix them?",
-            "Success criteria: at least two classes with >=200 original images each (verified programmatically); a fine-tuned - never unchanged - pretrained model; honest single-shot test metrics; real-time GPU inference; and a working, demonstrable application.",
+            "Success criteria, deliberately stated as process rather than as a target number: at least two classes with >=200 original images each, verified programmatically; a fine-tuned - never unchanged - pretrained model; an evaluation protocol in which the test split is touched exactly once, after the model and threshold are frozen; inference fast enough to drive a live camera on the available hardware; failure modes characterised rather than hidden; and a working, demonstrable application. We deliberately did NOT set a target mAP in advance. On a dataset whose published split we had to rebuild, any number fixed beforehand would have been a number invented beforehand, and it would have created pressure to reach it.",
         ])
 
         # ---------------------------------------------------------- 2 plan
@@ -536,11 +536,18 @@ class ReportBuilder:
         self.table(["Device", "Mean ms", "Median ms", "p95 ms", "FPS"], speed_rows,
                    "Measured end-to-end inference latency per image (wall clock, "
                    "including pre-processing and NMS)")
-        self.p(f"""Speed was measured by timing repeated single-image predictions, not by
-            reading a theoretical FLOP count. At {fast['fps']:.0f} FPS on the GPU the
-            model comfortably exceeds live-camera requirements; on CPU it remains usable
-            for image and video analysis, which matters because the application must run
-            on any classroom machine.""")
+        live_ok = ("fast enough to drive a live camera feed"
+                   if fast["fps"] >= 15 else
+                   "below a comfortable live-camera frame rate, so the live tab "
+                   "downscales frames to keep the interface responsive")
+        self.p(f"""Speed was measured by timing repeated single-image predictions end to
+            end - including pre-processing and NMS - rather than by reading a theoretical
+            FLOP count. At {fast['fps']:.1f} FPS
+            ({fast['mean_ms']:.1f} ms per image) on the
+            {'GPU' if gpu_s else 'CPU'}, the model is {live_ok}. On CPU it runs at
+            {cpu_s['fps']:.1f} FPS, which is slower but still usable for image and video
+            analysis - and that matters, because the application has to run on whatever
+            machine is in the room.""")
 
         # ------------------------------------------------------- 6 tuning
         self.h1("6. Hyperparameter Tuning")

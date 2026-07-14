@@ -26,6 +26,23 @@ VAL_PLOTS = (
 )
 
 
+def count_split_images(data_yaml: Path, split: str) -> int:
+    """Number of images in a split, resolved through data.yaml.
+
+    Ultralytics' metrics object does not expose how many images it saw, and the
+    folder name does not always match the split name ('val' -> 'valid/images'),
+    so the count is resolved from the yaml rather than guessed.
+    """
+    import yaml as _yaml
+
+    cfg = _yaml.safe_load(data_yaml.read_text(encoding="utf-8"))
+    rel = cfg.get(split) or cfg.get({"val": "valid", "valid": "val"}.get(split, split))
+    if not rel:
+        return 0
+    img_dir = (data_yaml.parent / rel).resolve()
+    return sum(1 for p in img_dir.iterdir() if p.is_file()) if img_dir.exists() else 0
+
+
 def evaluate_split(weights: Path, data_yaml: Path, split: str,
                    out_dir: Path, device: str | None = None) -> dict[str, Any]:
     """Run Ultralytics validation on one split and export a metric package."""
@@ -55,7 +72,7 @@ def evaluate_split(weights: Path, data_yaml: Path, split: str,
         "weights": str(weights),
         "split": split,
         "device": device,
-        "images": int(getattr(results, "seen", 0) or 0),
+        "images": count_split_images(data_yaml, split),
         "precision": float(results.box.mp),
         "recall": float(results.box.mr),
         "f1": f1_score(float(results.box.mp), float(results.box.mr)),
