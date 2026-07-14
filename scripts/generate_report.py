@@ -40,13 +40,19 @@ def main() -> int:
     render_docx(blocks, REPORT_DIR / "FlameGuard_AI_Final_Report.docx")
     render_pdf(blocks, REPORT_DIR / "FlameGuard_AI_Final_Report.pdf")
 
-    (REPORT_DIR / "references.md").write_text(
-        "\n".join(["# References", ""] +
-                  [f"{i + 1}. {ref}" for i, ref in enumerate(
-                      next(p for k, p in blocks
-                           if k == "bullets" and any("Redmon" in x for x in p)))]),
-        encoding="utf-8")
-    log.info("Report generated in %s", REPORT_DIR)
+    refs = next((payload for kind, payload in blocks
+                 if kind == "bullets" and any("Redmon" in item for item in payload)),
+                [])
+    if refs:
+        (REPORT_DIR / "references.md").write_text(
+            "\n".join(["# References", ""] +
+                      [f"{i + 1}. {ref}" for i, ref in enumerate(refs)]) + "\n",
+            encoding="utf-8")
+    else:
+        log.warning("reference list not found in the report blocks")
+
+    log.info("Report generated in %s (%d figures, %d tables)",
+             REPORT_DIR, builder.fig_no, builder.tab_no)
     return 0
 
 

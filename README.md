@@ -156,9 +156,15 @@ Then open <http://localhost:8501>.
   the WebRTC connection fails, use the fallback:
 
   ```bash
-  python src/webcam_inference.py            # press Q to quit
-  python src/webcam_inference.py --camera 1 --conf 0.4
+  python src/webcam_inference.py                        # press Q to quit
+  python src/webcam_inference.py --camera 1 --conf 0.4  # a different camera
+  python src/webcam_inference.py --camera outputs/sample_inputs/demo_clip.mp4
+  python src/webcam_inference.py --selftest 5           # headless check, no window
   ```
+
+  `--camera` also accepts a video file, which makes the fallback usable as a
+  headless CLI detector and lets it be verified on a machine with no camera.
+  Exit codes: `0` ok, `2` model missing, `3` capture source unavailable, `4` no frames.
 
 - **Image upload:** Image Detection tab → upload JPG/JPEG/PNG/WEBP → annotated result plus
   PNG / CSV / JSON downloads. If nothing is found, the app says so — it never claims the

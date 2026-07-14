@@ -48,3 +48,29 @@ def test_no_stray_files_outside_tmp(engine, sample_image_path, tmp_path):
     save_detection_outputs(result, "probe.jpg", tmp_path / "sub")
     after = set(tmp_path.iterdir())
     assert after - before == {tmp_path / "sub"}
+
+
+def test_video_processing_leaves_no_temp_files(engine, tmp_path):
+    """The video path must clean up after itself, including its intermediate file.
+
+    Streamlit reruns the whole script on every widget interaction, so a leaked
+    temp directory per rerun accumulates without bound. This pins the fix.
+    """
+    import cv2
+    import numpy as np
+
+    from src.video_inference import process_video
+
+    work = tmp_path / "work"
+    work.mkdir()
+    src = work / "clip.mp4"
+    writer = cv2.VideoWriter(str(src), cv2.VideoWriter_fourcc(*"mp4v"), 10.0, (128, 128))
+    for i in range(6):
+        writer.write(np.full((128, 128, 3), i * 30 % 255, dtype=np.uint8))
+    writer.release()
+
+    out = work / "clip_pred.mp4"
+    process_video(engine, src, out, conf=0.99, iou=0.5)
+
+    leftovers = {p.name for p in work.iterdir()} - {"clip.mp4", "clip_pred.mp4"}
+    assert not leftovers, f"video processing left temp files behind: {leftovers}"

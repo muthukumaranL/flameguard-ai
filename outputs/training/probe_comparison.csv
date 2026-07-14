@@ -1,0 +1,4 @@
+probe,change,map50,map50_95,recall,delta_map50_95,verdict
+e4a_probe_adamw,AdamW optimizer with lr0=1e-3,0.37322,0.16355,0.37538,0.026870000000000005,adopt
+e4b_probe_augment,stronger photometric + scale augmentation,0.30261,0.12644,0.35524,-0.010239999999999999,reject
+e4c_probe_loss,classification-loss weight 0.5 -> 1.0,0.39684,0.16953,0.38499,0.03284999999999999,adopt

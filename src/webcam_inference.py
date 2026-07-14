@@ -1,10 +1,17 @@
-"""Standalone OpenCV webcam detector - the offline fallback for live demos.
+"""Standalone OpenCV detector - the offline fallback for live demos.
+
+Opens the local webcam, overlays fire/smoke detections, the status banner and a
+measured FPS readout, quits cleanly on Q and always releases the camera. It needs
+no browser, no network and no WebRTC handshake, which is precisely why it exists:
+browser camera access fails in exactly the situations where a demo must not.
 
 Usage:
-    python src/webcam_inference.py [--camera 0] [--conf 0.30] [--iou 0.50]
+    python src/webcam_inference.py                       # default webcam
+    python src/webcam_inference.py --camera 1 --conf 0.4 # a different camera
+    python src/webcam_inference.py --camera clip.mp4     # a video file instead
+    python src/webcam_inference.py --selftest 5          # headless check, no window
 
-Opens the local webcam, overlays fire/smoke detections and FPS, and quits
-cleanly when Q is pressed.  Works without a browser or network.
+Exit codes: 0 ok · 2 model missing · 3 capture source unavailable · 4 no frames.
 """
 from __future__ import annotations
 
@@ -25,16 +32,28 @@ log = setup_logging("flameguard.webcam")
 WINDOW = "FlameGuard AI - press Q to quit"
 
 
-def open_camera(index: int) -> cv2.VideoCapture:
-    """Open a webcam; on Windows the DirectShow backend starts much faster."""
-    if sys.platform == "win32":
-        cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
-    else:
-        cap = cv2.VideoCapture(index)
-    return cap
+def open_camera(source: int | str) -> cv2.VideoCapture:
+    """Open a capture source.
+
+    ``source`` is a webcam index (int) or a path to a video file - the latter
+    lets the fallback be exercised on a machine with no camera, and doubles as a
+    headless command-line video detector.
+    """
+    if isinstance(source, str) and not source.isdigit():
+        return cv2.VideoCapture(source)
+    index = int(source)
+    if sys.platform == "win32":       # DirectShow starts much faster on Windows
+        return cv2.VideoCapture(index, cv2.CAP_DSHOW)
+    return cv2.VideoCapture(index)
 
 
-def run(camera: int, conf: float, iou: float, max_size: int = 640) -> int:
+def run(camera: int | str, conf: float, iou: float, max_size: int = 640,
+        selftest_frames: int = 0) -> int:
+    """Live loop. ``selftest_frames`` > 0 runs headlessly for N frames and exits.
+
+    The self-test mode exists so the fallback can be verified in CI and in the
+    project's verification loop, where no GUI window can be opened.
+    """
     try:
         engine = DetectionEngine()
     except MissingModelError as exc:
@@ -43,9 +62,33 @@ def run(camera: int, conf: float, iou: float, max_size: int = 640) -> int:
 
     cap = open_camera(camera)
     if not cap.isOpened():
-        log.error("Could not open webcam index %d. Is a camera connected and free?",
+        log.error("Could not open capture source %r. Is a camera connected and free?",
                   camera)
         return 3
+
+    if selftest_frames > 0:
+        grabbed = 0
+        try:
+            for _ in range(selftest_frames):
+                ok, frame = cap.read()
+                if not ok or frame is None:
+                    break
+                result = engine.predict(frame, conf=conf, iou=iou, draw=True,
+                                        max_size=max_size)
+                grabbed += 1
+                log.info("frame %d: %dx%d | %s | fire=%d smoke=%d | %.0f ms",
+                         grabbed, frame.shape[1], frame.shape[0], result.status,
+                         result.counts["fire"], result.counts["smoke"],
+                         result.inference_ms)
+        finally:
+            cap.release()
+            cv2.destroyAllWindows()
+        if grabbed == 0:
+            log.error("camera opened but returned no frames")
+            return 4
+        log.info("self-test OK: %d frames captured and processed on %s, camera released",
+                 grabbed, engine.device)
+        return 0
 
     smoother = StatusSmoother(window=5, min_hits=2)
     fps = 0.0
@@ -85,13 +128,16 @@ def run(camera: int, conf: float, iou: float, max_size: int = 640) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--camera", type=int, default=0, help="webcam index")
+    parser.add_argument("--camera", default=0,
+                        help="webcam index (e.g. 0) or a path to a video file")
     parser.add_argument("--conf", type=float, default=0.30)
     parser.add_argument("--iou", type=float, default=0.50)
     parser.add_argument("--max-size", type=int, default=640,
                         help="downscale longer side before inference")
+    parser.add_argument("--selftest", type=int, default=0, metavar="N",
+                        help="headless check: grab N frames, print results, exit")
     args = parser.parse_args()
-    return run(args.camera, args.conf, args.iou, args.max_size)
+    return run(args.camera, args.conf, args.iou, args.max_size, args.selftest)
 
 
 if __name__ == "__main__":

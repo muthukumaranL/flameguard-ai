@@ -33,6 +33,11 @@ from src.utils import device_label
 CFG = load_app_config()
 ACCENT = "#e4572e"
 
+# Temporary files stay inside the project (the system drive may be nearly full)
+# and are cleaned up by the context manager that creates them.
+TMP_DIR = PROJECT_ROOT / ".tmp"
+TMP_DIR.mkdir(exist_ok=True)
+
 st.set_page_config(page_title="FlameGuard AI", page_icon="🔥", layout="wide",
                    initial_sidebar_state="expanded")
 
@@ -290,31 +295,46 @@ with tab_video:
         else:
             from src.video_inference import InvalidVideoError, probe_video, process_video
 
-            tmp_dir = Path(tempfile.mkdtemp(prefix="flameguard_",
-                                            dir=str(PROJECT_ROOT / ".tmp")))
-            in_path = tmp_dir / vupload.name
-            in_path.write_bytes(vupload.getvalue())
-            out_path = tmp_dir / f"{in_path.stem}_pred.mp4"
+            # Identify this upload. A different file invalidates any previous
+            # result, so stale statistics can never be shown next to a new video.
+            upload_key = f"{vupload.name}:{vupload.size}"
+            if st.session_state.get("video_key") != upload_key:
+                for k in ("video_stats", "video_out", "video_name"):
+                    st.session_state.pop(k, None)
+                st.session_state["video_key"] = upload_key
+
             try:
-                meta = probe_video(in_path)
-                st.caption(f"`{vupload.name}` - {meta['width']}x{meta['height']} px, "
-                           f"{meta['fps']:.1f} fps, {meta['frames']} frames")
-                if st.button("Run detection on this video", type="primary"):
-                    progress = st.progress(0.0, text="Processing video...")
-                    stats = process_video(
-                        engine, in_path, out_path, conf=conf, iou=iou,
-                        frame_skip=frame_skip, show_labels=show_labels,
-                        show_conf=show_conf, line_width=line_width,
-                        progress_cb=lambda f: progress.progress(
-                            f, text=f"Processing video... {f:.0%}"))
-                    progress.progress(1.0, text="Done")
-                    st.session_state["video_stats"] = stats
-                    st.session_state["video_out"] = out_path.read_bytes()
-                    st.session_state["video_name"] = out_path.name
+                # Processing happens inside a context manager, so the temporary
+                # input/output files are always removed - including on failure.
+                # (Streamlit reruns this script on every widget interaction, so a
+                # naive mkdtemp() here would leak a directory per interaction.)
+                with tempfile.TemporaryDirectory(
+                        prefix="flameguard_", dir=str(TMP_DIR)) as tmp:
+                    tmp_dir = Path(tmp)
+                    in_path = tmp_dir / vupload.name
+                    in_path.write_bytes(vupload.getvalue())
+                    out_path = tmp_dir / f"{in_path.stem}_pred.mp4"
+
+                    meta = probe_video(in_path)
+                    st.caption(f"`{vupload.name}` - {meta['width']}x{meta['height']} px, "
+                               f"{meta['fps']:.1f} fps, {meta['frames']} frames")
+                    if st.button("Run detection on this video", type="primary"):
+                        progress = st.progress(0.0, text="Processing video...")
+                        stats = process_video(
+                            engine, in_path, out_path, conf=conf, iou=iou,
+                            frame_skip=frame_skip, show_labels=show_labels,
+                            show_conf=show_conf, line_width=line_width,
+                            progress_cb=lambda f: progress.progress(
+                                f, text=f"Processing video... {f:.0%}"))
+                        progress.progress(1.0, text="Done")
+                        # keep the result in memory; the files on disk go away
+                        st.session_state["video_stats"] = stats
+                        st.session_state["video_out"] = out_path.read_bytes()
+                        st.session_state["video_name"] = out_path.name
             except InvalidVideoError as exc:
                 st.error(f"This video cannot be processed: {exc}")
-            finally:
-                in_path.unlink(missing_ok=True)
+            except Exception as exc:            # surface, never crash the app
+                st.error(f"Video processing failed: {exc}")
 
             stats = st.session_state.get("video_stats")
             if stats is not None and st.session_state.get("video_out"):
