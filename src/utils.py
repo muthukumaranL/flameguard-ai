@@ -40,27 +40,35 @@ def set_seeds(seed: int = 42) -> None:
         pass
 
 
-def pick_device() -> str:
-    """Return 'cuda:0' when a CUDA GPU is usable, else 'cpu'."""
+def _cuda_usable() -> bool:
+    """True only when CUDA is available AND at least one device is visible.
+
+    ``torch.cuda.is_available()`` alone is not enough: with
+    ``CUDA_VISIBLE_DEVICES=""`` (or a driver/runtime mismatch) it can report
+    True while ``device_count()`` is 0, and touching device 0 then raises.
+    """
     try:
         import torch
 
-        if torch.cuda.is_available():
-            return "cuda:0"
-    except ImportError:
-        pass
-    return "cpu"
+        return torch.cuda.is_available() and torch.cuda.device_count() > 0
+    except Exception:
+        return False
+
+
+def pick_device() -> str:
+    """Return 'cuda:0' when a CUDA GPU is usable, else 'cpu'."""
+    return "cuda:0" if _cuda_usable() else "cpu"
 
 
 def device_label() -> str:
     """Human-readable device description for the UI/report."""
-    try:
-        import torch
+    if _cuda_usable():
+        try:
+            import torch
 
-        if torch.cuda.is_available():
             return f"GPU - {torch.cuda.get_device_name(0)}"
-    except ImportError:
-        pass
+        except Exception:  # visible but unusable - fall back rather than crash
+            pass
     return "CPU"
 
 

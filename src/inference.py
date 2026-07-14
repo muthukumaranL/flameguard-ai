@@ -12,7 +12,7 @@ from typing import Any, Callable
 
 import numpy as np
 
-from src.config import load_class_names
+from src.config import load_class_colors, load_class_names
 from src.paths import FINAL_MODEL_PATH
 from src.utils import device_label, pick_device, setup_logging
 
@@ -101,7 +101,48 @@ class DetectionEngine:
         self.device = device or pick_device()
         self.model = YOLO(str(weights))
         self.class_names = load_class_names()
+        self.class_colors = load_class_colors()
         log.info("DetectionEngine ready: %s on %s", weights.name, self.device)
+
+    def annotate(self, image_bgr: np.ndarray, detections: list[Detection], *,
+                 show_labels: bool = True, show_conf: bool = True,
+                 line_width: int = 2) -> np.ndarray:
+        """Draw detections using the project's semantic class colours.
+
+        Ultralytics' own ``plot()`` uses a generic palette that happens to paint
+        Fire blue, which is actively misleading in a fire-detection UI. We draw
+        the boxes ourselves so Fire reads red and Smoke reads steel-blue.
+        """
+        import cv2
+
+        canvas = image_bgr.copy()
+        for det in detections:
+            color = self.class_colors.get(det.class_id, (0, 255, 255))
+            p1 = (int(det.x1), int(det.y1))
+            p2 = (int(det.x2), int(det.y2))
+            cv2.rectangle(canvas, p1, p2, color, line_width, lineType=cv2.LINE_AA)
+            if not (show_labels or show_conf):
+                continue
+            parts = []
+            if show_labels:
+                parts.append(det.class_name)
+            if show_conf:
+                parts.append(f"{det.confidence:.2f}")
+            label = " ".join(parts)
+            scale = max(0.45, min(0.8, canvas.shape[1] / 1200))
+            thick = max(1, line_width - 1)
+            (tw, th), base = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX,
+                                             scale, thick)
+            # keep the label inside the frame when the box touches the top edge
+            top = p1[1] - th - base - 2
+            if top < 0:
+                top = p1[1] + 2
+            cv2.rectangle(canvas, (p1[0], top), (p1[0] + tw + 6, top + th + base + 2),
+                          color, -1, lineType=cv2.LINE_AA)
+            cv2.putText(canvas, label, (p1[0] + 3, top + th + 1),
+                        cv2.FONT_HERSHEY_SIMPLEX, scale, (255, 255, 255), thick,
+                        lineType=cv2.LINE_AA)
+        return canvas
 
     @property
     def device_description(self) -> str:
@@ -145,12 +186,10 @@ class DetectionEngine:
 
         annotated = None
         if draw:
-            annotated = res.plot(labels=show_labels, conf=show_conf,
-                                 line_width=line_width)
-            if scale != 1.0:
-                import cv2
-
-                annotated = cv2.resize(annotated, (w, h))
+            # detections are already rescaled to the original image coordinates,
+            # so annotate the full-resolution frame directly
+            annotated = self.annotate(image_bgr, detections, show_labels=show_labels,
+                                      show_conf=show_conf, line_width=line_width)
         return InferenceResult(
             detections=detections, annotated_bgr=annotated,
             inference_ms=elapsed_ms, image_width=w, image_height=h,

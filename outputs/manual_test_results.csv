@@ -1,0 +1,14 @@
+test_id,feature,input,expected,actual,result,evidence
+MT-01,App loads,streamlit run app.py,"Header, sidebar, 5 tabs, model status, disclaimer",as expected,PASS,outputs/application_screenshots/00_main_page.png
+MT-08,Live camera tab,Open Live Camera tab,START button and camera-stopped guidance shown,as expected,PASS,outputs/application_screenshots/04_live_camera_tab.png
+MT-02,Image tab (empty),Open Image Detection tab,"Uploader shown, no results",as expected,PASS,outputs/application_screenshots/01_main_image_tab.png
+MT-03,Fire image detection,manual_test_fire.jpg,Annotated result + counts + downloads,detections shown,PASS,outputs/application_screenshots/02_image_detection_result.png
+MT-04,Smoke image detection,manual_test_smoke.jpg,Smoke detected or honest empty state,processed,PASS,outputs/application_screenshots/06_image_smoke_result.png
+MT-05,Fire+smoke image,manual_test_both.jpg,Both classes handled,processed,PASS,outputs/application_screenshots/08_image_both_result.png
+MT-06,Negative image,manual_test_negative.jpg,"Neutral 'no detection' message, never a 'safe' claim",message shown,PASS,outputs/application_screenshots/07_no_detection_message.png
+MT-07,Corrupt image handling,corrupt_image.jpg (not an image),"Clear error, app stays alive",error shown,PASS,outputs/application_screenshots/09_error_invalid_image.png
+MT-09,Video tab (empty),Open Video Detection tab,Uploader shown,as expected,PASS,outputs/application_screenshots/03_video_tab_empty.png
+MT-10,Video processing,demo_clip.mp4,"Progress, processed video, stats, CSV download",completed,PASS,outputs/application_screenshots/03_video_detection_result.png
+MT-11,Model performance tab,Open tab,"Real metrics from saved files, or an honest 'not available' notice",not-available notice shown,PASS,outputs/application_screenshots/05_model_performance_tab.png
+MT-12,About tab,Open tab,"Dataset, limitations, disclaimer",disclaimer shown,PASS,outputs/application_screenshots/11_about_tab.png
+MT-13,Narrow layout,420px viewport,Layout stays usable,as expected,PASS,outputs/application_screenshots/12_mobile_layout.png

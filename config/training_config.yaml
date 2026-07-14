@@ -1,13 +1,24 @@
 # FlameGuard AI - training experiment configuration
-# Compressed protocol approved for a 4GB GTX 1650 Ti budget (~5-8h total GPU time).
-# Every experiment fine-tunes COCO-pretrained weights on the leakage-repaired split
-# (transfer learning; no model is used unchanged).
+#
+# Every experiment fine-tunes COCO-pretrained weights on the leakage-repaired
+# split (transfer learning; no model is ever used unchanged).
+#
+# COMPUTE BUDGET (measured, not assumed - disclosed in the report):
+#   * GPU: GTX 1650 Ti, 4GB VRAM. Ultralytics auto-disables AMP on the GTX 16xx
+#     series (known NaN-loss issue), so ALL training runs in FP32.
+#   * YOLOv8n @640, batch 16 -> ~4.4 min/epoch (measured over 40 epochs).
+#   * YOLOv8s @640, batch 8  -> needs ~7.8GB, i.e. ~2x the available VRAM. It
+#     spills into shared system memory and collapses to ~20 min/epoch. It is
+#     therefore run at batch 4 for a short, explicitly compute-limited budget.
+#
+# Because validation metrics are logged every epoch, models trained for
+# different numbers of epochs are compared at EQUAL epochs (see report S7).
 
 dataset_yaml: "data/processed/fire_smoke_resplit/data.yaml"
 seed: 42
 imgsz: 640
-patience: 10
-workers: 2
+patience: 6
+workers: 4
 
 experiments:
   e1_baseline_v8n:
@@ -16,61 +27,79 @@ experiments:
     batch: 16
     optimizer: "auto"
     save_dir: "outputs/training/e1_baseline_v8n"
-    notes: "Fast lightweight baseline."
+    notes: "Baseline (COMPLETED: 40 epochs, 2h56m)."
 
-  e2_stronger_v8s:
-    model: "yolov8s.pt"
-    epochs: 60
-    batch: 8
-    optimizer: "auto"
-    save_dir: "outputs/training/e2_stronger_v8s"
-    notes: "Larger model for smoke/small-fire recall. Batch 8 for 4GB VRAM."
-
+  # Primary architecture comparison: same batch, same image size, same schedule
+  # as the baseline, so the ONLY variable is the architecture itself.
   e3_compare_11n:
     model: "yolo11n.pt"
-    epochs: 40
+    epochs: 12
     batch: 16
     optimizer: "auto"
     save_dir: "outputs/training/e3_compare_11n"
-    notes: "Optional architecture comparison; skipped without blocking if unstable."
+    notes: "YOLO11n - newer architecture at the same cost class as YOLOv8n.
+      Equal batch/imgsz to the baseline; compared at equal epochs."
 
-  # Tuning probes: 20-epoch runs changing ONE factor at a time vs the probe base.
+  # Capacity probe: does a ~3.3x larger backbone help? Compute-limited by VRAM.
+  e2_stronger_v8s:
+    model: "yolov8s.pt"
+    epochs: 6
+    batch: 4
+    optimizer: "auto"
+    save_dir: "outputs/training/e2_stronger_v8s"
+    notes: "YOLOv8s (~11.2M params, 28.6 GFLOPs). Batch 4 - the largest that fits
+      in 4GB VRAM in FP32. Short budget; reported as a compute-limited capacity
+      probe, not a converged model."
+
+  # Tuning probes: equal-budget runs, each changing exactly ONE factor against
+  # the control (e4d), so any difference is attributable to that factor.
+  e4d_probe_baseline:
+    model: "yolov8n.pt"
+    epochs: 5
+    batch: 16
+    optimizer: "auto"
+    save_dir: "outputs/training/e4d_probe_baseline"
+    notes: "Probe CONTROL: default recipe at the probe budget."
+
   e4a_probe_adamw:
     model: "yolov8n.pt"
-    epochs: 20
+    epochs: 5
     batch: 16
     optimizer: "AdamW"
     lr0: 0.001
     save_dir: "outputs/training/e4a_probe_adamw"
-    notes: "Probe A: optimizer AdamW + lr0 1e-3 (vs auto/SGD)."
+    notes: "Probe A: optimizer AdamW + lr0 1e-3 (vs the auto-selected optimizer)."
 
   e4b_probe_augment:
     model: "yolov8n.pt"
-    epochs: 20
+    epochs: 5
     batch: 16
     optimizer: "auto"
     hsv_v: 0.6
     scale: 0.7
     mosaic: 1.0
-    close_mosaic: 5
+    close_mosaic: 2
     save_dir: "outputs/training/e4b_probe_augment"
-    notes: "Probe B: stronger photometric+scale augmentation for lighting robustness."
+    notes: "Probe B: stronger photometric + scale augmentation (hsv_v 0.4->0.6,
+      scale 0.5->0.7) for lighting robustness."
 
   e4c_probe_loss:
     model: "yolov8n.pt"
-    epochs: 20
+    epochs: 5
     batch: 16
     optimizer: "auto"
-    cls: 1.0            # default 0.5 - emphasise classification (Fire vs Smoke confusion)
+    cls: 1.0            # default 0.5
     save_dir: "outputs/training/e4c_probe_loss"
-    notes: "Probe C: doubled classification loss weight."
+    notes: "Probe C: classification-loss weight doubled (0.5 -> 1.0)."
 
   e5_final:
-    # Final config is written by scripts/train_final.py after probe review;
-    # values below are the planned defaults and may be overridden there.
-    model: "yolov8s.pt"
-    epochs: 80
-    batch: 8
+    # `model` is overridden at runtime by scripts/train_final.py with the best
+    # checkpoint so far, so the final run CONTINUES fine-tuning the strongest
+    # model with the winning probe settings rather than restarting from COCO.
+    model: "yolov8n.pt"
+    epochs: 12
+    batch: 16
     optimizer: "auto"
     save_dir: "outputs/training/e5_final"
-    notes: "Tuned final model - config finalised from probe results."
+    notes: "Tuned final model - continued fine-tuning of the best checkpoint using
+      the configuration that won the probe study."

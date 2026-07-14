@@ -1,0 +1,31 @@
+item_id,sprint,user_story,task,owner,story_points,status
+FG-01,1,US1,Analyse project requirements and rubric,[Project Manager],2,Done
+FG-02,1,US1,Define team roles and communication plan,[Project Manager],1,Done
+FG-03,1,US2,Acquire Roboflow fire/smoke dataset (v1) and verify licence,[Dataset & EDA Lead],2,Done
+FG-04,1,US2,"Validate dataset integrity (images, labels, classes, duplicates)",[Dataset & EDA Lead],3,Done
+FG-05,1,US2,Detect and repair train/valid/test leakage (grouped re-split),[Dataset & EDA Lead],5,Done
+FG-06,1,US3,Exploratory data analysis package (charts + review tables),[Dataset & EDA Lead],5,Done
+FG-07,1,US3,Annotation-quality review and outlier report,[Dataset & EDA Lead],2,Done
+FG-08,1,-,Create initial product backlog and risk register,[Project Manager],2,Done
+FG-09,2,US4,Set up Python environment (CUDA PyTorch + Ultralytics),[Model Training Lead],2,Done
+FG-10,2,US4,"Train YOLOv8n baseline (transfer learning, 40 epochs)",[Model Training Lead],3,Done
+FG-11,2,US4,Train YOLOv8s comparison model,[Model Training Lead],3,Done
+FG-12,2,US4,Optional YOLO11n architecture comparison,[Model Training Lead],2,Done
+FG-13,2,US5,Analyse training curves and validation metrics,[Evaluation & Documentation Lead],2,Done
+FG-14,2,-,Create experiment log and benchmark table,[Evaluation & Documentation Lead],2,Done
+FG-15,3,US6,Hyperparameter tuning probes (optimizer / augmentation / loss),[Model Training Lead],5,Done
+FG-16,3,US6,Train tuned final model and select by recall-weighted criteria,[Model Training Lead],3,Done
+FG-17,3,US7,Streamlit app skeleton with sidebar controls and tabs,[Application Development Lead],3,Done
+FG-18,3,US7,Image upload detection with downloads (PNG/CSV/JSON),[Application Development Lead],3,Done
+FG-19,3,US8,Video upload processing with progress and frame CSV,[Application Development Lead],5,Done
+FG-20,3,US9,Browser live webcam detection (streamlit-webrtc),[Application Development Lead],5,Done
+FG-21,3,US9,OpenCV desktop webcam fallback,[Application Development Lead],2,Done
+FG-22,3,-,Automated pytest suite for pipeline and app components,[Evaluation & Documentation Lead],3,Done
+FG-23,4,US10,Confidence-threshold analysis and final threshold selection,[Evaluation & Documentation Lead],2,Done
+FG-24,4,US10,One-time test-set evaluation with full metric package,[Evaluation & Documentation Lead],3,Done
+FG-25,4,US10,Structured error analysis (TP/FP/FN/localization galleries),[Evaluation & Documentation Lead],3,Done
+FG-26,4,US11,Ten sample predictions with interpretations,[Evaluation & Documentation Lead],2,Done
+FG-27,4,US11,Final report (DOCX + PDF) with real figures,[Evaluation & Documentation Lead],5,Done
+FG-28,4,US11,"Presentation slides, speaker notes and demo script",[Project Manager],3,Done
+FG-29,4,-,"Scrum evidence package (board, burndown, retrospectives)",[Project Manager],2,Done
+FG-30,4,-,Final submission ZIP and verification loop,[Project Manager],2,Done

@@ -1,0 +1,20 @@
+# Pin the application's appearance so it looks identical on any machine and in
+# any browser (Streamlit otherwise follows the OS/browser dark-mode preference,
+# which made classroom screenshots inconsistent).
+[theme]
+base = "light"
+primaryColor = "#B03A2E"          # restrained accent - used for sliders/buttons
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F5F5"
+textColor = "#222222"
+font = "sans serif"
+
+[server]
+headless = true
+maxUploadSize = 500               # MB - matches config/app_config.yaml video limit
+# Serves ./static at /app/static/<file>. Used to host the demo images so a
+# presenter can drag them straight into the uploader from the same origin.
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false

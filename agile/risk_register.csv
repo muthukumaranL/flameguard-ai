@@ -1,0 +1,9 @@
+risk_id,description,likelihood,impact,mitigation,status
+R1,Dataset leakage inflates metrics,High,High,Grouped perceptual-hash re-split before any training; audited to 0 spanning groups,Closed (mitigated)
+R2,4GB GPU cannot fit larger models,Medium,High,Batch-size reduction ladder (16->8->4); FP32 fallback when AMP unstable,Closed (mitigated)
+R3,AMP produces NaN losses on GTX 16xx,High,Medium,Ultralytics auto-disabled AMP; FP32 training verified,Closed (mitigated)
+R4,streamlit-webrtc incompatible with Python 3.14,Medium,Medium,Verified wheels import; snapshot mode + OpenCV fallback exist,Closed (mitigated)
+R5,Smoke recall lower than fire recall,Medium,High,Recall-weighted model selection; threshold analysis; documented in error analysis,Monitored
+R6,Training exceeds time budget,Medium,Medium,Compressed epoch protocol with early stopping (patience 10),Monitored
+R7,Webcam unavailable during presentation,Low,Medium,"Backup demo assets: processed video, screenshots, sample outputs",Open (contingency ready)
+R8,Model mistakes sunsets/clouds for fire/smoke,High,Low,Documented in error analysis and About tab; threshold tuning reduces FPs,Monitored

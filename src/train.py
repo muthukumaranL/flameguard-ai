@@ -85,6 +85,27 @@ def _best_epoch_stats(results_csv: Path) -> dict[str, float]:
     }
 
 
+def metrics_at_epoch(results_csv: Path, epoch: int) -> dict[str, float]:
+    """Validation metrics a run had reached at a specific epoch.
+
+    Used for the fair equal-epoch architecture comparison: the baseline trained
+    for more epochs than the larger model (compute budget), so the two are also
+    compared at the epoch count they both reached.
+    """
+    df = pd.read_csv(results_csv)
+    df.columns = [c.strip() for c in df.columns]
+    row = df.loc[df["epoch"] <= epoch].iloc[-1]
+    p = float(row.get("metrics/precision(B)", float("nan")))
+    r = float(row.get("metrics/recall(B)", float("nan")))
+    return {
+        "epoch": int(row["epoch"]),
+        "precision": p,
+        "recall": r,
+        "map50": float(row.get("metrics/mAP50(B)", float("nan"))),
+        "map50_95": float(row.get("metrics/mAP50-95(B)", float("nan"))),
+    }
+
+
 def _append_log_row(row: dict[str, Any]) -> None:
     EXPERIMENT_LOG.parent.mkdir(parents=True, exist_ok=True)
     exists = EXPERIMENT_LOG.exists()

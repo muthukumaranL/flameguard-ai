@@ -34,8 +34,9 @@ def test_records_csv_parses_back(engine, sample_image_path):
         assert blob == b""
 
 
-def test_records_json_valid(engine, blank_image):
-    result = engine.predict(blank_image, conf=0.5, iou=0.5)
+def test_records_json_valid_when_empty(engine, blank_image):
+    """A no-detection result must serialise to an empty JSON array, not to null."""
+    result = engine.predict(blank_image, conf=0.99, iou=0.5)
     blob = records_json_bytes(detections_to_records(result, "blank.png"))
     assert json.loads(blob) == []
 
