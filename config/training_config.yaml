@@ -1,0 +1,76 @@
+# FlameGuard AI - training experiment configuration
+# Compressed protocol approved for a 4GB GTX 1650 Ti budget (~5-8h total GPU time).
+# Every experiment fine-tunes COCO-pretrained weights on the leakage-repaired split
+# (transfer learning; no model is used unchanged).
+
+dataset_yaml: "data/processed/fire_smoke_resplit/data.yaml"
+seed: 42
+imgsz: 640
+patience: 10
+workers: 2
+
+experiments:
+  e1_baseline_v8n:
+    model: "yolov8n.pt"
+    epochs: 40
+    batch: 16
+    optimizer: "auto"
+    save_dir: "outputs/training/e1_baseline_v8n"
+    notes: "Fast lightweight baseline."
+
+  e2_stronger_v8s:
+    model: "yolov8s.pt"
+    epochs: 60
+    batch: 8
+    optimizer: "auto"
+    save_dir: "outputs/training/e2_stronger_v8s"
+    notes: "Larger model for smoke/small-fire recall. Batch 8 for 4GB VRAM."
+
+  e3_compare_11n:
+    model: "yolo11n.pt"
+    epochs: 40
+    batch: 16
+    optimizer: "auto"
+    save_dir: "outputs/training/e3_compare_11n"
+    notes: "Optional architecture comparison; skipped without blocking if unstable."
+
+  # Tuning probes: 20-epoch runs changing ONE factor at a time vs the probe base.
+  e4a_probe_adamw:
+    model: "yolov8n.pt"
+    epochs: 20
+    batch: 16
+    optimizer: "AdamW"
+    lr0: 0.001
+    save_dir: "outputs/training/e4a_probe_adamw"
+    notes: "Probe A: optimizer AdamW + lr0 1e-3 (vs auto/SGD)."
+
+  e4b_probe_augment:
+    model: "yolov8n.pt"
+    epochs: 20
+    batch: 16
+    optimizer: "auto"
+    hsv_v: 0.6
+    scale: 0.7
+    mosaic: 1.0
+    close_mosaic: 5
+    save_dir: "outputs/training/e4b_probe_augment"
+    notes: "Probe B: stronger photometric+scale augmentation for lighting robustness."
+
+  e4c_probe_loss:
+    model: "yolov8n.pt"
+    epochs: 20
+    batch: 16
+    optimizer: "auto"
+    cls: 1.0            # default 0.5 - emphasise classification (Fire vs Smoke confusion)
+    save_dir: "outputs/training/e4c_probe_loss"
+    notes: "Probe C: doubled classification loss weight."
+
+  e5_final:
+    # Final config is written by scripts/train_final.py after probe review;
+    # values below are the planned defaults and may be overridden there.
+    model: "yolov8s.pt"
+    epochs: 80
+    batch: 8
+    optimizer: "auto"
+    save_dir: "outputs/training/e5_final"
+    notes: "Tuned final model - config finalised from probe results."

@@ -1,0 +1,30 @@
+00:34:04 | INFO    | flameguard.stage1 | Copying dataset E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\fire and smoke.v1i.yolov8 -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\data\raw\fire_and_smoke_v1 (originals preserved)
+00:34:28 | INFO    | flameguard.stage1 | === Auditing raw dataset ===
+00:34:28 | INFO    | flameguard.validate | Validating fire_and_smoke_v1 | classes=['Fire', 'Smoke']
+00:35:34 | INFO    | flameguard.validate | train: 3687 images, 3687 labels, 0 corrupt, 0 label issues
+00:35:52 | INFO    | flameguard.validate | valid: 1082 images, 1082 labels, 0 corrupt, 0 label issues
+00:36:00 | INFO    | flameguard.validate | test: 531 images, 531 labels, 0 corrupt, 0 label issues
+00:36:00 | INFO    | flameguard.validate | Validation reports written to E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\dataset_validation\raw
+00:36:00 | INFO    | flameguard.stage1 | === Re-splitting (leakage repair) ===
+00:36:01 | INFO    | flameguard.resplit | Collected 5300 image records
+00:36:01 | INFO    | flameguard.resplit | Computing perceptual hashes...
+00:36:07 | INFO    | flameguard.resplit | pHash 1000/5300
+00:36:10 | INFO    | flameguard.resplit | pHash 2000/5300
+00:36:13 | INFO    | flameguard.resplit | pHash 3000/5300
+00:36:16 | INFO    | flameguard.resplit | pHash 4000/5300
+00:36:20 | INFO    | flameguard.resplit | pHash 5000/5300
+00:36:21 | INFO    | flameguard.resplit | pHash near-duplicate pairs (<=6 bits): 49705
+00:36:21 | INFO    | flameguard.resplit | Source groups: 1959 (largest=244 images)
+00:36:21 | INFO    | flameguard.resplit | stratum both        total= 1148 -> {'train': 803, 'valid': 230, 'test': 115}
+00:36:21 | INFO    | flameguard.resplit | stratum fire_only   total= 1416 -> {'train': 991, 'valid': 283, 'test': 142}
+00:36:21 | INFO    | flameguard.resplit | stratum smoke_only  total=  672 -> {'train': 469, 'valid': 134, 'test': 69}
+00:36:21 | INFO    | flameguard.resplit | stratum background  total= 2064 -> {'train': 1444, 'valid': 413, 'test': 207}
+00:36:43 | INFO    | flameguard.resplit | Re-split complete. before={'groups_spanning_splits': 409, 'images_in_spanning_groups': 3379} after={'groups_spanning_splits': 0, 'images_in_spanning_groups': 0}
+00:36:43 | INFO    | flameguard.stage1 | === Auditing processed dataset ===
+00:36:43 | INFO    | flameguard.validate | Validating fire_smoke_resplit | classes=['Fire', 'Smoke']
+00:37:42 | INFO    | flameguard.validate | train: 3707 images, 3707 labels, 0 corrupt, 0 label issues
+00:38:00 | INFO    | flameguard.validate | valid: 1060 images, 1060 labels, 0 corrupt, 0 label issues
+00:38:09 | INFO    | flameguard.validate | test: 533 images, 533 labels, 0 corrupt, 0 label issues
+00:38:09 | INFO    | flameguard.validate | Validation reports written to E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\dataset_validation\processed
+00:38:09 | INFO    | flameguard.stage1 | Stage 1 complete.
+STAGE1 EXIT: 0

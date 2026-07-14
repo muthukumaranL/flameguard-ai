@@ -1,0 +1,9 @@
+# Class mapping for FlameGuard AI (must match data.yaml of the training dataset).
+# Source dataset: Roboflow "fire and smoke" v1 (fire-detector-cqdzi/fire-and-smoke-b5lli)
+nc: 2
+names:
+  0: Fire
+  1: Smoke
+colors:            # BGR used by OpenCV drawing
+  0: [36, 36, 255]     # red-ish for Fire
+  1: [200, 160, 90]    # steel blue-grey for Smoke

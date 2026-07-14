@@ -1,0 +1,33 @@
+# Conda environment for FlameGuard AI (alternative to .venv + requirements.txt)
+# GPU users: after creating the env, install the CUDA build of PyTorch, e.g.
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+name: flameguard-ai
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11        # 3.10-3.14 all work; 3.11 is the most battle-tested
+  - pip
+  - pip:
+      - torch>=2.4          # CPU wheel; replace with CUDA wheel as noted above
+      - torchvision
+      - ultralytics>=8.3,<9
+      - opencv-python>=4.10
+      - numpy>=2.0
+      - pillow>=10.0
+      - PyYAML>=6.0
+      - pandas>=2.2
+      - imagehash>=4.3
+      - matplotlib>=3.9
+      - plotly>=5.24
+      - scikit-learn>=1.5
+      - streamlit>=1.40
+      - streamlit-webrtc>=0.62
+      - av>=13.0
+      - imageio-ffmpeg>=0.5
+      - python-docx>=1.1
+      - python-pptx>=1.0
+      - reportlab>=4.2
+      - nbformat>=5.10
+      - nbclient>=0.10
+      - ipykernel>=6.29
+      - pytest>=8.3

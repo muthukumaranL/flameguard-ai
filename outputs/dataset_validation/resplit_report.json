@@ -1,0 +1,64 @@
+{
+  "seed": 42,
+  "hamming_threshold": 6,
+  "split_fractions": {
+    "train": 0.7,
+    "valid": 0.2,
+    "test": 0.1
+  },
+  "images": 5300,
+  "source_groups": 1959,
+  "largest_group_sizes": [
+    244,
+    183,
+    164,
+    137,
+    106,
+    93,
+    92,
+    68,
+    67,
+    66,
+    59,
+    57,
+    56,
+    54,
+    53,
+    52,
+    50,
+    49,
+    38,
+    35
+  ],
+  "leakage_before": {
+    "groups_spanning_splits": 409,
+    "images_in_spanning_groups": 3379
+  },
+  "leakage_after": {
+    "groups_spanning_splits": 0,
+    "images_in_spanning_groups": 0
+  },
+  "new_split_counts": {
+    "train": {
+      "images": 3707,
+      "fire_imgs": 1772,
+      "smoke_imgs": 1142,
+      "both": 663,
+      "background": 1456
+    },
+    "valid": {
+      "images": 1060,
+      "fire_imgs": 508,
+      "smoke_imgs": 329,
+      "both": 190,
+      "background": 413
+    },
+    "test": {
+      "images": 533,
+      "fire_imgs": 255,
+      "smoke_imgs": 173,
+      "both": 102,
+      "background": 207
+    }
+  }
+}

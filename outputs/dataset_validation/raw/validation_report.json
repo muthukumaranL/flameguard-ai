@@ -1,0 +1,83 @@
+{
+  "dataset": "E:\\college\\pg\\second course\\new\\Applied A.I. Solutions Development\\Deep Learning 2\\FlameGuard_AI\\data\\raw\\fire_and_smoke_v1",
+  "classes": [
+    "Fire",
+    "Smoke"
+  ],
+  "splits": {
+    "train": {
+      "images": 3687,
+      "label_files": 3687,
+      "images_without_labels": [],
+      "labels_without_images": [],
+      "corrupt_images": [],
+      "unsupported_files": [],
+      "empty_label_files_background": 1474,
+      "background_images": 1474,
+      "label_issue_count": 0,
+      "tiny_boxes_flagged": 176,
+      "huge_boxes_flagged": 18,
+      "boxes_per_class": {
+        "Fire": 3499,
+        "Smoke": 1522
+      },
+      "images_per_class": {
+        "Fire": 1726,
+        "Smoke": 1131
+      },
+      "images_with_both_classes": 644
+    },
+    "valid": {
+      "images": 1082,
+      "label_files": 1082,
+      "images_without_labels": [],
+      "labels_without_images": [],
+      "corrupt_images": [],
+      "unsupported_files": [],
+      "empty_label_files_background": 401,
+      "background_images": 401,
+      "label_issue_count": 0,
+      "tiny_boxes_flagged": 49,
+      "huge_boxes_flagged": 5,
+      "boxes_per_class": {
+        "Fire": 965,
+        "Smoke": 446
+      },
+      "images_per_class": {
+        "Fire": 540,
+        "Smoke": 353
+      },
+      "images_with_both_classes": 212
+    },
+    "test": {
+      "images": 531,
+      "label_files": 531,
+      "images_without_labels": [],
+      "labels_without_images": [],
+      "corrupt_images": [],
+      "unsupported_files": [],
+      "empty_label_files_background": 201,
+      "background_images": 201,
+      "label_issue_count": 0,
+      "tiny_boxes_flagged": 28,
+      "huge_boxes_flagged": 4,
+      "boxes_per_class": {
+        "Fire": 567,
+        "Smoke": 226
+      },
+      "images_per_class": {
+        "Fire": 269,
+        "Smoke": 160
+      },
+      "images_with_both_classes": 99
+    }
+  },
+  "exact_duplicate_groups": 99,
+  "exact_duplicates_cross_split": 0,
+  "duplicate_filenames_across_splits": 0,
+  "images_per_class_total": {
+    "Fire": 2535,
+    "Smoke": 1644
+  },
+  "min_200_images_per_class": true
+}

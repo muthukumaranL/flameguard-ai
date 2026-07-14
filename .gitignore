@@ -1,0 +1,23 @@
+# Environments / caches
+.venv/
+.pipcache/
+.tmp/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data (raw + processed are rebuilt by scripts/validate_dataset.py)
+data/raw/
+data/processed/
+
+# Pretrained downloads (fetched automatically by Ultralytics)
+/*.pt
+
+# Large training artefacts kept out of git (summaries/logs stay)
+outputs/training/*/weights/last.pt
+outputs/training/_resolved_data.yaml
+
+# OS noise
+Thumbs.db
+.DS_Store

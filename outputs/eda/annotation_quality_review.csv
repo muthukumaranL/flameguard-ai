@@ -1,0 +1,245 @@
+filename,split,class,issue,severity,recommended_action,action_taken
+FireDetectionImage_MirrorWEBFire1049_jpg.rf.67a86a4e873669e57ceaa6e251435a6b.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+FireDetectionImage_NoiseWEBFire950_jpg.rf.45e4f56c4c477ecf823d9f939a9e2e29.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+FireDetectionImage_NoiseWEBFire950_jpg.rf.53447a1700f69b78f9911120980e5143.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+MirrorWEBFire1090_jpg.rf.a9d363893d81c8b35e2b9a0ce5382d6a.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+MirrorWEBFire1342_jpg.rf.5046ca794d3bd0d21d766445d749532a.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+MirrorWEBFire1342_jpg.rf.f0453894d08cb248b0d3ca6ff8ba7f4f.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+MirrorWEBFire1356_jpg.rf.ba1969850e70ce051ed8b271da7bc1b1.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+MirrorWEBFire1358_jpg.rf.60dcd22682c550b768124d37f5272de4.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+MirrorWEBFire2133_jpg.rf.a501b4994d0fd23fd226ebe3191fdf12.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+MirrorWEBFire2133_jpg.rf.a501b4994d0fd23fd226ebe3191fdf12.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+MirrorWEBFire398_jpg.rf.5b70bf6d94b55bd0479431d349442f5e.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+MirrorWEBFire398_jpg.rf.5bce5a24f2ba897e5517f4e5d666f9f0.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+MirrorWEBFire398_jpg.rf.b9a2f2644febd27971ea0828b8245586.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke1566_jpg.rf.db154e796c8a97d741d538590d1f1207.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2270_jpg.rf.4465c4e55270356c091a7b0344961014.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2270_jpg.rf.b45df60047a3222e8f8e8b1f49042682.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2281_jpg.rf.e40c2723d29f2b7d406f1c4ed23d71b9.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2281_jpg.rf.e40c2723d29f2b7d406f1c4ed23d71b9.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2292_jpg.rf.672ab27090cfc52a2636a3ca2dfa4bfd.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2292_jpg.rf.a179304c74d20cebe40b7cadb76d5767.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke721_jpg.rf.5afc6f59eaa482caaa738e54a01380e3.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1086_jpg.rf.1eabf08a220de019e7d31568927c9bd6.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1090_jpg.rf.e7d185f218d7d8bfa254400ea7b847d3.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1100_jpg.rf.52ef06054460b1fb74c3809324dcc12a.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1100_jpg.rf.52ef06054460b1fb74c3809324dcc12a.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1294_jpg.rf.829304504fb2a034414558804e3f37d5.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1294_jpg.rf.8a296a35bc0c58efafc1b814de02324a.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1342_jpg.rf.f4e3c61f3460dc32173dbd6530806b57.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1520_jpg.rf.6b8aefdbba45a054d021d0fa2b7bc6a0.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1520_jpg.rf.6b8aefdbba45a054d021d0fa2b7bc6a0.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke2610_jpg.rf.390bcdbafd06b80e55a88cc5052432a8.jpg,train,Fire,extremely small box (area=0.00006),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke2874_jpg.rf.d215bc31c2faef5387cc175e22a46064.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke2874_jpg.rf.edf13f48e455651f1895cbfedcb6d4f8.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke3326_jpg.rf.7197b9fef2c3fcbbc4c8c83762be3c3a.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire1054_jpg.rf.1cec9f15cec01e08bbb4bcd7f19ca76b.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire1085_jpg.rf.762e4ad0c258abb7d5d30035815a87d7.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire1085_jpg.rf.ebd9ecd30c16856913f87b019f256de6.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire1090_jpg.rf.e361b9f0fdce42ccd41d1c4c45d76b4f.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire1342_jpg.rf.20d40e0688cad9ceb63c565dc9bdcf9f.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+WEBFire1356_jpg.rf.693c1c9b33c52e44b3ee700c28305deb.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire1356_jpg.rf.da300be01409547036a4336ff0595141.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire1358_jpg.rf.c8d0713f88c250a675564887a7b7fef6.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire1520_jpg.rf.f2c35d39672d1ea17f96f1d28b6f16ab.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire1520_jpg.rf.f2c35d39672d1ea17f96f1d28b6f16ab.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire1971_jpg.rf.295bd7f74b13baa57fad020bb716e30d.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire2133_jpg.rf.07e07d0f05510b8048903967fb1fc3c1.jpg,train,Fire,extremely small box (area=0.00014),review,verify annotation,kept - plausible distant object
+WEBFire2133_jpg.rf.07e07d0f05510b8048903967fb1fc3c1.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire2198_jpg.rf.1b67c1770826a3d39132f5779c03e912.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.4ee1fb90f0a49ab491943da88c2caafc.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.4ee1fb90f0a49ab491943da88c2caafc.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.4ee1fb90f0a49ab491943da88c2caafc.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.b9b51f9b3cbae7f0292c04513e05c7d8.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.b9b51f9b3cbae7f0292c04513e05c7d8.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire242_jpg.rf.b9b51f9b3cbae7f0292c04513e05c7d8.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire243_jpg.rf.958d3cfeb0a8884a77f178f909f97368.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire243_jpg.rf.958d3cfeb0a8884a77f178f909f97368.jpg,train,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire245_jpg.rf.f7cf27eea4931f5bebf22b8571e77a64.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire245_jpg.rf.f7cf27eea4931f5bebf22b8571e77a64.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.3b3aeec9597e7d32578a22ad95828d2c.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.3b3aeec9597e7d32578a22ad95828d2c.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.3b3aeec9597e7d32578a22ad95828d2c.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.7e963d01c6d5aedf83fe333fb62c1145.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.7e963d01c6d5aedf83fe333fb62c1145.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire247_jpg.rf.7e963d01c6d5aedf83fe333fb62c1145.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire250_jpg.rf.d90cc1097ec7cfea76b4da9f069e8c87.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBFire250_jpg.rf.d90cc1097ec7cfea76b4da9f069e8c87.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire250_jpg.rf.d90cc1097ec7cfea76b4da9f069e8c87.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire269_jpg.rf.6b66689402106120eb59cdeade2acfc8.jpg,train,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire269_jpg.rf.6b66689402106120eb59cdeade2acfc8.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire290_jpg.rf.2246deb98b0b56cf91ccd07cf8739908.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBFire290_jpg.rf.2246deb98b0b56cf91ccd07cf8739908.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBSmoke1566_jpg.rf.755d84798479bb0ba3552d7723fd006e.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBSmoke2281_jpg.rf.7cc1e037ef8fb9fa03a27fe7be6cd45c.jpg,train,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+WEBSmoke2281_jpg.rf.7cc1e037ef8fb9fa03a27fe7be6cd45c.jpg,train,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBSmoke2292_jpg.rf.e81a502435049a69a5c79dcd32ac064d.jpg,train,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBSmoke2294_jpg.rf.e293506d4b8223323f3b9fbc34a2d459.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBSmoke2311_jpg.rf.f40ccd73515d012616c20828e704e173.jpg,train,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+MirrorWEBFire211_jpg.rf.79c2215180e7c607ae6bda9d8eaf7c9c.jpg,valid,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+MirrorWEBFire258_jpg.rf.1e14143b74c04d2c065b74fb124d026a.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+MirrorWEBFire258_jpg.rf.5f075c5f66d28733139be042ead404f2.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+MirrorWEBFire262_jpg.rf.b836878320947232e67e6e2954e550ce.jpg,valid,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1107_jpg.rf.2e6759e9b76b0f123b99d89adc9f8a1b.jpg,valid,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBFire1107_jpg.rf.a876abfeadf47e0b90c0e5288a237bcc.jpg,valid,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke3015_jpg.rf.f208e78613e512b126be31bd7e22dbf0.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke3015_jpg.rf.f208e78613e512b126be31bd7e22dbf0.jpg,valid,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke3300_jpg.rf.72ae0ee12fc475b4ee54379a23713125.jpg,valid,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke3300_jpg.rf.72ae0ee12fc475b4ee54379a23713125.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke396_jpg.rf.786442bbb3ecad87f84caa65bd5ff3ed.jpg,valid,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+NoiseWEBSmoke396_jpg.rf.786442bbb3ecad87f84caa65bd5ff3ed.jpg,valid,Fire,extremely small box (area=0.00018),review,verify annotation,kept - plausible distant object
+WEBFire176_jpg.rf.1a12dafec9dd10e96cc3095f68104e88.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire1867_jpg.rf.3c7ce26ff471f27431d2e47a98376f7d.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire211_jpg.rf.f32a6da2f3225528c7236e561a0308d0.jpg,valid,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire244_jpg.rf.3516325a327177e803165ec57a04514a.jpg,valid,Fire,extremely small box (area=0.00008),review,verify annotation,kept - plausible distant object
+WEBFire252_jpg.rf.09b97dab6c0e28ccef1afea2d3834d1f.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire252_jpg.rf.09b97dab6c0e28ccef1afea2d3834d1f.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire252_jpg.rf.36782d17f3a0b5b07b7c2d57c4ac4b81.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBFire252_jpg.rf.36782d17f3a0b5b07b7c2d57c4ac4b81.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBFire262_jpg.rf.3c1a0b379ad18eaba8affae52ef84590.jpg,valid,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire295_jpg.rf.1d59c2ef95c70af6863e81c2f3b69c1c.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBSmoke2331_jpg.rf.3ab567e6de652192c57e484b194b5985.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBSmoke2331_jpg.rf.3ab567e6de652192c57e484b194b5985.jpg,valid,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBSmoke2332_jpg.rf.a6f054588e7915bf772d6f18b69152b1.jpg,valid,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBSmoke2332_jpg.rf.a6f054588e7915bf772d6f18b69152b1.jpg,valid,Fire,extremely small box (area=0.00009),review,verify annotation,kept - plausible distant object
+MirrorWEBFire2132_jpg.rf.2d2f372ed60a305a719cfcd2585861a7.jpg,test,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2286_jpg.rf.8d481ef294648bc8671e8d3bdb897892.jpg,test,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+MirrorWEBSmoke2291_jpg.rf.6407dd797d389d04d8c97bf3ca147cbb.jpg,test,Fire,extremely small box (area=0.00015),review,verify annotation,kept - plausible distant object
+WEBFire2132_jpg.rf.88b5f33096ec2feecbadfcf1177b4341.jpg,test,Fire,extremely small box (area=0.00016),review,verify annotation,kept - plausible distant object
+WEBSmoke1304_jpg.rf.2576b6b65c086e57401c0d4fc6e7dc3f.jpg,test,Fire,extremely small box (area=0.00010),review,verify annotation,kept - plausible distant object
+WEBSmoke1304_jpg.rf.2576b6b65c086e57401c0d4fc6e7dc3f.jpg,test,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+WEBSmoke2284_jpg.rf.94c54a14f5c9e320a8b78d9901b9ee94.jpg,test,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBSmoke2286_jpg.rf.15db5a7bd594a8129a1887906f3d72ed.jpg,test,Fire,extremely small box (area=0.00012),review,verify annotation,kept - plausible distant object
+WEBSmoke2290_jpg.rf.976143577933e4b31e5850cd68f9fa99.jpg,test,Fire,extremely small box (area=0.00020),review,verify annotation,kept - plausible distant object
+ezgif-frame-101_jpg.rf.01de7c74205d05768e09c666a04f4b2c.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-102_jpg.rf.d1b4cd6364c844d286601b0ff26b1f50.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-103_jpg.rf.92c15f3f522f63a4513f8b6f0e465f3c.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-104_jpg.rf.37900751646c07f14f8f1a8f55a87331.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-106_jpg.rf.65f8cf753d58ff2a1b373686a1aaf824.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-108_jpg.rf.4cb2c122474c7b7e0cc7df65e3457f55.jpg,train,Fire,box covers 98% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-110_jpg.rf.72d89922553c153d04a0a211b9da4443.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-111_jpg.rf.e67ffbe3a5a0fab3e2e87f84f6ec11ee.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-112_jpg.rf.3fe777092a5cc9932d4c47f7ced1fe6a.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-113_jpg.rf.d0efbb14c0997927971645bd12214e1c.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-114_jpg.rf.57ddc5f50c4166ad49ead4d5923b7f56.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-115_jpg.rf.c0683d6b0a18b5310d002e9f69309996.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-118_jpg.rf.a6511655f17acc4c96ae422dc26a9069.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-119_jpg.rf.36b395206fcb464802eb2e4b5269bdbe.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-120_jpg.rf.9b4aa4d29df6a6da0e11402e2dd11ca9.jpg,train,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-123_jpg.rf.86fe2f651f79263453db83dbdb5869d3.jpg,train,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+fire1-1534-_jpg.rf.24a36f3619bce3d7598b7ace2b6dbf69.jpg,train,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+fire1-755-_jpg.rf.492f135dc4a190b2451957b174b87f5f.jpg,train,Fire,box covers 91% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-100_jpg.rf.bc1b54c911ecd4b94d8e13286ac09890.jpg,valid,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-105_jpg.rf.de4ec9e23fd7becb277435075c034df4.jpg,valid,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-107_jpg.rf.7623612d0e68fec8c359a5908932d1f4.jpg,valid,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-117_jpg.rf.82faf148c34d3015927db3c0003edd1b.jpg,valid,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+fire1-598-_jpg.rf.a1d0d9c8b720744f093a19bae6fd677f.jpg,valid,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+fire1-929-_jpg.rf.e4ef77801eb5adfdd9249f40b3e699ef.jpg,valid,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-116_jpg.rf.1dadcbb7b5498f2ef2ecbd1f037e1dfa.jpg,test,Fire,box covers 100% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+ezgif-frame-122_jpg.rf.1e68313ea11206743c3057ecf880292e.jpg,test,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+fire1-859-_jpg.rf.6cb63fb83bb9894d9f4163e610c9229a.jpg,test,Fire,box covers 99% of image,review,verify annotation,kept - plausible full-frame smoke/fire
+1133_jpg.rf.e0f3e6f489fbc84e792b5a011a0a6e9c.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+1404_jpg.rf.a05cd38f59bed8eabdede8717e75d3ce.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+82-Copy_jpg.rf.9e11a0665f9eb6814e66060329bb0b68.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+858_jpg.rf.f5d68f81beda993fe914a2bbecc757ba.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1026-_jpg.rf.172e70754cda177afa7f2d98d8cbfc0f.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+fire1-1055-_jpg.rf.1f906789cdf742b9bce67ba0e76c345e.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1070-_jpg.rf.16718b26da79c3b51e79f1fdeade0f94.jpg,train,-,crowded scene (13 boxes),info,spot-check boxes,kept
+fire1-1218-_jpg.rf.923e90f2e1801613de05b2f67e483a6a.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1218-_jpg.rf.9ffdd7b3c8351b5be9a278a5a2de549f.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1238-_jpg.rf.9c782be49ce590b99e06017698599b20.jpg,train,-,crowded scene (12 boxes),info,spot-check boxes,kept
+fire1-1250-_jpg.rf.8f41c08b3d1d32a4b54db182fd52236f.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+fire1-1251-_jpg.rf.3503cece085c2732298d71f72a6a41e1.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1251-_jpg.rf.364e6e08a0b5670c6817b4495c3cbd8d.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1261-_jpg.rf.0e3018097c15b4ebf993a3dcae7f5c68.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1261-_jpg.rf.1a5a3f512f24d6356d4c9d6fbe21d483.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1293-_jpg.rf.c14301ba7ab13c70c0d6beafaad7b9e7.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+fire1-1337-_jpg.rf.076ca72df978fd314e92e07c2a579073.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-1470-_jpg.rf.535b9947fcd816f38cc416ebdb97c0b4.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+fire1-1503-_jpg.rf.2eb0c6d31526fc540038a235e6da4b8b.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+fire1-1503-_jpg.rf.305a86ff66ac53b1f1fe5f03fd10d9ea.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+fire1-1551-_jpg.rf.db2615ec041374c9720311f8c3cef6d6.jpg,train,-,crowded scene (18 boxes),info,spot-check boxes,kept
+fire1-1552-_jpg.rf.0b2f48fa147e99ff481931b4f44ff21b.jpg,train,-,crowded scene (20 boxes),info,spot-check boxes,kept
+fire1-1552-_jpg.rf.9003038605d9fa676cce702c9f342279.jpg,train,-,crowded scene (20 boxes),info,spot-check boxes,kept
+fire1-1567-_jpg.rf.8d13b7f3adb0ddeb4df87fa9c7838671.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+fire1-472-_jpg.rf.989b4f1e1c23e909cbd9fdd2920b8d41.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-474-_jpg.rf.2a3e196197fd03ba0ccb5e989ff05896.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-474-_jpg.rf.2aecea64a8ebbd49057b0496c0cfd380.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-712-_jpg.rf.e8bb2c5006534474633cef2d911d4554.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-750-_jpg.rf.c9ee66cd682b6b0541806f983d99913e.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-947-_jpg.rf.c0e2d9e8fdcb3bff5ec07360d4133fe7.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-947-_jpg.rf.fc9ed0ff8aca37a5211de5b4cc544580.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-952-_jpg.rf.665b73bbe58220c9f85f7f2e7c0ef8ca.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-980-_jpg.rf.53cb4ee3adcc43638e6c14f46b486f76.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-984-_jpg.rf.76bfd761a15b797af2fd9d35e79c48ed.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-988-_jpg.rf.d407b0630ef3cda6c341387302624105.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+MirrorWEBFire1121_jpg.rf.973c435fa02db049d09cb9a732a30147.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+MirrorWEBFire1183_jpg.rf.bbda7e714eb556ce7c75330cfcbe4bac.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+MirrorWEBFire1251_jpg.rf.e9a08d407a0c80d02242f4332c86a951.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+MirrorWEBFire1652_jpg.rf.a67393e40ccd839b5942b4331b1600f5.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+MirrorWEBFire202_jpg.rf.26b21e4a783fda1ddaf032c5801838a8.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke1205_jpg.rf.8dbe44a556afc3c7b36f0484ed4a23c4.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke2372_jpg.rf.7c59d20da1df5729e305a8f4f6eace7c.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke2386_jpg.rf.5c396bb1d2f6da3ba78f779ed586e56b.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke2386_jpg.rf.a365d9e1d802de3f205b6df23baf98f7.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke2825_jpg.rf.8e3905830c5333293c89734e9a7dd729.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke3380_jpg.rf.1354e1363100b834247812d60a655bec.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke373_jpg.rf.22fde79c69e4e26190f16e7c10a44495.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+NoiseWEBFire1180_jpg.rf.6059bcebfa1f6bf9e9cd58d88a499fe6.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+NoiseWEBFire1180_jpg.rf.a0ba05831f11c7156ed70ea96943c4ef.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+NoiseWEBFire202_jpg.rf.7cdf0bbcd3f63ef92e147bb1b8e95432.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+NoiseWEBFire202_jpg.rf.8630eef26a63a88363c9724924baa216.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+NoiseWEBFire203_jpg.rf.d5b60bab3c0c5206a9c3f0680690878e.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+NoiseWEBSmoke378_jpg.rf.3d8b2e8a3e748808493ddcdc8ed4a5ac.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1120_jpg.rf.0e50cfe9250b7b60892c776ef89befc4.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+WEBFire1121_jpg.rf.0e4f5003c1d67a2825b8170a23fe9ea9.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1133_jpg.rf.bbdd71e1245a1aa34b34d86dce2aa744.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1147_jpg.rf.fc698665a50e6f9a9204d887ce4f23bf.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1180_jpg.rf.f30144e1ebcb72bebc45336495c796f6.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1180_jpg.rf.f91ac7b968bc66690f223470fa582dcf.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1251_jpg.rf.985959df39125ed0b69d45a4448e2547.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+WEBFire1971_jpg.rf.295bd7f74b13baa57fad020bb716e30d.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+WEBFire202_jpg.rf.52b49f808daf2c95ac8a9f660d69df33.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire203_jpg.rf.334dab0c011d4becaac2d2ba7162ea10.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire242_jpg.rf.4ee1fb90f0a49ab491943da88c2caafc.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+WEBFire242_jpg.rf.b9b51f9b3cbae7f0292c04513e05c7d8.jpg,train,-,crowded scene (10 boxes),info,spot-check boxes,kept
+WEBFire243_jpg.rf.958d3cfeb0a8884a77f178f909f97368.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire245_jpg.rf.f7cf27eea4931f5bebf22b8571e77a64.jpg,train,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire269_jpg.rf.6b66689402106120eb59cdeade2acfc8.jpg,train,-,crowded scene (11 boxes),info,spot-check boxes,kept
+WEBSmoke1316_jpg.rf.48119f32ae51c85326c70c682de010bd.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+WEBSmoke2386_jpg.rf.bb2cadb1de63cbed7f6528d8f97b1f95.jpg,train,-,crowded scene (9 boxes),info,spot-check boxes,kept
+931_jpg.rf.a7ef3ff27e2d69e40b35150c34c5f712.jpg,valid,-,crowded scene (10 boxes),info,spot-check boxes,kept
+931_jpg.rf.f6e2eb073b6a80aca7045f0012689f22.jpg,valid,-,crowded scene (10 boxes),info,spot-check boxes,kept
+963_jpg.rf.f586d594de9435c2574f12ba809a5329.jpg,valid,-,crowded scene (16 boxes),info,spot-check boxes,kept
+fire1-1010-_jpg.rf.2528fec68c735625dd519bcc22e4613c.jpg,valid,-,crowded scene (14 boxes),info,spot-check boxes,kept
+fire1-1013-_jpg.rf.c99f5bccc051a135f2fee0bb5755900e.jpg,valid,-,crowded scene (10 boxes),info,spot-check boxes,kept
+fire1-1318-_jpg.rf.5584d79c16759d16c4e86498fca77f34.jpg,valid,-,crowded scene (11 boxes),info,spot-check boxes,kept
+fire1-1539-_jpg.rf.d13ed92c2717a3e42076a5337378be54.jpg,valid,-,crowded scene (9 boxes),info,spot-check boxes,kept
+fire1-682-_jpg.rf.be560f3edeb08051c60e060b1c5ae37e.jpg,valid,-,crowded scene (14 boxes),info,spot-check boxes,kept
+fire1-685-_jpg.rf.dddd7e047aaece03457dfd386759b531.jpg,valid,-,crowded scene (10 boxes),info,spot-check boxes,kept
+fire1-706-_jpg.rf.618c531b0a4251e9bb0de6cf1d74fed6.jpg,valid,-,crowded scene (12 boxes),info,spot-check boxes,kept
+fire1-706-_jpg.rf.9b087c6bd75d3257e2b484376ab6432d.jpg,valid,-,crowded scene (12 boxes),info,spot-check boxes,kept
+fire1-796-_jpg.rf.08f4368221b133f19399a83ae105e542.jpg,valid,-,crowded scene (13 boxes),info,spot-check boxes,kept
+fire1-950-_jpg.rf.0b27ac4df6354fa4274139a61c97dac6.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+MirrorWEBFire1754_jpg.rf.80cfe6c26d4fa6015558051625b2b1df.jpg,valid,-,crowded scene (12 boxes),info,spot-check boxes,kept
+NoiseWEBSmoke396_jpg.rf.786442bbb3ecad87f84caa65bd5ff3ed.jpg,valid,-,crowded scene (12 boxes),info,spot-check boxes,kept
+WEBFire244_jpg.rf.3516325a327177e803165ec57a04514a.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire252_jpg.rf.09b97dab6c0e28ccef1afea2d3834d1f.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire252_jpg.rf.36782d17f3a0b5b07b7c2d57c4ac4b81.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBSmoke1073_jpg.rf.3f49acddd23dfd762670614c3077409a.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBSmoke1073_jpg.rf.5cd24f8dcd684bf9eff9cb6e67f6c1af.jpg,valid,-,crowded scene (8 boxes),info,spot-check boxes,kept
+1019_jpg.rf.67e200b061f44a6cb2712e395a9c572e.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+139_jpg.rf.f23855c93dcfdf90aaa6a4d51e288f76.jpg,test,-,crowded scene (11 boxes),info,spot-check boxes,kept
+506_jpg.rf.92f4ebec9fb9fccf6e69c044c12c0c62.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-631-_jpg.rf.afa054117f9e8e3860e2a56cd9f5fce9.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-745-_jpg.rf.701de59bb8b2923804c2251d25ae9e99.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-745-_jpg.rf.a7ce059863a190f7605eb82abc616afa.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+fire1-781-_jpg.rf.10703f0d7ed55a0e4b9808f00d011078.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+MirrorWEBSmoke2367_jpg.rf.70dbb7aa9352b216248fb4f13f4c63d5.jpg,test,-,crowded scene (11 boxes),info,spot-check boxes,kept
+new_fire_fire-7_png_jpg.rf.4a6349eae8ddddda2a1c2b481a86301c.jpg,test,-,crowded scene (10 boxes),info,spot-check boxes,kept
+NoiseWEBFire1053_jpg.rf.bec7984011856d67ef201f1b293ff279.jpg,test,-,crowded scene (9 boxes),info,spot-check boxes,kept
+NoiseWEBFire1077_jpg.rf.94d6cd965e8ed6f0fa6bbf51f88e00a3.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+NoiseWEBSmoke1203_jpg.rf.1d5792645a5f7fbca542e4bb08f4ed97.jpg,test,-,crowded scene (8 boxes),info,spot-check boxes,kept
+WEBFire1077_jpg.rf.440264382b862c7ca7b009c5a6fe6fe6.jpg,test,-,crowded scene (9 boxes),info,spot-check boxes,kept
+WEBSmoke1304_jpg.rf.2576b6b65c086e57401c0d4fc6e7dc3f.jpg,test,-,crowded scene (14 boxes),info,spot-check boxes,kept
+WEBSmoke2367_jpg.rf.ee43f531b12e1e26171bf5c7d5671a5d.jpg,test,-,crowded scene (10 boxes),info,spot-check boxes,kept

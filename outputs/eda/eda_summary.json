@@ -1,0 +1,27 @@
+{
+  "total_images": 5300,
+  "images_per_split": {
+    "test": 533,
+    "train": 3707,
+    "valid": 1060
+  },
+  "total_annotations": 7225,
+  "annotations_per_split": {
+    "test": 778,
+    "train": 4975,
+    "valid": 1472
+  },
+  "annotations_per_class": {
+    "Fire": 5031,
+    "Smoke": 2194
+  },
+  "images_with_fire": 2535,
+  "images_with_smoke": 1644,
+  "images_with_both": 955,
+  "background_images": 2076,
+  "mean_objects_per_image": 1.3632075471698113,
+  "class_imbalance_ratio": 2.2930720145852326,
+  "small_boxes_pct": 14.98961937716263,
+  "medium_boxes_pct": 31.238754325259517,
+  "large_boxes_pct": 53.77162629757785
+}

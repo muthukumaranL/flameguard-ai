@@ -1,0 +1,21 @@
+00:40:41 | INFO    | flameguard.eda | Feature tables: 7225 boxes, 5300 images
+00:40:42 | INFO    | flameguard.eda | wrote 01_dataset_composition.png
+00:40:42 | INFO    | flameguard.eda | wrote 02_class_balance.png
+00:40:43 | INFO    | flameguard.eda | wrote 03_box_geometry.png
+00:40:43 | INFO    | flameguard.eda | wrote 04_center_heatmap.png
+00:40:43 | INFO    | flameguard.eda | wrote 05_size_categories.png
+00:40:44 | INFO    | flameguard.eda | wrote 06_objects_per_image.png
+00:40:44 | INFO    | flameguard.eda | wrote 07_correlation_matrix.png
+00:40:44 | INFO    | flameguard.eda | wrote 08_brightness_distribution.png
+00:40:45 | INFO    | flameguard.eda | wrote 10_grid_fire_only.png (9 tiles)
+00:40:45 | INFO    | flameguard.eda | wrote 11_grid_smoke_only.png (9 tiles)
+00:40:45 | INFO    | flameguard.eda | wrote 12_grid_both_classes.png (9 tiles)
+00:40:45 | INFO    | flameguard.eda | wrote 13_grid_small_objects.png (9 tiles)
+00:40:46 | INFO    | flameguard.eda | wrote 14_grid_low_light.png (9 tiles)
+00:40:46 | INFO    | flameguard.eda | wrote 15_grid_difficult.png (9 tiles)
+00:40:46 | INFO    | flameguard.eda | wrote 09_grid_annotated_samples.png (9 tiles)
+00:40:46 | INFO    | flameguard.eda | outlier/annotation review rows: 244
+00:40:46 | INFO    | flameguard.eda | summary: {'total_images': 5300, 'images_per_split': {'test': 533, 'train': 3707, 'valid': 1060}, 'total_annotations': 7225, 'annotations_per_split': {'test': 778, 'train': 4975, 'valid': 1472}, 'annotations_per_class': {'Fire': 5031, 'Smoke': 2194}, 'images_with_fire': 2535, 'images_with_smoke': 1644, 'images_with_both': 955, 'background_images': 2076, 'mean_objects_per_image': 1.3632075471698113, 'class_imbalance_ratio': 2.2930720145852326, 'small_boxes_pct': 14.98961937716263, 'medium_boxes_pct': 31.238754325259517, 'large_boxes_pct': 53.77162629757785}
+00:40:46 | INFO    | flameguard.eda | EDA complete -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\eda
+00:40:46 | INFO    | flameguard.eda-runner | augmentation preview -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\eda\16_augmentation_preview.png
+EDA EXIT: 0
