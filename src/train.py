@@ -200,8 +200,10 @@ def run_experiment(exp_id: str, overrides: dict[str, Any] | None = None) -> dict
         "imgsz": train_kwargs["imgsz"],
         "epochs_requested": train_kwargs["epochs"],
         "batch": args_used.get("batch"),
-        "optimizer": args_used.get("optimizer"),
-        "lr0": args_used.get("lr0"),
+        # The EFFECTIVE optimizer/LR, not the requested ones. With
+        # `optimizer: auto` Ultralytics discards lr0 and substitutes its own, so
+        # logging args.yaml alone would record a learning rate that was never used.
+        **_effective_optimizer(model, args_used),
         "weight_decay": args_used.get("weight_decay"),
         "augmentation_notes": _augmentation_summary(args_used),
         "seed": seed,
@@ -216,6 +218,27 @@ def run_experiment(exp_id: str, overrides: dict[str, Any] | None = None) -> dict
              exp_id, row["duration"], row["best_epoch"], row["map50"],
              row["map50_95"], row["recall"])
     return row
+
+
+def _effective_optimizer(model: Any, args_used: dict[str, Any]) -> dict[str, Any]:
+    """The optimizer and learning rate the run ACTUALLY used.
+
+    ``optimizer: auto`` makes Ultralytics ignore the requested ``lr0`` and choose
+    its own optimizer and rate, announcing it only in a single log line.
+    Recording args.yaml verbatim would therefore put a learning rate in the
+    experiment log that was never applied - precisely the trap that made our
+    first final-model attempt regress. We read it off the live trainer instead.
+    """
+    try:
+        opt = model.trainer.optimizer
+        group = opt.param_groups[0]
+        return {
+            "optimizer": type(opt).__name__,
+            "lr0": float(group.get("initial_lr", group.get("lr"))),
+        }
+    except Exception:                       # never fail a run over its own logging
+        return {"optimizer": args_used.get("optimizer"),
+                "lr0": args_used.get("lr0")}
 
 
 def _augmentation_summary(args: dict[str, Any]) -> str:

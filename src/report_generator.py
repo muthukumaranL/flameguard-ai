@@ -565,9 +565,9 @@ class ReportBuilder:
             self.table(list(pr.columns), pr.values.tolist(),
                        "Tuning probes: equal budget, one variable changed per run")
         self.bullets([
-            "Control (e4d) - the default YOLOv8n recipe (auto optimizer, standard augmentation, default loss weights) at the probe budget. Every comparison below is against this row.",
-            "Probe A (e4a) - AdamW with lr0 = 1e-3 instead of the auto-selected optimizer. Rationale: adaptive optimizers often converge faster on small fine-tuning datasets.",
-            "Probe B (e4b) - stronger photometric and scale augmentation (HSV value 0.6, scale 0.7). Rationale: the brightness analysis showed a heavy low-light tail; more aggressive exposure jitter might improve robustness - or might wash out the very darkness that characterises night fires.",
+            "Control (e4d) - the default recipe (optimizer 'auto', standard augmentation, default loss weights) at the probe budget. Every comparison below is against this row.",
+            "Probe A (e4a) - a lower learning rate: 1.0e-3 against the control's effective 1.667e-3. We must be candid here: we designed this as an *optimizer* probe (AdamW vs the default) and only discovered afterwards - while diagnosing the failed final model, Section 6.1 - that 'auto' already resolves to AdamW on this dataset. Naming the optimizer explicitly changes exactly one thing: it stops Ultralytics discarding our lr0. So the probe is still a clean single-variable test; the variable is the learning rate, not the optimizer. We relabelled it rather than quietly leaving the original claim in place.",
+            "Probe B (e4b) - stronger photometric and scale augmentation (HSV value 0.6, scale 0.7). Rationale: the brightness analysis showed a heavy low-light tail, so more aggressive exposure jitter might improve robustness - or might wash out the very darkness that characterises night fires.",
             "Probe C (e4c) - classification-loss weight doubled from 0.5 to 1.0. Rationale: to test whether pushing the classification term helps, given that the two classes are visually distinct.",
         ])
         self.p(self._tuning_narrative())
@@ -576,8 +576,10 @@ class ReportBuilder:
             and it is the reason the final configuration is as conservative as it is.
             The caveat we attach: probes run at a short budget rank configurations under
             that budget, and the learning-rate schedule is a function of total epochs, so
-            a setting that wins at six epochs is not guaranteed to win at sixty. With
+            a setting that wins at five epochs is not guaranteed to win at fifty. With
             more compute the honest design would repeat the probes at full length.""")
+        self.h2("6.1 Building the final model - including the attempt that failed")
+        self.p(self._final_model_narrative())
 
         # -------------------------------------------------- 7 benchmarking
         self.h1("7. Benchmarking")
@@ -679,7 +681,9 @@ class ReportBuilder:
         self.h2("10.2 What did not work, and what it cost")
         self.bullets([
             "AMP on a GTX 16xx GPU. Ultralytics disabled it automatically and correctly, but FP32 roughly doubled epoch time and forced us to shorten every subsequent run. This is the reason the larger model is trained for fewer epochs than the baseline, and why the architecture comparison is made at equal epochs instead of at equal convergence.",
-            "Short tuning probes. Six-epoch probes rank configurations under a six-epoch schedule, which is not the same question as which configuration wins at full length. We report the caveat rather than over-claiming.",
+            "YOLOv8s did not fit. At batch 8 it asked for roughly 7.8 GB against 4 GB of VRAM, spilled into shared system memory, and collapsed to about 20 minutes per epoch. We measured that, killed it, and re-ran at batch 4 on a short budget rather than pretending a two-hour thrashing run was a fair experiment.",
+            "The first attempt at the final model made it worse. Restarting a fresh schedule on the converged baseline re-ran the learning-rate warm-up and re-enabled mosaic, and the model degraded from its very first epoch (Section 6.1). The fix - low LR, no warm-up, no mosaic - is a different operation from training, and we had to learn that the expensive way. Both runs are in the experiment log.",
+            "Short tuning probes. Five-epoch probes rank configurations under a five-epoch schedule, which is not the same question as which configuration wins at full length. We report the caveat rather than over-claiming.",
             "Smoke remains harder than fire, and no hyperparameter fixed it. The gap is a property of the data and the phenomenon, not of the optimiser.",
         ])
         self.h2("10.3 Error analysis")
@@ -903,6 +907,79 @@ class ReportBuilder:
                 "remaining headroom lies in data and training length rather than in "
                 "these hyperparameters.")
         return " ".join(parts)
+
+    def _final_model_narrative(self) -> str:
+        """The two-attempt story of E5, told from the logged numbers."""
+        exp = self.art.experiments.drop_duplicates("experiment_id", keep="last") \
+                                  .set_index("experiment_id")
+        if "e1_baseline_v8n" not in exp.index:
+            return "Final-model runs were not found in the experiment log."
+        base = exp.loc["e1_baseline_v8n"]
+        parts = [
+            f"""Rather than train the final model from COCO all over again - which the
+            compute budget could not afford - we continued fine-tuning the strongest
+            checkpoint we already had (the {int(base['epochs_run'])}-epoch baseline,
+            validation mAP@0.5 = {base['map50']:.3f}) using the classification-loss
+            weight that won the probe study. The first attempt at this failed, and the
+            failure is instructive enough to report in full."""
+        ]
+        if "e5a_naive_restart" in exp.index:
+            bad = exp.loc["e5a_naive_restart"]
+            parts.append(
+                f"""Attempt 1 ({bad.name}). We restarted training on the converged
+                checkpoint with an ordinary fresh schedule: the default warm-up, mosaic
+                augmentation switched back on, and what we believed was a reduced learning
+                rate. The result was a regression - validation mAP@0.5 fell to
+                {bad['map50']:.3f} (from {base['map50']:.3f}) and mAP@0.5:0.95 to
+                {bad['map50_95']:.3f} (from {base['map50_95']:.3f}). The tell is the best
+                epoch: epoch {int(bad['best_epoch'])}. The model was at its best before
+                the new schedule had done anything, and every epoch afterwards made it
+                worse."""
+            )
+            parts.append(
+                """Diagnosing it turned up something worth knowing. Ultralytics'
+                `optimizer: auto` does not merely choose an optimizer - it also
+                **overrides the learning rate you asked for**, and says so in one line of
+                log output that is easy to miss: "'optimizer=auto' found, ignoring
+                'lr0=...'". Our carefully lowered learning rate was being silently
+                discarded and replaced with AdamW at 1.67e-3. That is a perfectly good
+                choice when training from COCO - it is exactly what the baseline used -
+                but the baseline *finished* at a learning rate of 5.8e-5, so the
+                continuation was restarting it at roughly 29 times the rate at which it
+                had converged. It was not being fine-tuned; it was being knocked out of
+                its minimum."""
+            )
+        if "e5_final" in exp.index:
+            good = exp.loc["e5_final"]
+            d50 = good["map50"] - base["map50"]
+            d_recall = good["recall"] - base["recall"]
+            verdict = ("improves on the baseline" if d50 > 0 else
+                       "still does not beat the baseline, and we report that as measured")
+            parts.append(
+                f"""Attempt 2 ({good.name}), the fix. Two changes. First, name the
+                optimizer explicitly ({good['optimizer']}) so that the requested learning
+                rate is actually used - lr0 = {good['lr0']}, decaying over the run, which
+                picks up roughly where the baseline left off instead of 29 times above it.
+                Second, treat continuation as a polish rather than a restart: no warm-up
+                ramp and no mosaic, so the model finishes on realistic, un-tiled images.
+                It keeps cls = 1.0 from the probe study and runs for
+                {int(good['epochs_run'])} epochs. Result: validation mAP@0.5 =
+                {good['map50']:.3f} ({d50:+.3f} against the baseline), mAP@0.5:0.95 =
+                {good['map50_95']:.3f}, recall = {good['recall']:.3f}
+                ({d_recall:+.3f}) - it {verdict}."""
+            )
+        parts.append(
+            """Two lessons generalise beyond this project. A learning-rate schedule is not
+            a stateless setting that can be re-applied to a trained model: continuing
+            training is a different operation from starting it, and it needs a low peak
+            rate, no warm-up, and an augmentation policy matching the data the model will
+            actually meet. And a convenience default that silently overrides an explicit
+            argument is a trap - we asked for one learning rate, the library used another,
+            and the only evidence was a single line of log output. Both runs are kept in
+            the experiment log so the comparison can be checked rather than taken on
+            trust."""
+        )
+        return " ".join(" ".join(p.split()) for p in parts)
 
     def _colour_probe_narrative(self) -> str:
         """Report the synthetic colour-prior probe (a measured artefact)."""

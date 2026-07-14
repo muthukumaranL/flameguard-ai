@@ -306,7 +306,7 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
     for _, r in probes.iterrows():
         if r.experiment_id == "e4d_probe_baseline":
             continue
-        label = {"e4a_probe_adamw": "A · AdamW + lr 1e-3",
+        label = {"e4a_probe_adamw": "A · lower learning rate (1.67e-3 → 1e-3)",
                  "e4b_probe_augment": "B · stronger HSV/scale augmentation",
                  "e4c_probe_loss": "C · classification loss weight 0.5 → 1.0"}.get(
             r.experiment_id, r.experiment_id)
@@ -314,8 +314,18 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
     if not probes.empty and "e4d_probe_baseline" in set(probes.experiment_id):
         ctrl = probes[probes.experiment_id == "e4d_probe_baseline"].iloc[0]
         probe_rows.append(f"Control result: mAP@0.5:0.95 = {ctrl.map50_95:.3f}")
-    probe_rows.append("Caveat we state out loud: short probes rank settings under a short schedule")
-    _bullets(s, probe_rows, top=2.1, size=16)
+    exp_all = art.experiments.drop_duplicates("experiment_id", keep="last").set_index("experiment_id")
+    if "e5a_naive_restart" in exp_all.index and "e1_baseline_v8n" in exp_all.index:
+        bad = exp_all.loc["e5a_naive_restart"]
+        b = exp_all.loc["e1_baseline_v8n"]
+        probe_rows.append(
+            f"Then the final model FAILED once: restarting a schedule on the converged "
+            f"baseline dropped mAP@0.5 {b['map50']:.3f} → {bad['map50']:.3f} "
+            f"(best epoch = {int(bad['best_epoch'])})")
+        probe_rows.append(
+            "Fix: continue, don't restart — low LR, no warm-up, no mosaic")
+    probe_rows.append("Caveat: short probes rank settings under a SHORT schedule")
+    _bullets(s, probe_rows, top=2.05, size=15)
 
     # 10 - threshold + final results
     s = add("Final results", "Test split evaluated exactly once",

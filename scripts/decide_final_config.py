@@ -25,7 +25,12 @@ log = setup_logging("flameguard.decide")
 CONTROL = "e4d_probe_baseline"
 # probe id -> (human description, the override it implies for the final run)
 PROBE_CHANGES = {
-    "e4a_probe_adamw": ("AdamW optimizer with lr0=1e-3", {"optimizer": "AdamW", "lr0": 0.001}),
+    # e4a was designed as an optimizer probe, but `optimizer: auto` already
+    # resolves to AdamW - so the only thing that actually changed was the
+    # learning rate (the control's effective 1.667e-3 -> 1.0e-3). Labelled here
+    # as what it really tested.
+    "e4a_probe_adamw": ("lower learning rate (1.667e-3 -> 1.0e-3; AdamW in both arms)",
+                        {"optimizer": "AdamW", "lr0": 0.001}),
     "e4b_probe_augment": ("stronger photometric + scale augmentation",
                           {"hsv_v": 0.6, "scale": 0.7}),
     "e4c_probe_loss": ("classification-loss weight 0.5 -> 1.0", {"cls": 1.0}),
@@ -112,17 +117,45 @@ def main() -> int:
         lines.append("- No probe beat the control. The final model keeps the default "
                      "recipe - a real result: on this dataset the Ultralytics defaults "
                      "are already well matched to the task.")
+    lines += ["", "## Continuing a trained model is not the same as training one", ""]
+    if "e5a_naive_restart" in df.index and "e1_baseline_v8n" in df.index:
+        bad, base = df.loc["e5a_naive_restart"], df.loc["e1_baseline_v8n"]
+        lines += [
+            "Our first attempt at the final model **failed, and we kept it** "
+            "(`e5a_naive_restart`).",
+            "",
+            f"- Continued from the baseline with an ordinary fresh schedule "
+            f"(lr0 = {bad['lr0']}, default warm-up, mosaic on).",
+            f"- Validation mAP@0.5 fell from **{float(base['map50']):.4f}** to "
+            f"**{float(bad['map50']):.4f}**; mAP@0.5:0.95 from "
+            f"{float(base['map50_95']):.4f} to {float(bad['map50_95']):.4f}.",
+            f"- The tell: **best epoch = {int(bad['best_epoch'])}**. The model was at "
+            f"its best before the new schedule did anything, and got worse afterwards.",
+            "- Cause: re-running the warm-up ramps the LR back up, and re-enabling "
+            "mosaic changes the input distribution. Together they shake a converged "
+            "model loose.",
+            "",
+            "**Fix, used for the final model:** treat it as a polish, not a restart -",
+            "a low peak LR, **no warm-up**, and **no mosaic**, so the model finishes on",
+            "realistic images. The winning probe change (`cls=1.0`) is kept.",
+            "",
+        ]
+    if "e5_final" in df.index:
+        good = df.loc["e5_final"]
+        base = df.loc["e1_baseline_v8n"]
+        delta = float(good["map50"]) - float(base["map50"])
+        lines += [
+            f"Final model (`e5_final`): mAP@0.5 = **{float(good['map50']):.4f}** "
+            f"({delta:+.4f} vs the baseline), mAP@0.5:0.95 = "
+            f"{float(good['map50_95']):.4f}, recall = {float(good['recall']):.4f}, "
+            f"best epoch {int(good['best_epoch'])} of {int(good['epochs_run'])}.",
+            "",
+        ]
     lines += [
-        f"- **Continuation LR:** lr0 = {adopted['lr0']}. The run starts from a trained "
-        f"checkpoint, so the default peak LR (0.01) would partly undo it. This is "
-        f"standard fine-tuning practice, not a tuned value, and it is stated rather "
-        f"than hidden.",
-        "",
         "## Command actually run", "",
         "```bash",
-        "python scripts/train_final.py --final \\",
-        f"    model={adopted_model} \\",
-        *[f"    {k}={v} \\" for k, v in adopted.items()],
+        "# the final recipe lives in config/training_config.yaml (e5_final)",
+        "python scripts/train_final.py --final",
         "```", "",
         "## Caveat we state out loud", "",
         "Probes were run at a short budget because the GPU is a 4GB GTX 1650 Ti on which",

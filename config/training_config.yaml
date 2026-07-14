@@ -61,14 +61,21 @@ experiments:
     save_dir: "outputs/training/e4d_probe_baseline"
     notes: "Probe CONTROL: default recipe at the probe budget."
 
+  # NOTE (corrected after the fact): this probe was designed as "AdamW vs the
+  # auto optimizer", but `optimizer: auto` ALREADY resolves to AdamW here. Naming
+  # the optimizer explicitly changes only one thing - it stops Ultralytics from
+  # discarding lr0. So what this probe actually tested is a LOWER LEARNING RATE
+  # (1.0e-3 against the control's effective 1.667e-3). It is still a clean
+  # single-variable probe; the variable is just not the one we first labelled it.
   e4a_probe_adamw:
     model: "yolov8n.pt"
     epochs: 5
     batch: 16
-    optimizer: "AdamW"
+    optimizer: "AdamW"      # explicit, so lr0 below is honoured
     lr0: 0.001
     save_dir: "outputs/training/e4a_probe_adamw"
-    notes: "Probe A: optimizer AdamW + lr0 1e-3 (vs the auto-selected optimizer)."
+    notes: "Probe A: lower learning rate (effective 1.667e-3 -> 1.0e-3). The
+      optimizer is AdamW in both arms; naming it explicitly is what makes lr0 apply."
 
   e4b_probe_augment:
     model: "yolov8n.pt"
@@ -92,14 +99,44 @@ experiments:
     save_dir: "outputs/training/e4c_probe_loss"
     notes: "Probe C: classification-loss weight doubled (0.5 -> 1.0)."
 
-  e5_final:
-    # `model` is overridden at runtime by scripts/train_final.py with the best
-    # checkpoint so far, so the final run CONTINUES fine-tuning the strongest
-    # model with the winning probe settings rather than restarting from COCO.
-    model: "yolov8n.pt"
+  # First attempt at the final model. KEPT AND REPORTED because it failed:
+  # continuing from a converged checkpoint with a *fresh* schedule re-ran the LR
+  # warm-up (back up to lr0) and re-enabled mosaic, which partly undid the
+  # baseline. Best epoch was 1, then it degraded and early-stopped.
+  e5a_naive_restart:
+    model: "outputs/training/e1_baseline_v8n/weights/best.pt"
     epochs: 12
     batch: 16
     optimizer: "auto"
+    lr0: 0.002
+    cls: 1.0
+    save_dir: "outputs/training/e5a_naive_restart"
+    notes: "FAILED ATTEMPT (kept, reported): fresh schedule on a converged
+      checkpoint - warm-up and mosaic restart undid it."
+
+  # The fix. Two things had to change, and the second one is the subtle one:
+  #
+  #  1. Continuation is a polish, not a restart: no warm-up ramp, no mosaic, and
+  #     a peak LR that picks up roughly where the baseline left off (the baseline
+  #     ended at lr ~5.8e-5, so 1e-4 continues it rather than shocking it).
+  #
+  #  2. `optimizer: auto` SILENTLY DISCARDS lr0. Ultralytics logs
+  #     "'optimizer=auto' found, ignoring 'lr0=...'" and substitutes its own
+  #     (AdamW, lr=0.001667). That is fine when training from COCO - it is what
+  #     the baseline used - but it is ~29x the LR the baseline finished at, which
+  #     is exactly why the naive restart above degraded the model. The optimizer
+  #     must therefore be named EXPLICITLY for the lr0 here to take effect.
+  e5_final:
+    model: "outputs/training/e1_baseline_v8n/weights/best.pt"
+    epochs: 10
+    batch: 16
+    optimizer: "AdamW"      # explicit - 'auto' would override lr0 (see above)
+    lr0: 0.0001             # baseline finished at ~5.8e-5; continue, don't shock
+    lrf: 0.1                # decay to 1e-5 over the run
+    warmup_epochs: 0.0      # no LR ramp back up
+    mosaic: 0.0             # finish on realistic, un-tiled images
+    cls: 1.0                # the change that won the probe study
     save_dir: "outputs/training/e5_final"
-    notes: "Tuned final model - continued fine-tuning of the best checkpoint using
-      the configuration that won the probe study."
+    notes: "Tuned final model - gentle continuation of the baseline checkpoint
+      (explicit AdamW, lr0 1e-4 decaying to 1e-5, no warm-up, no mosaic) plus the
+      winning cls=1.0 from the probe study."

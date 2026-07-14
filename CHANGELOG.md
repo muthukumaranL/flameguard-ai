@@ -56,6 +56,31 @@ All notable decisions and changes to FlameGuard AI, in the order they happened.
   global datasets directory, not against the yaml's location. A resolved copy is now
   written at runtime, so the committed `data.yaml` stays machine-independent.
 
+- **The first final model made things worse, and we kept the evidence.** Continuing
+  from the converged baseline with a *fresh* 12-epoch schedule (`e5a_naive_restart`)
+  re-ran the LR warm-up and re-enabled mosaic; validation mAP@0.5 fell from 0.491 to
+  0.448 and the best epoch was **1** — the model degraded from the moment the new
+  schedule started. Fix (`e5_final`): treat continuation as a *polish*, not a restart —
+  lr0 5e-4, no warm-up ramp, no mosaic, keeping the winning `cls=1.0`. Both runs remain
+  in `outputs/training/experiment_log.csv` and both are reported (§6.1).
+- **Root cause of that failure — a library trap worth knowing.** `optimizer: auto` does
+  not only pick an optimizer, it **silently discards the `lr0` you asked for**
+  ("'optimizer=auto' found, ignoring 'lr0=...'") and substitutes AdamW at 1.667e-3. The
+  baseline *finished* at lr 5.8e-5, so the continuation was restarting it at ~29× the
+  rate at which it had converged. Fix: name the optimizer explicitly so `lr0` applies.
+  `scripts/backfill_effective_lr.py` corrects the experiment log to record the
+  optimizer/LR each run **actually** used, and `src/train.py` now reads them off the
+  live trainer rather than trusting `args.yaml`.
+- **Consequence — one probe was mislabelled, and we corrected it rather than hiding it.**
+  Probe A was designed as "AdamW vs auto", but `auto` already resolves to AdamW here, so
+  the only variable that actually changed was the **learning rate** (1.667e-3 → 1.0e-3).
+  It is still a clean single-variable probe; the variable is not the one we first named.
+  Config, decision doc, report and slides were all relabelled to match reality.
+- **Diagnostic finding:** the model has learned a colour prior, not the structure of
+  flame. A plain orange rectangle is detected as *Fire* with high confidence, while
+  random noise is correctly ignored. Measured by `scripts/error_analysis.py` and pinned
+  by a characterisation test.
+
 ## Sprint 4 — Evaluation and delivery
 
 - Confidence threshold selected on the **validation** split (F1-optimal, with a
