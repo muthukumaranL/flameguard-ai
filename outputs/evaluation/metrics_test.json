@@ -1,0 +1,42 @@
+{
+  "weights": "E:\\college\\pg\\second course\\new\\Applied A.I. Solutions Development\\Deep Learning 2\\FlameGuard_AI\\models\\final\\best.pt",
+  "split": "test",
+  "device": "cuda:0",
+  "images": 533,
+  "precision": 0.6504787940191287,
+  "recall": 0.4261382458691876,
+  "f1": 0.5149349898589214,
+  "map50": 0.4917479245005696,
+  "map50_95": 0.2418743907839911,
+  "per_class": {
+    "Fire": {
+      "precision": 0.6686551014219271,
+      "recall": 0.45765765765765765,
+      "f1": 0.5433928099113007,
+      "ap50": 0.5163282617380114,
+      "ap50_95": 0.25290591351870156
+    },
+    "Smoke": {
+      "precision": 0.6323024866163303,
+      "recall": 0.39461883408071746,
+      "f1": 0.48595440570950066,
+      "ap50": 0.4671675872631278,
+      "ap50_95": 0.2308428680492806
+    }
+  },
+  "speed_ms_per_image": {
+    "preprocess": 2.0306669793594927,
+    "inference": 5.999968105064,
+    "loss": 0.0044127579753902085,
+    "postprocess": 2.754599061912264
+  },
+  "total_ms_per_image": 10.789646904311146,
+  "fps_estimate": 92.68143887085283,
+  "model_size_mb": 5.96,
+  "confusion_counts": {
+    "true_positives": 418,
+    "cross_class_confusions": 4,
+    "false_positives_background": 345,
+    "false_negatives_missed": 356
+  }
+}

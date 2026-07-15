@@ -1,0 +1,36 @@
+[
+  {
+    "source_file": "sample_05.jpg",
+    "class_id": 1,
+    "class_name": "Smoke",
+    "confidence": 0.4298,
+    "x1": 54.9,
+    "y1": 85.8,
+    "x2": 480.8,
+    "y2": 377.6,
+    "box_width": 426.0,
+    "box_height": 291.7,
+    "image_width": 640,
+    "image_height": 640,
+    "inference_ms": 14.52,
+    "confidence_threshold": 0.3,
+    "iou_threshold": 0.5
+  },
+  {
+    "source_file": "sample_05.jpg",
+    "class_id": 0,
+    "class_name": "Fire",
+    "confidence": 0.3235,
+    "x1": 70.7,
+    "y1": 368.5,
+    "x2": 543.2,
+    "y2": 454.0,
+    "box_width": 472.5,
+    "box_height": 85.6,
+    "image_width": 640,
+    "image_height": 640,
+    "inference_ms": 14.52,
+    "confidence_threshold": 0.3,
+    "iou_threshold": 0.5
+  }
+]

@@ -1,28 +1,31 @@
-# FlameGuard AI - Streamlit application configuration
-app_title: "FlameGuard AI"
-app_subtitle: "Real-Time Fire and Smoke Detection"
-app_caption: "Deep-learning object detection using transfer learning."
-
-model_path: "models/final/best.pt"
-
+app_title: FlameGuard AI
+app_subtitle: Real-Time Fire and Smoke Detection
+app_caption: Deep-learning object detection using transfer learning.
+model_path: models/final/best.pt
 defaults:
-  confidence_threshold: 0.30   # final value is set from validation threshold analysis
-  iou_threshold: 0.50
+  confidence_threshold: 0.3
+  iou_threshold: 0.5
   show_labels: true
   show_confidence: true
   line_thickness: 2
-  video_frame_skip: 1          # 1 = every frame, 2 = every second frame, ...
+  video_frame_skip: 1
   webcam_process_width: 640
-  status_smoothing_frames: 5   # temporal smoothing window for the live status banner
-
+  status_smoothing_frames: 5
 limits:
   max_image_mb: 25
   max_video_mb: 500
+supported_image_types:
+- jpg
+- jpeg
+- png
+- webp
+supported_video_types:
+- mp4
+- avi
+- mov
+- mkv
+disclaimer: 'FlameGuard AI is an educational computer-vision prototype. It is not
+  a certified fire-detection or emergency-response system and must not replace smoke
+  detectors, fire alarms, emergency procedures, or human supervision.
 
-supported_image_types: ["jpg", "jpeg", "png", "webp"]
-supported_video_types: ["mp4", "avi", "mov", "mkv"]
-
-disclaimer: >
-  FlameGuard AI is an educational computer-vision prototype. It is not a
-  certified fire-detection or emergency-response system and must not replace
-  smoke detectors, fire alarms, emergency procedures, or human supervision.
+  '

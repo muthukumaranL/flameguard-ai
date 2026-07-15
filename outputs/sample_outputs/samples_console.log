@@ -1,0 +1,13 @@
+22:00:10 | INFO    | flameguard.inference | DetectionEngine ready: best.pt on cuda:0
+22:00:10 | INFO    | flameguard.samples | selected 10 samples
+22:00:13 | INFO    | flameguard.image | saved outputs for sample_01.jpg (1 detections)
+22:00:13 | INFO    | flameguard.image | saved outputs for sample_02.jpg (1 detections)
+22:00:13 | INFO    | flameguard.image | saved outputs for sample_03.jpg (1 detections)
+22:00:13 | INFO    | flameguard.image | saved outputs for sample_04.jpg (1 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_05.jpg (2 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_06.jpg (2 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_07.jpg (0 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_08.jpg (3 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_09.jpg (0 detections)
+22:00:14 | INFO    | flameguard.image | saved outputs for sample_10.jpg (1 detections)
+22:00:14 | INFO    | flameguard.samples | samples written to E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\sample_outputs (8 correct, 2 incorrect/partial)

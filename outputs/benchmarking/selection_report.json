@@ -1,0 +1,18 @@
+{
+  "winner": "e5_final",
+  "ranking": [
+    {
+      "experiment": "e5_final",
+      "selection_score": 0.44308809590713627
+    },
+    {
+      "experiment": "e3_compare_11n",
+      "selection_score": 0.36823307693008506
+    },
+    {
+      "experiment": "e1_baseline_v8n",
+      "selection_score": 0.2926846238983562
+    }
+  ],
+  "criteria": "0.35*mAP50-95 + 0.25*recall + 0.25*smoke_recall + 0.15*speed"
+}

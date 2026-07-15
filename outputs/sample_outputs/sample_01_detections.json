@@ -1,0 +1,19 @@
+[
+  {
+    "source_file": "sample_01.jpg",
+    "class_id": 0,
+    "class_name": "Fire",
+    "confidence": 0.7596,
+    "x1": 319.8,
+    "y1": 233.0,
+    "x2": 361.3,
+    "y2": 270.5,
+    "box_width": 41.5,
+    "box_height": 37.6,
+    "image_width": 640,
+    "image_height": 640,
+    "inference_ms": 2573.62,
+    "confidence_threshold": 0.3,
+    "iou_threshold": 0.5
+  }
+]

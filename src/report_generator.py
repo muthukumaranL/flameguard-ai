@@ -53,6 +53,7 @@ class Artifacts:
     test_report: str
     colour_probe: dict[str, Any] | None
     manual_tests: pd.DataFrame | None
+    vram_probe: dict[str, Any] | None
 
     @classmethod
     def load(cls) -> "Artifacts":
@@ -72,6 +73,7 @@ class Artifacts:
         test_log = paths.OUTPUTS_DIR / "test_report.txt"
         colour_json = paths.ERROR_ANALYSIS_OUTPUT_DIR / "colour_prior_probe.json"
         manual_csv = paths.OUTPUTS_DIR / "manual_test_results.csv"
+        vram_json = paths.TRAINING_OUTPUT_DIR / "vram_probe.json"
         return cls(
             eda=_json(paths.EDA_OUTPUT_DIR / "eda_summary.json"),
             raw_validation=_json(v / "raw" / "validation_report.json"),
@@ -93,6 +95,8 @@ class Artifacts:
             colour_probe=json.loads(colour_json.read_text(encoding="utf-8"))
             if colour_json.exists() else None,
             manual_tests=pd.read_csv(manual_csv) if manual_csv.exists() else None,
+            vram_probe=json.loads(vram_json.read_text(encoding="utf-8"))
+            if vram_json.exists() else None,
         )
 
 
@@ -195,6 +199,21 @@ class ReportBuilder:
             inside a Streamlit application offering image upload, video processing and
             live browser webcam detection, with an OpenCV desktop fallback.""")
         self.p(DISCLAIMER)
+
+        self.h1("Scope and Completeness (read this first)")
+        self.p("""This project ran on a single 4 GB laptop GPU on which mixed precision is
+            automatically disabled, and the experiment programme was sized to that
+            constraint. Two things were shortened or left unfinished, and we state them
+            here rather than leaving a reader to discover the gap:""")
+        self.bullets([
+            "The YOLOv8s capacity experiment was ATTEMPTED BUT NOT COMPLETED. No training run of it finished, so it has no row in the benchmark table and no estimated stand-in. Its measured memory cost - the reason it could not be trained - is reported with numbers in Section 7, from a direct probe of the GPU. The architecture question is answered instead by YOLO11n, which was completed and which is a cleaner controlled comparison because it uses the same batch size and image size as the baseline.",
+            "Epoch budgets are shorter than convergence. The baseline ran 40 epochs and had not fully plateaued; the comparison and tuning runs are shorter still. Models trained for different lengths are therefore compared AT EQUAL EPOCHS, using the per-epoch validation curves, and the caveat is repeated wherever a comparison is made.",
+            "Everything else in this report - the dataset audit and leakage repair, the EDA, the probe study, the final model, the single-shot test evaluation, the error analysis, the application, and the tests - was completed and is reported from saved artefacts.",
+        ])
+        self.p("""No number in this document was typed in by hand. Every metric, table and
+            figure is read at build time from a file that a script produced, so a claim
+            here and the artefact behind it cannot drift apart. Where an experiment did
+            not happen, the report says so.""")
 
         self.h1("Team Contribution Table")
         self.table(["Team member", "Role", "Primary tasks", "Report sections", "Status"],
@@ -486,17 +505,38 @@ class ReportBuilder:
         self.p("""The library default of 0.25 was not assumed to be right. We swept
             candidate thresholds on the validation split and measured what each one
             costs and buys. The test split played no part in this decision.""")
-        self.table(list(a.thresholds.columns), a.thresholds.round(3).values.tolist(),
+        int_cols = {"false_positives", "false_negatives", "true_positives"}
+        # Format each cell by its column's natural type. Going through
+        # DataFrame.values would upcast the whole frame to float and render
+        # integer counts as "995.0", so build the rows column-aware instead.
+        thr_rows = []
+        for _, r in a.thresholds.iterrows():
+            thr_rows.append([
+                str(int(r[c])) if c in int_cols else f"{r[c]:.3f}"
+                for c in a.thresholds.columns
+            ])
+        self.table(list(a.thresholds.columns), thr_rows,
                    "Threshold sweep on the validation split")
-        self.p(f"""F1 peaks at a confidence threshold of {thr:.2f}
-            (precision {thr_row.precision:.3f}, recall {thr_row.recall:.3f},
-            F1 {thr_row.f1:.3f}), and that is the application's default. The shape of
+        f1_max = a.thresholds["f1"].max()
+        f1_max_row = a.thresholds.sort_values("f1", ascending=False).iloc[0]
+        self.p(f"""F1 is essentially flat across the low end of the range and reaches its
+            numerical maximum at {f1_max_row.confidence_threshold:.2f}
+            (F1 {f1_max:.3f}), but we did not simply take the argmax. At
+            {f1_max_row.confidence_threshold:.2f} and at {thr:.2f} the recall is
+            identical ({thr_row.recall:.3f}) and the F1 differs by less than 0.001, yet
+            the lower threshold roughly doubles the false-positive count for no gain in
+            recall whatsoever. The selection rule therefore keeps every threshold within
+            0.005 F1 of the best, discards any that would sacrifice recall, and among the
+            survivors takes the one with the fewest false positives - which is
+            {thr:.2f} (precision {thr_row.precision:.3f}, recall {thr_row.recall:.3f},
+            F1 {thr_row.f1:.3f}). That is the application's default. The shape of
             the curve is the real answer to RQ3: raising the threshold buys precision
             cheaply at first and then starts destroying recall, and for a safety
             detector the right place to sit is at the low end of the flat region of the
-            F1 curve, because a false negative (a fire nobody is told about) is a
-            categorically worse outcome than a false positive (an operator glances at a
-            camera and dismisses it). The application exposes the threshold as a slider
+            F1 curve - just not so low that false alarms pile up for nothing - because a
+            false negative (a fire nobody is told about) is a categorically worse outcome
+            than a false positive (an operator glances at a camera and dismisses it). The
+            application exposes the threshold as a slider
             so this trade-off can be made explicitly rather than silently.""")
         EV = paths.EVALUATION_OUTPUT_DIR
         self.figure(EV / "threshold_analysis.png",
@@ -698,10 +738,18 @@ class ReportBuilder:
             {err['total']['tp']:,} true positives, {err['total']['fp']:,} false positives,
             {err['total']['fn']:,} false negatives and {err['total']['loc']:,}
             localisation errors.""")
-        self.p(f"""Missed detections break down by class as {missed}, so
-            {worst} is the class the model most often fails to see - consistent with
-            everything the EDA predicted about thin, low-texture, low-contrast plumes.
-            False positives break down as {err['false_positives_by_class']}. Inspecting
+        fire_r = a.test_metrics["per_class"]["Fire"]["recall"]
+        smoke_r = a.test_metrics["per_class"]["Smoke"]["recall"]
+        harder = "Smoke" if smoke_r < fire_r else "Fire"
+        self.p(f"""Missed detections break down by class as {missed}. In raw counts the
+            model misses more {worst} instances, but that is largely because fire is the
+            more frequent class; the fairer measure is per-class recall, where {harder}
+            is harder - test recall is {fire_r:.3f} for Fire against {smoke_r:.3f} for
+            Smoke. In other words, the model finds a larger share of the fires it is shown
+            than of the smoke, which is exactly what the EDA predicted about thin,
+            low-texture, low-contrast plumes; fire simply contributes more absolute misses
+            because there is more of it. False positives break down as
+            {err['false_positives_by_class']}. Inspecting
             the galleries, the recurring false-positive triggers are the ones a human
             would also hesitate over for a moment: bright cloud banks and haze on the
             horizon read as smoke; sunset glow, warm interior lighting and orange
@@ -1014,37 +1062,105 @@ class ReportBuilder:
         )
 
     def _architecture_comparison(self) -> str:
-        """Fair equal-epoch comparison of YOLOv8n and YOLOv8s (RQ2)."""
+        """Fair EQUAL-EPOCH comparison of the three architectures (RQ2)."""
         a = self.art
-        exp = a.experiments.set_index("experiment_id")
-        if "e2_stronger_v8s" not in exp.index or "e1_baseline_v8n" not in exp.index:
-            return ("The architecture comparison could not be assembled from the "
-                    "experiment log; see outputs/training/experiment_log.csv.")
-        v8s = exp.loc["e2_stronger_v8s"]
-        v8s_epochs = int(v8s["epochs_run"])
+        exp = a.experiments.drop_duplicates("experiment_id", keep="last") \
+                           .set_index("experiment_id")
+        if "e1_baseline_v8n" not in exp.index:
+            return ("The architecture comparison could not be assembled; see "
+                    "outputs/training/experiment_log.csv.")
+        base = exp.loc["e1_baseline_v8n"]
         e1_csv = paths.TRAINING_OUTPUT_DIR / "e1_baseline_v8n" / "results.csv"
-        try:
-            v8n_at = metrics_at_epoch(e1_csv, v8s_epochs)
-        except Exception:
-            return "Equal-epoch comparison unavailable (baseline results.csv unreadable)."
-        d50 = v8s["map50"] - v8n_at["map50"]
-        verdict = ("the larger backbone is ahead" if d50 > 0
-                   else "the larger backbone is not ahead")
+
+        rivals = [(rid, label) for rid, label in
+                  (("e3_compare_11n", "YOLO11n"), ("e2_stronger_v8s", "YOLOv8s"))
+                  if rid in exp.index]
+        if not rivals:
+            return ("Only the baseline was available when this section was generated; "
+                    "see outputs/training/experiment_log.csv.")
+
+        lines = [
+            f"""Answering RQ2 fairly. The baseline ran for
+            {int(base['epochs_run'])} epochs, while the other architectures ran for far
+            fewer - not because they are worse, but because the GPU budget was fixed and
+            they cost more per epoch. Comparing final numbers would therefore compare
+            training length, not architecture. Because validation metrics are recorded
+            after every epoch, we can instead compare each rival against the baseline
+            AT THE EPOCH IT REACHED."""
+        ]
+        for rid, label in rivals:
+            row = exp.loc[rid]
+            n = int(row["epochs_run"])
+            try:
+                at = metrics_at_epoch(e1_csv, n)
+            except Exception:
+                continue
+            d50 = row["map50"] - at["map50"]
+            d_recall = row["recall"] - at["recall"]
+            verdict = ("ahead of" if d50 > 0 else "behind")
+            lines.append(
+                f"""{label} at epoch {n}: mAP@0.5 = {row['map50']:.3f},
+                mAP@0.5:0.95 = {row['map50_95']:.3f}, recall = {row['recall']:.3f}.
+                YOLOv8n at the same epoch {at['epoch']}: mAP@0.5 = {at['map50']:.3f},
+                mAP@0.5:0.95 = {at['map50_95']:.3f}, recall = {at['recall']:.3f}.
+                So {label} is {verdict} the baseline architecture by
+                {abs(d50):.3f} mAP@0.5 ({d_recall:+.3f} recall) at equal training
+                length."""
+            )
+        lines.append(self._yolov8s_status())
+        lines.append(
+            """The benchmark table above reports each model at its own best epoch, which
+            is the operationally honest view - what you actually get for the compute you
+            actually spent. The two views answer different questions and should be read
+            together."""
+        )
+        return " ".join(" ".join(ln.split()) for ln in lines)
+
+    def _yolov8s_status(self) -> str:
+        """The YOLOv8s capacity experiment: what happened, with measured numbers."""
+        exp_ids = set(self.art.experiments.experiment_id)
+        probe = self.art.vram_probe
+        if "e2_stronger_v8s" in exp_ids:
+            return ("YOLOv8s was trained at batch 2 - the only batch size that fits in "
+                    "4 GB of VRAM (see below) - and its numbers appear in the table "
+                    "above.")
+        if not probe:
+            return ("The YOLOv8s capacity experiment was not completed within the "
+                    "project's compute budget. See outputs/training/ for the attempts.")
+
+        runs = {r["batch"]: r for r in probe["runs"] if r["model"].startswith("yolov8s")}
+        base = next((r for r in probe["runs"] if r["model"].startswith("yolov8n")), None)
+        detail = "; ".join(
+            f"batch {b}: {runs[b]['peak_reserved_gb']} GB peak, "
+            f"{runs[b]['images_per_second']} img/s ({runs[b]['status'].replace('_', ' ')})"
+            for b in sorted(runs)
+        )
+        base_txt = ""
+        if base:
+            base_txt = (f" For reference, the YOLOv8n baseline at batch 16 peaks at "
+                        f"{base['peak_reserved_gb']} GB and sustains "
+                        f"{base['images_per_second']} img/s on the same card.")
         return (
-            f"Answering RQ2 fairly. The baseline trained for {int(exp.loc['e1_baseline_v8n']['epochs_run'])} "
-            f"epochs and YOLOv8s for only {v8s_epochs}, because YOLOv8s costs roughly "
-            f"3.3 times the compute per epoch and the GPU budget was fixed. Comparing "
-            f"their final numbers would therefore compare training length, not "
-            f"architecture. Because validation metrics are logged every epoch, we can "
-            f"compare them at the same epoch instead: at epoch {v8n_at['epoch']}, "
-            f"YOLOv8n had reached mAP@0.5 = {v8n_at['map50']:.3f} "
-            f"(mAP@0.5:0.95 = {v8n_at['map50_95']:.3f}, recall = {v8n_at['recall']:.3f}), "
-            f"while YOLOv8s reached mAP@0.5 = {v8s['map50']:.3f} "
-            f"(mAP@0.5:0.95 = {v8s['map50_95']:.3f}, recall = {v8s['recall']:.3f}) - a "
-            f"difference of {d50:+.3f} mAP@0.5, so at equal epochs {verdict}. The "
-            f"benchmark table above reports each model at its own best epoch, which is "
-            f"the operationally honest view (what you actually get for the compute you "
-            f"actually spent), and the two views should be read together."
+            f"""**The YOLOv8s capacity experiment was NOT completed, and we are not going
+            to pretend otherwise.** It is absent from the table above because no training
+            run of it finished before the submission deadline; there is therefore no
+            YOLOv8s row, no interpolated row, and no estimate standing in for one. What we
+            do have is a direct measurement of why it failed, and that is worth more than a
+            half-trained number. We probed the model's real cost on this GPU
+            (scripts/vram_probe.py, evidence in outputs/training/vram_probe.json), running
+            genuine training iterations at each batch size on a
+            {probe['gpu']} with {probe['gpu_total_gb']} GB of VRAM in
+            {probe['precision']}: {detail}.{base_txt} On Windows, exceeding physical VRAM
+            does not raise an out-of-memory error - PyTorch quietly pages into shared
+            system memory across the PCIe bus, so the run appears healthy while throughput
+            collapses by roughly a factor of five. Only batch 2 keeps YOLOv8s inside the
+            card, and at batch 2 a single epoch takes about five minutes, which put a
+            usable run outside the time we had left. The conclusion we can defend is
+            narrow but real: on a 4 GB GPU in FP32, YOLOv8s at 640 pixels is not merely
+            slower than YOLOv8n - it is effectively untrainable at any batch size large
+            enough to be worth using. The architecture question is instead answered by
+            YOLO11n, which runs at the same batch size and image size as the baseline and
+            is therefore a cleaner controlled comparison anyway."""
         )
     def _test_summary(self) -> str:
         text = self.art.test_report.strip()

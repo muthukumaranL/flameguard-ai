@@ -1,0 +1,2 @@
+source_file,class_id,class_name,confidence,x1,y1,x2,y2,box_width,box_height,image_width,image_height,inference_ms,confidence_threshold,iou_threshold
+sample_02.jpg,0,Fire,0.397,157.7,197.0,490.1,509.1,332.4,312.0,640,640,14.28,0.3,0.5

@@ -1,0 +1,26 @@
+{
+  "operating_confidence": 0.3,
+  "images": 533,
+  "category_counts": {
+    "true_negative": 207,
+    "true_positive": 136,
+    "localization": 89,
+    "false_negative": 50,
+    "false_positive": 31,
+    "mixed_error": 20
+  },
+  "total": {
+    "tp": 371,
+    "fp": 118,
+    "fn": 306,
+    "loc": 101
+  },
+  "missed_by_class": {
+    "Smoke": 91,
+    "Fire": 215
+  },
+  "false_positives_by_class": {
+    "Fire": 87,
+    "Smoke": 31
+  }
+}

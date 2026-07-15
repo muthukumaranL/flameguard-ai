@@ -1,0 +1,5 @@
+22:03:06 | INFO    | flameguard.report-runner | report model: 159 blocks, 28 figures, 13 tables
+22:03:06 | INFO    | flameguard.render | markdown -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\report\report_content.md
+22:03:07 | INFO    | flameguard.render | docx -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\report\FlameGuard_AI_Final_Report.docx
+22:03:13 | INFO    | flameguard.render | pdf -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\report\FlameGuard_AI_Final_Report.pdf
+22:03:13 | INFO    | flameguard.report-runner | Report generated in E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\report (28 figures, 13 tables)

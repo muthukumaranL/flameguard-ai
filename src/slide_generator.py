@@ -288,12 +288,18 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
         rows.append(f"YOLO11n · same batch/imgsz · {int(e3.epochs_run)} epochs · mAP@0.5 = {e3.map50:.3f}")
     if "e2_stronger_v8s" in exp.index:
         e2 = exp.loc["e2_stronger_v8s"]
-        rows.append(f"YOLOv8s (3.3x FLOPs) · batch 4 - the most 4GB VRAM allows · {int(e2.epochs_run)} epochs · mAP@0.5 = {e2.map50:.3f}")
+        rows.append(f"YOLOv8s (3.3x FLOPs) · {int(e2.epochs_run)} epochs · mAP@0.5 = {e2.map50:.3f}")
+    elif art.vram_probe:
+        v = {r["batch"]: r for r in art.vram_probe["runs"] if r["model"].startswith("yolov8s")}
+        parts = " · ".join(f"b{b}: {v[b]['peak_reserved_gb']}GB" for b in sorted(v))
+        rows.append(f"YOLOv8s: NOT COMPLETED — measured cost on a 4GB card: {parts}")
+        rows.append("Over 4GB it doesn't crash — it pages to system RAM and throughput "
+                    "collapses ~5x. Only batch 2 fits.")
     rows += [
-        "Hard constraint: AMP auto-disabled on GTX 16xx (NaN losses) → FP32 → ~2x slower",
-        "Models trained for different epochs are compared at EQUAL epochs (metrics logged every epoch)",
+        "AMP auto-disabled on GTX 16xx (NaN losses) → FP32 → ~2x slower",
+        "Different epoch counts → compared at EQUAL epochs (metrics logged every epoch)",
     ]
-    _bullets(s, rows, top=2.1, size=16)
+    _bullets(s, rows, top=2.05, size=15)
 
     # 9 - tuning
     s = add("Hyperparameter tuning", "One variable at a time, against a control",

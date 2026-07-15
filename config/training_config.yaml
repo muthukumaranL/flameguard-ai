@@ -40,16 +40,36 @@ experiments:
     notes: "YOLO11n - newer architecture at the same cost class as YOLOv8n.
       Equal batch/imgsz to the baseline; compared at equal epochs."
 
-  # Capacity probe: does a ~3.3x larger backbone help? Compute-limited by VRAM.
+  # Capacity probe: does a ~3.3x larger backbone help?  MEASURED VRAM COST of
+  # YOLOv8s at 640px in FP32 on this 4GB card:
+  #     batch 8 -> ~7.8 GB requested, 2.2 s/iter   (spilling to system RAM)
+  #     batch 4 -> ~5.9 GB requested, 1.5 s/iter   (still spilling)
+  #     batch 2 -> see below; the last batch size worth trying.
+  # Anything that spills into shared memory over PCIe is not a fair experiment,
+  # it is a measurement of the bus. Hence the very small batch and short budget.
+  #     batch 2 -> ~1.0 GB, 6.7 it/s  <-- fits in VRAM; 15x faster per iteration.
+  #
+  # Two deliberate choices to keep this a fair capacity comparison:
+  #   * 12 epochs, matching YOLO11n, so all three architectures can be compared at
+  #     an equal epoch count (the baseline's per-epoch curve supplies its value).
+  #   * The optimizer is NAMED. At batch 2 the iteration count crosses the
+  #     threshold at which `auto` switches from AdamW to SGD, which would confound
+  #     architecture with optimizer. Pinning AdamW at the same effective LR the
+  #     other runs used (1.667e-3) removes that confound.
+  # Batch size still differs (2 vs 16) because 4GB VRAM allows nothing else, and
+  # that limitation is reported rather than papered over.
   e2_stronger_v8s:
     model: "yolov8s.pt"
-    epochs: 6
-    batch: 4
-    optimizer: "auto"
+    epochs: 12
+    batch: 2
+    optimizer: "AdamW"      # explicit: 'auto' would pick SGD at this batch size
+    lr0: 0.001667           # the same effective LR every other run received
     save_dir: "outputs/training/e2_stronger_v8s"
-    notes: "YOLOv8s (~11.2M params, 28.6 GFLOPs). Batch 4 - the largest that fits
-      in 4GB VRAM in FP32. Short budget; reported as a compute-limited capacity
-      probe, not a converged model."
+    notes: "YOLOv8s (~11.2M params, 28.6 GFLOPs, ~3.3x the baseline's compute).
+      Batch 2 - larger batches exceed 4GB VRAM and thrash shared memory (measured:
+      7.8GB at batch 8, 5.9GB at batch 4). Optimizer pinned to AdamW@1.667e-3 to
+      match the other runs. Compared at EQUAL epochs; a capacity probe, not a
+      converged model."
 
   # Tuning probes: equal-budget runs, each changing exactly ONE factor against
   # the control (e4d), so any difference is attributable to that factor.

@@ -1,0 +1,45 @@
+{
+  "gpu": "NVIDIA GeForce GTX 1650 Ti",
+  "gpu_total_gb": 4.0,
+  "imgsz": 640,
+  "precision": "FP32 (AMP auto-disabled by Ultralytics on GTX 16xx)",
+  "note": "Peak reserved VRAM measured over real training iterations. On Windows/WDDM, exceeding physical VRAM does not crash - PyTorch pages into shared system memory over PCIe and throughput collapses. That is the failure mode documented here.",
+  "runs": [
+    {
+      "model": "yolov8s.pt",
+      "batch": 2,
+      "status": "fits_in_vram",
+      "peak_reserved_gb": 1.0,
+      "gpu_total_gb": 4.0,
+      "seconds_per_iteration": 0.163,
+      "images_per_second": 12.3
+    },
+    {
+      "model": "yolov8s.pt",
+      "batch": 4,
+      "status": "spilling_to_shared_memory",
+      "peak_reserved_gb": 6.08,
+      "gpu_total_gb": 4.0,
+      "seconds_per_iteration": 1.531,
+      "images_per_second": 2.6
+    },
+    {
+      "model": "yolov8s.pt",
+      "batch": 8,
+      "status": "spilling_to_shared_memory",
+      "peak_reserved_gb": 7.94,
+      "gpu_total_gb": 4.0,
+      "seconds_per_iteration": 2.724,
+      "images_per_second": 2.9
+    },
+    {
+      "model": "yolov8n.pt",
+      "batch": 16,
+      "status": "spilling_to_shared_memory",
+      "peak_reserved_gb": 4.84,
+      "gpu_total_gb": 4.0,
+      "seconds_per_iteration": 0.95,
+      "images_per_second": 16.8
+    }
+  ]
+}

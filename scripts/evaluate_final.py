@@ -27,9 +27,23 @@ log = setup_logging("flameguard.eval-final")
 
 
 def choose_threshold(df) -> float:
-    """Highest-F1 threshold; ties broken toward higher recall (safety bias)."""
-    best = df.sort_values(["f1", "recall"], ascending=False).iloc[0]
-    return float(best.confidence_threshold)
+    """Pick the operating threshold from the validation sweep.
+
+    Rule: among thresholds whose F1 is within F1_EPS of the maximum, keep only
+    those whose recall is within RECALL_EPS of the best of that near-optimal set
+    (never trade away real recall for precision on a safety detector), then choose
+    the one with the FEWEST false positives. This resolves the common case where
+    two adjacent thresholds have essentially equal F1 and identical recall but very
+    different false-alarm rates - the higher threshold is strictly preferable.
+    """
+    F1_EPS = 0.005
+    RECALL_EPS = 0.005
+    best_f1 = df["f1"].max()
+    near = df[df["f1"] >= best_f1 - F1_EPS]
+    best_recall = near["recall"].max()
+    near = near[near["recall"] >= best_recall - RECALL_EPS]
+    chosen = near.sort_values("false_positives", ascending=True).iloc[0]
+    return float(chosen.confidence_threshold)
 
 
 def main() -> int:

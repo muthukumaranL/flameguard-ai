@@ -1,0 +1,2 @@
+source_file,class_id,class_name,confidence,x1,y1,x2,y2,box_width,box_height,image_width,image_height,inference_ms,confidence_threshold,iou_threshold
+sample_04.jpg,1,Smoke,0.7384,2.9,181.9,160.6,431.4,157.7,249.5,640,640,13.55,0.3,0.5

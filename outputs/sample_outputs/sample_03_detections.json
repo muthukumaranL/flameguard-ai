@@ -1,0 +1,19 @@
+[
+  {
+    "source_file": "sample_03.jpg",
+    "class_id": 1,
+    "class_name": "Smoke",
+    "confidence": 0.6405,
+    "x1": 3.2,
+    "y1": 248.2,
+    "x2": 153.3,
+    "y2": 442.0,
+    "box_width": 150.1,
+    "box_height": 193.8,
+    "image_width": 640,
+    "image_height": 640,
+    "inference_ms": 13.08,
+    "confidence_threshold": 0.3,
+    "iou_threshold": 0.5
+  }
+]

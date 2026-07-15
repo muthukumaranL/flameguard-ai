@@ -59,11 +59,14 @@ def pick_samples(errors: pd.DataFrame, test_dir: Path,
     def take(mask, n, group):
         subset = errors[mask & ~errors.filename.isin(used)]
         for _, row in subset.head(n).iterrows():
-            used.add(row.filename)
-            picks.append({"filename": row.filename, "group": group,
-                          "content": row.content, "category": row.category,
-                          "n_gt": int(row.n_gt), "tp": int(row.tp),
-                          "fp": int(row.fp), "fn": int(row.fn), "loc": int(row.loc)})
+            used.add(row["filename"])
+            # NB: use bracket access - a column is named "loc", which collides
+            # with the pandas Series.loc indexer under attribute access.
+            picks.append({"filename": row["filename"], "group": group,
+                          "content": row["content"], "category": row["category"],
+                          "n_gt": int(row["n_gt"]), "tp": int(row["tp"]),
+                          "fp": int(row["fp"]), "fn": int(row["fn"]),
+                          "loc": int(row["loc"])})
 
     ok = errors.category == "true_positive"
     take(ok & (errors.content == "fire_only"), 2, "fire-only (success)")

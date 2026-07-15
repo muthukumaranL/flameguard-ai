@@ -113,8 +113,11 @@ def threshold_analysis(weights: Path, data_yaml: Path, out_dir: Path,
     rows = []
     for conf in thresholds:
         model = YOLO(str(weights))
+        # plots=True is REQUIRED: Ultralytics only populates
+        # results.confusion_matrix.matrix when it also renders the plot. With
+        # plots=False the matrix stays all-zeros and FP/FN/TP would read as 0.
         results = model.val(data=str(resolved_yaml), split=split, device=device,
-                            conf=conf, plots=False, verbose=False,
+                            conf=conf, plots=True, verbose=False,
                             project=str(out_dir), name=f"thr_{conf:.2f}", exist_ok=True)
         counts = confusion_counts(results.confusion_matrix.matrix)
         p, r = float(results.box.mp), float(results.box.mr)

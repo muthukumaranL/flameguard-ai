@@ -1,0 +1,19 @@
+21:58:24 | INFO    | flameguard.inference | DetectionEngine ready: best.pt on cuda:0
+21:58:29 | INFO    | flameguard.errors | analysed 100 test images
+21:58:31 | INFO    | flameguard.errors | analysed 200 test images
+21:58:32 | INFO    | flameguard.errors | analysed 300 test images
+21:58:34 | INFO    | flameguard.errors | analysed 400 test images
+21:58:36 | INFO    | flameguard.errors | analysed 500 test images
+21:58:36 | INFO    | flameguard.errors | summary: {'operating_confidence': 0.3, 'images': 533, 'category_counts': {'true_negative': 207, 'true_positive': 136, 'localization': 89, 'false_negative': 50, 'false_positive': 31, 'mixed_error': 20}, 'total': {'tp': 371, 'fp': 118, 'fn': 306, 'loc': 101}, 'missed_by_class': {'Smoke': 91, 'Fire': 215}, 'false_positives_by_class': {'Fire': 87, 'Smoke': 31}}
+21:58:37 | INFO    | flameguard.errors | gallery_true_positive: 9 examples
+21:58:37 | INFO    | flameguard.errors | gallery_false_positive: 9 examples
+21:58:37 | INFO    | flameguard.errors | gallery_false_negative: 9 examples
+21:58:37 | INFO    | flameguard.errors | gallery_localization: 9 examples
+21:58:37 | INFO    | flameguard.errors | --- colour-prior probe (synthetic, structure-free inputs) ---
+21:58:37 | INFO    | flameguard.errors | colour probe flat_orange   -> 1 detection(s), max conf 0.968
+21:58:37 | INFO    | flameguard.errors | colour probe flat_red      -> 1 detection(s), max conf 0.973
+21:58:37 | INFO    | flameguard.errors | colour probe flat_grey     -> 1 detection(s), max conf 0.932
+21:58:37 | INFO    | flameguard.errors | colour probe flat_blue     -> 1 detection(s), max conf 0.912
+21:58:37 | INFO    | flameguard.errors | colour probe random_noise  -> 0 detection(s), max conf 0.000
+21:58:37 | INFO    | flameguard.errors | error analysis complete -> E:\college\pg\second course\new\Applied A.I. Solutions Development\Deep Learning 2\FlameGuard_AI\outputs\error_analysis
+ERR EXIT: 0
