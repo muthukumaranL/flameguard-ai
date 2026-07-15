@@ -209,9 +209,28 @@ def run_all() -> None:
         import re
 
         found = set(re.findall(r"\[[^\]\n]{2,40}\]", md))
-        # markdown image/link syntax produces [caption](path) - drop those
-        stray = {f for f in found - allowed if not f.startswith("[Figure")
-                 and not f.startswith("[Table")}
+        # A real *unfilled* placeholder is a template field the author still has
+        # to complete: it is ALL-CAPS (e.g. [GROUP NUMBER]) or carries a fill-me
+        # keyword. Bracketed prose that is normal mixed-case text - academic
+        # citation notation such as "[Computer software]" or
+        # "[Open Source Dataset, CC BY 4.0]", and markdown [caption](path) links -
+        # is finished content, not a placeholder, and must not trip this check.
+        fill_keywords = re.compile(r"\b(TODO|TBD|XXX|FIXME|INSERT|YOUR|ENTER|"
+                                   r"NAME|VALUE|PLACEHOLDER|FIXME)\b", re.IGNORECASE)
+
+        def is_unfilled(field: str) -> bool:
+            inner = field[1:-1].strip()
+            if field in allowed:
+                return False
+            if field.startswith(("[Figure", "[Table")):
+                return False
+            # ALL-CAPS template field (letters are all uppercase) -> unfilled
+            letters = [c for c in inner if c.isalpha()]
+            if letters and all(c.isupper() for c in letters):
+                return True
+            return bool(fill_keywords.search(inner))
+
+        stray = {f for f in found if is_unfilled(f)}
         return not stray, f"stray placeholders: {sorted(stray) or 'none'}"
 
     @check("Presentation: PPTX opens with >=13 slides")

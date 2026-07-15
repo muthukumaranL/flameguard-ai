@@ -1,0 +1,35 @@
+22:06:18 | INFO    | flameguard.verify | ==============================================================================
+22:06:18 | INFO    | flameguard.verify | FlameGuard AI - final verification
+22:06:18 | INFO    | flameguard.verify | ==============================================================================
+22:06:18 | INFO    | flameguard.verify | [PASS] Dataset: repaired split exists         train/valid/test = 3707/1060/533
+22:06:18 | INFO    | flameguard.verify | [PASS] Dataset: >=200 original images/class   {'Fire': 2535, 'Smoke': 1644}
+22:06:18 | INFO    | flameguard.verify | [PASS] Dataset: zero cross-split leakage after repair 3,379 leaked images repaired -> 0 spanning groups
+22:06:18 | INFO    | flameguard.verify | [PASS] EDA: figures generated                 16 figures
+22:06:18 | INFO    | flameguard.verify | [PASS] Model: final best.pt exists            models\final\best.pt (6.0 MB)
+22:06:18 | INFO    | flameguard.verify | [PASS] Model: metadata with real metrics      conf=0.3, model=Tuned final
+22:06:22 | INFO    | flameguard.inference | DetectionEngine ready: best.pt on cpu
+22:06:25 | INFO    | flameguard.verify | [PASS] Model: loads and infers on CPU         CPU inference 2528 ms, empty-path OK
+22:06:25 | INFO    | flameguard.verify | [PASS] Training: >=3 experiments logged       8 runs: e1_baseline_v8n, e4d_probe_baseline, e4a_probe_adamw, e4b_probe_augment, e4c_probe_loss, e3_compare_11n, e5a_naive_restart, e5_final
+22:06:25 | INFO    | flameguard.verify | [PASS] Evaluation: test metrics present       mAP50=0.492 R=0.426 on 533 images
+22:06:25 | INFO    | flameguard.verify | [PASS] Evaluation: threshold chosen on validation 5 thresholds swept
+22:06:25 | INFO    | flameguard.verify | [PASS] Evaluation: measured inference speed   gpu: 34.4 FPS; cpu: 4.1 FPS
+22:06:25 | INFO    | flameguard.verify | [PASS] Benchmark: table + selection report    3 models, winner=e5_final
+22:06:25 | INFO    | flameguard.verify | [PASS] Error analysis: failures documented    FP=118 FN=306, 4 galleries
+22:06:25 | INFO    | flameguard.verify | [PASS] Samples: >=10 with successes AND failures 10 samples: 8 correct, 2 incorrect/partial
+22:06:25 | INFO    | flameguard.verify | [PASS] App: imports cleanly                   app.py compiles
+22:06:25 | INFO    | flameguard.verify | [PASS] App: screenshots captured              14 screenshots
+22:06:25 | INFO    | flameguard.verify | [PASS] Manual tests recorded                  13 manual tests, 0 failed
+22:06:25 | INFO    | flameguard.verify | [PASS] Automated tests passed                 ======================== 65 passed, 1 skipped in 9.84s ========================
+22:06:25 | INFO    | flameguard.verify | [PASS] Report: DOCX opens                     298 paragraphs, 13 tables, 28 figures
+22:06:26 | INFO    | flameguard.verify | [PASS] Report: PDF opens                      39 pages
+22:06:26 | INFO    | flameguard.verify | [PASS] Report: no unfilled metric placeholders stray placeholders: none
+22:06:26 | INFO    | flameguard.verify | [PASS] Presentation: PPTX opens with >=13 slides 15 slides, 15 with speaker notes
+22:06:26 | INFO    | flameguard.verify | [PASS] Presentation: notes + demo script      notes=True demo_script=True backup_assets=True
+22:06:26 | INFO    | flameguard.verify | [PASS] Scrum: artefacts complete              10/10 present
+22:06:26 | INFO    | flameguard.verify | [PASS] Notebooks present                      7 notebooks
+22:06:26 | INFO    | flameguard.verify | [PASS] No absolute personal paths in source   files with hard-coded user paths: none
+22:06:26 | INFO    | flameguard.verify | [PASS] Submission ZIP: Group##_FlameGuard_AI_Final_Submission.zip 539 entries, 171.1 MB, missing=none, forbidden=0
+22:06:26 | INFO    | flameguard.verify | ==============================================================================
+22:06:26 | INFO    | flameguard.verify | 27/27 checks passed  (0 required failures, 0 warnings)
+22:06:26 | INFO    | flameguard.verify | report -> outputs\verification_report.md
+22:06:26 | INFO    | flameguard.verify | ALL REQUIRED CHECKS PASSED
