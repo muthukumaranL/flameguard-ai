@@ -1,30 +1,8 @@
-2026-07-14 13:25:05.888 Uvicorn server started on :::8514
+2026-07-14 22:07:45.936 Uvicorn server started on :::8531
 
   You can now view your Streamlit app in your browser.
 
-  Local URL: http://localhost:8514
-  Network URL: http://10.0.0.238:8514
-  External URL: http://99.245.180.62:8514
+  Local URL: http://localhost:8531
+  Network URL: http://10.0.0.238:8531
+  External URL: http://99.245.180.62:8531
 
-13:25:47 | INFO    | flameguard.inference | DetectionEngine ready: best.pt on cpu
-13:28:46 | INFO    | flameguard.video | video done: 87/87 frames processed in 7.8s (11.2 fps), 129 detections
-Exception in callback _ProactorBasePipeTransport._call_connection_lost()
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
-Traceback (most recent call last):
-  File "D:\python\Lib\asyncio\events.py", line 94, in _run
-    self._context.run(self._callback, *self._args)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\python\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Exception in callback _ProactorBasePipeTransport._call_connection_lost()
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
-Traceback (most recent call last):
-  File "D:\python\Lib\asyncio\events.py", line 94, in _run
-    self._context.run(self._callback, *self._args)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\python\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host

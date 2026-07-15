@@ -10,7 +10,7 @@
 | EDA: figures generated | PASS | 16 figures |
 | Model: final best.pt exists | PASS | models\final\best.pt (6.0 MB) |
 | Model: metadata with real metrics | PASS | conf=0.3, model=Tuned final |
-| Model: loads and infers on CPU | PASS | CPU inference 2528 ms, empty-path OK |
+| Model: loads and infers on CPU | PASS | CPU inference 2919 ms, empty-path OK |
 | Training: >=3 experiments logged | PASS | 8 runs: e1_baseline_v8n, e4d_probe_baseline, e4a_probe_adamw, e4b_probe_augment, e4c_probe_loss, e3_compare_11n, e5a_naive_restart, e5_final |
 | Evaluation: test metrics present | PASS | mAP50=0.492 R=0.426 on 533 images |
 | Evaluation: threshold chosen on validation | PASS | 5 thresholds swept |
@@ -30,4 +30,4 @@
 | Scrum: artefacts complete | PASS | 10/10 present |
 | Notebooks present | PASS | 7 notebooks |
 | No absolute personal paths in source | PASS | files with hard-coded user paths: none |
-| Submission ZIP: Group##_FlameGuard_AI_Final_Submission.zip | PASS | 539 entries, 171.1 MB, missing=none, forbidden=0 |
+| Submission ZIP: Group##_FlameGuard_AI_Final_Submission.zip | PASS | 540 entries, 171.1 MB, missing=none, forbidden=0 |
