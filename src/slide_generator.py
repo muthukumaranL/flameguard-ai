@@ -272,13 +272,21 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
     ])
 
     # 8 - experiments
-    s = add("Experiments", "Baseline, architecture comparison, capacity probe",
-            "Be honest about the compute wall: FP32 was forced on us because AMP produces "
-            "NaN losses on GTX 16xx GPUs, which doubled epoch time. YOLOv8s needs about "
-            "7.8GB at batch 8 - nearly twice our VRAM - so it spilled to system memory and "
-            "crawled. We ran it at batch 4 on a short budget and we label it as "
-            "compute-limited rather than pretending it converged.", "1:30")
     exp = art.experiments.set_index("experiment_id")
+    v8s_done = "e2_stronger_v8s" in exp.index
+    if v8s_done:
+        note = ("Be honest about the compute wall: FP32 was forced on us because AMP "
+                "produces NaN losses on GTX 16xx GPUs. We measured YOLOv8s's memory cost "
+                "before training it - batch 8 wants ~7.9GB, batch 4 ~6.1GB, both spilling "
+                "to system RAM - so we trained it at batch 2, the only size that fits, "
+                "with gradient accumulation to a nominal batch of 64. It completed, and "
+                "the bigger backbone still did not beat the baseline at our budget.")
+    else:
+        note = ("Be honest about the compute wall: FP32 was forced on us because AMP "
+                "produces NaN losses on GTX 16xx GPUs, which doubled epoch time. YOLOv8s "
+                "needs ~7.9GB at batch 8 - nearly twice our VRAM - so it spilled to system "
+                "memory; we report its measured cost rather than a half-trained number.")
+    s = add("Experiments", "Baseline, architecture comparison, capacity probe", note, "1:30")
     rows = []
     if "e1_baseline_v8n" in exp.index:
         e1 = exp.loc["e1_baseline_v8n"]
@@ -286,9 +294,13 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
     if "e3_compare_11n" in exp.index:
         e3 = exp.loc["e3_compare_11n"]
         rows.append(f"YOLO11n · same batch/imgsz · {int(e3.epochs_run)} epochs · mAP@0.5 = {e3.map50:.3f}")
-    if "e2_stronger_v8s" in exp.index:
+    if v8s_done:
         e2 = exp.loc["e2_stronger_v8s"]
-        rows.append(f"YOLOv8s (3.3x FLOPs) · {int(e2.epochs_run)} epochs · mAP@0.5 = {e2.map50:.3f}")
+        rows.append(f"YOLOv8s (3.3x FLOPs) · {int(e2.epochs_run)} epochs @ batch 2 · mAP@0.5 = {e2.map50:.3f}")
+        if art.vram_probe:
+            v = {r["batch"]: r for r in art.vram_probe["runs"] if r["model"].startswith("yolov8s")}
+            parts = ", ".join(f"b{b}={v[b]['peak_reserved_gb']}GB" for b in sorted(v))
+            rows.append(f"…batch 2 was forced by 4GB VRAM (measured: {parts}); bigger backbone ≠ better here")
     elif art.vram_probe:
         v = {r["batch"]: r for r in art.vram_probe["runs"] if r["model"].startswith("yolov8s")}
         parts = " · ".join(f"b{b}: {v[b]['peak_reserved_gb']}GB" for b in sorted(v))

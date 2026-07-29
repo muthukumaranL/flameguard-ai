@@ -29,3 +29,7 @@ disclaimer: 'FlameGuard AI is an educational computer-vision prototype. It is no
   detectors, fire alarms, emergency procedures, or human supervision.
 
   '
+# Condensed wording shown in the app's About tab. The full text above is retained
+# for the report and documentation.
+disclaimer_short: 'Educational prototype - not a certified fire-detection system.
+  Do not use it in place of smoke alarms or human supervision.'

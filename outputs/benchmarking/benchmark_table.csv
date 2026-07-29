@@ -1,4 +1,6 @@
 experiment,model,weights,model_size_mb,input_size,precision,recall,f1,map50,map50_95,fire_recall,smoke_recall,fire_ap50_95,smoke_ap50_95,latency_ms,fps,speed_score,selection_score
-e5_final,Tuned final,outputs\training\e5_final\weights\best.pt,5.96,640,0.5373,0.4536,0.4919,0.4787,0.2181,0.4937,0.4135,0.2437,0.1924,7.7131,129.649,1.0,0.4431
-e3_compare_11n,YOLO11n,outputs\training\e3_compare_11n\weights\best.pt,5.22,640,0.5247,0.4103,0.4605,0.4348,0.2002,0.4499,0.3708,0.2176,0.1828,7.9242,126.1964,0.6859,0.3682
-e1_baseline_v8n,YOLOv8n (baseline),outputs\training\e1_baseline_v8n\weights\best.pt,5.96,640,0.569,0.4458,0.4999,0.4909,0.2253,0.4821,0.4095,0.2485,0.202,8.385,119.2599,0.0,0.2927
+e6_final_11n,"YOLO11n tuned (80ep, cls=1.0)",outputs\training\e6_final_11n\weights\best.pt,5.22,640,0.668,0.4407,0.5311,0.5071,0.2417,0.4792,0.4022,0.2545,0.2289,8.6141,116.0885,1.0,0.4453
+e5_final,YOLOv8n tuned (continuation),outputs\training\e5_final\weights\best.pt,5.96,640,0.5373,0.4536,0.4919,0.4787,0.2181,0.4937,0.4135,0.2437,0.1924,9.7564,102.4968,0.8899,0.4266
+e1_baseline_v8n,"YOLOv8n (baseline, 40ep)",outputs\training\e1_baseline_v8n\weights\best.pt,5.96,640,0.569,0.4458,0.4999,0.4909,0.2253,0.4821,0.4095,0.2485,0.202,10.8303,92.3334,0.7865,0.4107
+e3_compare_11n,"YOLO11n (comparison, 12ep)",outputs\training\e3_compare_11n\weights\best.pt,5.22,640,0.5247,0.4103,0.4605,0.4348,0.2002,0.4499,0.3708,0.2176,0.1828,13.8708,72.0939,0.4935,0.3394
+e2_stronger_v8s,"YOLOv8s (batch2, 18ep)",outputs\training\e2_stronger_v8s\weights\best.pt,21.47,640,0.3566,0.3152,0.3347,0.2767,0.1187,0.3447,0.2858,0.1364,0.101,18.9927,52.6517,0.0,0.1918

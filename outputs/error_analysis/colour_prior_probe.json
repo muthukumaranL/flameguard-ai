@@ -2,40 +2,34 @@
   "confidence_threshold": 0.3,
   "probes": {
     "flat_orange": {
-      "detections": 1,
-      "fire": 1,
+      "detections": 0,
+      "fire": 0,
       "smoke": 0,
-      "max_confidence": 0.968,
-      "classes": [
-        "Fire"
-      ]
+      "max_confidence": 0.0,
+      "classes": []
     },
     "flat_red": {
       "detections": 1,
       "fire": 1,
       "smoke": 0,
-      "max_confidence": 0.973,
+      "max_confidence": 0.744,
       "classes": [
         "Fire"
       ]
     },
     "flat_grey": {
-      "detections": 1,
-      "fire": 1,
+      "detections": 0,
+      "fire": 0,
       "smoke": 0,
-      "max_confidence": 0.932,
-      "classes": [
-        "Fire"
-      ]
+      "max_confidence": 0.0,
+      "classes": []
     },
     "flat_blue": {
-      "detections": 1,
-      "fire": 1,
+      "detections": 0,
+      "fire": 0,
       "smoke": 0,
-      "max_confidence": 0.912,
-      "classes": [
-        "Fire"
-      ]
+      "max_confidence": 0.0,
+      "classes": []
     },
     "random_noise": {
       "detections": 0,

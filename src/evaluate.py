@@ -100,7 +100,8 @@ def evaluate_split(weights: Path, data_yaml: Path, split: str,
 
 
 def threshold_analysis(weights: Path, data_yaml: Path, out_dir: Path,
-                       thresholds: tuple[float, ...] = (0.20, 0.30, 0.40, 0.50, 0.60),
+                       thresholds: tuple[float, ...] = (0.10, 0.15, 0.20, 0.30,
+                                                        0.40, 0.50, 0.60),
                        split: str = "val") -> pd.DataFrame:
     """Measure P/R/F1 and FP/FN on the validation split at candidate thresholds."""
     from ultralytics import YOLO

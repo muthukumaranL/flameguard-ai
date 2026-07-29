@@ -1,11 +1,11 @@
 sample,source_file,group,ground_truth_objects,detections,confidences,assessment,interpretation
-sample_01,0114_jpg.rf.7d28b3cf35e22b7436518923eaefd163.jpg,fire-only (success),1,1,Fire 0.76,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
-sample_02,0124_jpg.rf.3c39dfe4c07ee58c12916e77e77833b8.jpg,fire-only (success),1,1,Fire 0.40,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
-sample_03,ck0kcnqqgk6li0848vp3bn5sx_jpeg_jpg.rf.1ee72ec1f7c71a721859797bacc49fe5.jpg,smoke-only (success),1,1,Smoke 0.64,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
-sample_04,ck0kdgpnj8gvt0701oaod540q_jpeg_jpg.rf.6616bd1a246cad1ae8208cb31d269521.jpg,smoke-only (success),1,1,Smoke 0.74,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
-sample_05,1026_jpg.rf.8edbee8d3d0404e86fc62b94d41c1cc9.jpg,fire + smoke (success),2,2,Smoke 0.43; Fire 0.32,Correct,All 2 annotated object(s) detected with correct class and well-placed boxes.
-sample_06,1230_jpg.rf.40c9c200a7b8fef604b49ccb3f1b90dc.jpg,fire + smoke (success),2,2,Fire 0.71; Smoke 0.45,Correct,All 2 annotated object(s) detected with correct class and well-placed boxes.
+sample_01,0114_jpg.rf.7d28b3cf35e22b7436518923eaefd163.jpg,fire-only (success),1,1,Fire 0.45,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
+sample_02,0124_jpg.rf.3c39dfe4c07ee58c12916e77e77833b8.jpg,fire-only (success),1,1,Fire 0.33,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
+sample_03,ck0kcnqqgk6li0848vp3bn5sx_jpeg_jpg.rf.1ee72ec1f7c71a721859797bacc49fe5.jpg,smoke-only (success),1,1,Smoke 0.36,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
+sample_04,ck0kdgpnj8gvt0701oaod540q_jpeg_jpg.rf.6616bd1a246cad1ae8208cb31d269521.jpg,smoke-only (success),1,1,Smoke 0.77,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
+sample_05,1049_jpg.rf.eb005e453a7ef39480e7af9e9564abde.jpg,fire + smoke (success),2,2,Smoke 0.84; Fire 0.63,Correct,All 2 annotated object(s) detected with correct class and well-placed boxes.
+sample_06,14_jpg.rf.d5da2ccd7ec6ab036416aa1daaf85d76.jpg,fire + smoke (success),2,2,Fire 0.55; Smoke 0.41,Correct,All 2 annotated object(s) detected with correct class and well-placed boxes.
 sample_07,0094_jpg.rf.604f1ce16f7cf6faa63c24925f5eb090.jpg,difficult (missed detection),2,0,none,Incorrect,"Missed 2 of 2 annotated object(s). Characteristic of thin/transparent smoke, small distant flames, or low-light scenes."
-sample_08,0184_jpg.rf.dc5b7914ec6572bba8226ab75394c3e0.jpg,difficult (localisation / false positive),2,3,Fire 0.60; Fire 0.54; Fire 0.51,Partially correct,"Mixed outcome: 2 correct, 1 false positive(s), 0 missed."
+sample_08,0184_jpg.rf.dc5b7914ec6572bba8226ab75394c3e0.jpg,difficult (localisation / false positive),2,3,Fire 0.66; Fire 0.48; Fire 0.36,Partially correct,"Mixed outcome: 2 correct, 1 false positive(s), 0 missed."
 sample_09,Img_100_jpg.rf.6a8394ec78eca4592a880fdf632f206f.jpg,negative (correctly empty),0,0,none,Correct,Background image with no fire or smoke; the model correctly reported no detections.
-sample_10,0137_jpg.rf.bd99ec327b337a137cbd37ee1e89b168.jpg,additional success,1,1,Fire 0.32,Correct,All 1 annotated object(s) detected with correct class and well-placed boxes.
+sample_10,Img_93_jpg.rf.35a3af70ed7ec8b53b7d7b6cf2d4c214.jpg,negative (false alarm),0,1,Fire 0.37,Incorrect,"False alarm: 1 detection(s) on a background image - typically cloud, haze, sunset glow or warm artificial light mimicking smoke or flame."

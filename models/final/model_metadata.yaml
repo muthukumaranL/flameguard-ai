@@ -1,6 +1,6 @@
-model_name: Tuned final
-experiment_id: e5_final
-selected_at_utc: '2026-07-14T19:54:53.126579+00:00'
+model_name: YOLO11n tuned (80ep, cls=1.0)
+experiment_id: e6_final_11n
+selected_at_utc: '2026-07-21T00:44:24.866914+00:00'
 dataset: fire and smoke v1 (Roboflow, CC BY 4.0) - leakage-repaired resplit
 dataset_yaml: data/processed/fire_smoke_resplit/data.yaml
 class_names:
@@ -8,48 +8,48 @@ class_names:
 - Smoke
 selection_rule: 0.35*mAP50-95 + 0.25*recall + 0.25*smoke_recall + 0.15*speed
 validation_metrics:
-  precision: 0.5372976530092943
-  recall: 0.45357701607168255
-  f1: 0.49190048711267986
-  map50: 0.4787178497957288
-  map50_95: 0.2180658724924621
-  fire_recall: 0.4936708860759494
-  smoke_recall: 0.4134831460674157
-  latency_ms: 7.713136037856666
-model_size_mb: 5.96
+  precision: 0.6680132137962332
+  recall: 0.44071204059665214
+  f1: 0.5310629760280398
+  map50: 0.5070580541483738
+  map50_95: 0.24167346374791537
+  fire_recall: 0.4791768901820683
+  smoke_recall: 0.40224719101123596
+  latency_ms: 8.614118490580916
+model_size_mb: 5.22
 confidence_threshold: 0.3
 iou_threshold: 0.5
 test_metrics:
-  precision: 0.6504787940191287
-  recall: 0.4261382458691876
-  f1: 0.5149349898589214
-  map50: 0.4917479245005696
-  map50_95: 0.2418743907839911
+  precision: 0.5905498513113269
+  recall: 0.4757324449664095
+  f1: 0.5269593720530257
+  map50: 0.5052422713074339
+  map50_95: 0.2455073882131134
   per_class:
     Fire:
-      precision: 0.6686551014219271
-      recall: 0.45765765765765765
-      f1: 0.5433928099113007
-      ap50: 0.5163282617380114
-      ap50_95: 0.25290591351870156
+      precision: 0.5993130807975285
+      recall: 0.48509717692833465
+      f1: 0.5361902131040128
+      ap50: 0.5126382183980756
+      ap50_95: 0.2469499722254211
     Smoke:
-      precision: 0.6323024866163303
-      recall: 0.39461883408071746
-      f1: 0.48595440570950066
-      ap50: 0.4671675872631278
-      ap50_95: 0.2308428680492806
+      precision: 0.5817866218251252
+      recall: 0.4663677130044843
+      f1: 0.5177224140780678
+      ap50: 0.49784632421679237
+      ap50_95: 0.24406480420080573
 measured_speed:
   gpu:
     device: cuda:0
-    mean_ms: 29.10644666662847
-    median_ms: 28.816900000038004
-    p95_ms: 39.27087999993545
-    fps: 34.356649970143344
+    mean_ms: 18.17006333246051
+    median_ms: 17.6936999996542
+    p95_ms: 21.660340000380522
+    fps: 55.035581423291845
     runs: 30
   cpu:
     device: cpu
-    mean_ms: 245.68299999997785
-    median_ms: 160.64449999976205
-    p95_ms: 685.8193600002322
-    fps: 4.070285693353183
+    mean_ms: 65.9123400003106
+    median_ms: 65.47519999730866
+    p95_ms: 70.7347099960316
+    fps: 15.171665882220045
     runs: 15

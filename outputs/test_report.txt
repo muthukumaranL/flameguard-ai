@@ -20,7 +20,7 @@ tests/test_app_import.py::test_src_module_imports[src.video_inference] PASSED [ 
 tests/test_app_import.py::test_src_module_imports[src.visualizations] PASSED [ 21%]
 tests/test_app_import.py::test_app_compiles PASSED                       [ 22%]
 tests/test_app_import.py::test_webcam_script_compiles PASSED             [ 24%]
-tests/test_app_import.py::test_metrics_json_loadable_when_present SKIPPED [ 25%]
+tests/test_app_import.py::test_metrics_json_loadable_when_present PASSED [ 25%]
 tests/test_config.py::test_project_root_is_this_repo PASSED              [ 27%]
 tests/test_config.py::test_ensure_output_dirs PASSED                     [ 28%]
 tests/test_config.py::test_class_names_mapping PASSED                    [ 30%]
@@ -71,4 +71,4 @@ tests/test_webcam_components.py::test_smoother_both_classes PASSED       [ 96%]
 tests/test_webcam_components.py::test_smoother_recovers_after_window PASSED [ 98%]
 tests/test_webcam_components.py::test_open_camera_returns_capture_object PASSED [100%]
 
-======================== 65 passed, 1 skipped in 9.84s ========================
+============================= 66 passed in 8.46s ==============================

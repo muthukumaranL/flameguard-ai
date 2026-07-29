@@ -18,6 +18,14 @@ data/processed/
 outputs/training/*/weights/last.pt
 outputs/training/_resolved_data.yaml
 
+# Packaged submission (216MB ZIP + unpacked copy) - regenerate with scripts/package_submission.py
+# Exceeds GitHub's 100MB per-file limit; rebuilt on demand.
+submission/
+
+# Stray loose images accidentally saved to the repo root
+/images.jpg
+/images (1).jpg
+
 # OS noise
 Thumbs.db
 .DS_Store

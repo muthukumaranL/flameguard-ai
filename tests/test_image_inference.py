@@ -30,25 +30,39 @@ def test_no_detection_path(engine, blank_image):
 
 
 def test_known_limitation_flat_colour_false_positive(engine):
-    """Characterisation test for a REAL failure mode, not a bug in the code.
+    """Characterisation test for a REAL, measured failure mode.
 
-    The model keys strongly on colour statistics: a uniform orange rectangle -
-    which contains no fire, no texture and no structure - is reported as Fire
-    with high confidence. This is documented in the report's error analysis and
-    is the reason hard-negative mining is the top item in future work.
+    The detector retains some reliance on colour statistics: at least one flat
+    colour field - no fire, no texture, no structure - is still reported as an
+    object. The deployed YOLO11n is markedly more robust here than the earlier
+    YOLOv8n (it no longer fires on flat orange), but a uniform red field still
+    triggers a false positive. Structured-but-meaningless input (random noise)
+    is correctly ignored.
 
-    The test exists so that a future model change which FIXES this behaviour
-    fails loudly and forces the documentation to be updated.
+    The exact colours that trigger are model-dependent, so rather than hard-code
+    one, we sweep a small palette and assert the *property*: some flat colour
+    false-positives (the documented limitation persists in reduced form) while
+    random noise does not. The report's colour-prior narrative is generated from
+    the same measurement (outputs/error_analysis/colour_prior_probe.json).
     """
-    orange = np.full((320, 320, 3), (30, 120, 240), dtype=np.uint8)   # BGR
-    result = detect_image(engine, orange, conf=0.5, iou=0.5)
-    assert result.counts["fire"] >= 1, (
-        "Model no longer false-positives on flat orange - excellent. Update the "
-        "error-analysis section of the report and this test."
+    palette = {
+        "red":    (40, 40, 200),
+        "orange": (30, 120, 240),
+        "grey":   (128, 128, 128),
+        "blue":   (200, 120, 40),
+    }
+    flat_hits = 0
+    for bgr in palette.values():
+        field = np.full((320, 320, 3), bgr, dtype=np.uint8)
+        if detect_image(engine, field, conf=0.3, iou=0.5).counts["total"] >= 1:
+            flat_hits += 1
+    assert flat_hits >= 1, (
+        "Model no longer false-positives on ANY flat colour field - excellent. "
+        "Update the error-analysis section of the report and this test."
     )
 
     noise = np.random.default_rng(0).integers(0, 255, (320, 320, 3), dtype=np.uint8)
-    assert detect_image(engine, noise, conf=0.5, iou=0.5).counts["total"] == 0
+    assert detect_image(engine, noise, conf=0.3, iou=0.5).counts["total"] == 0
 
 
 def test_corrupt_bytes_raise_invalid_image():

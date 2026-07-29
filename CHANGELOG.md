@@ -32,12 +32,17 @@ All notable decisions and changes to FlameGuard AI, in the order they happened.
   batch 16 = ~4.4 min/epoch.
 - **E1 YOLOv8n baseline**: 40 epochs, 2h56m. Best epoch 39 — the run had not fully
   plateaued, which is disclosed rather than presented as convergence.
-- **YOLOv8s at batch 8 does not fit**: it requested ~7.8 GB against 4 GB of VRAM, spilled
-  into shared system memory, and collapsed to ~20 min/epoch (2.2 s/iter). Killed and
-  re-planned at batch 4 with a short, explicitly compute-limited budget.
-- Experiment protocol re-scoped to the measured hardware cost, and the fair comparison
-  method changed accordingly: because validation metrics are logged every epoch, models
-  trained for different numbers of epochs are compared at **equal epochs**.
+- **YOLOv8s memory cost measured, then completed at batch 2.** A direct VRAM probe
+  (`scripts/vram_probe.py`, `outputs/training/vram_probe.json`) showed batch 8 needs
+  7.94 GB and batch 4 needs 6.08 GB against 4 GB of VRAM — both spill into shared system
+  memory over PCIe and collapse to ~2.6 img/s. Only batch 2 fits (~1.0 GB). YOLOv8s was
+  therefore trained to completion at batch 2 (18 epochs); Ultralytics gradient-accumulates
+  to a nominal batch of 64, so only the BatchNorm statistics see the small micro-batch.
+- Experiment protocol scoped to the measured hardware cost, and the fair-comparison method
+  set accordingly: because validation metrics are logged every epoch, models trained for
+  different numbers of epochs are also compared at **equal epochs**. Finding: at batch 2
+  the larger backbone converges markedly slower and does not beat the baseline at this
+  budget — the constraint is memory/throughput, not model capacity.
 
 ## Sprint 3 — Tuning and application
 

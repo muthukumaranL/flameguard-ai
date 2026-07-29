@@ -32,10 +32,13 @@ from src.utils import file_size_mb, setup_logging
 log = setup_logging("flameguard.benchmark")
 
 CANDIDATES = {
-    "e1_baseline_v8n": "YOLOv8n (baseline)",
-    "e2_stronger_v8s": "YOLOv8s",
-    "e3_compare_11n": "YOLO11n",
-    "e5_final": "Tuned final",
+    "e1_baseline_v8n": "YOLOv8n (baseline, 40ep)",
+    "e2_stronger_v8s": "YOLOv8s (batch2, 18ep)",
+    "e3_compare_11n": "YOLO11n (comparison, 12ep)",
+    "e5_final": "YOLOv8n tuned (continuation)",
+    "e6_final_11n": "YOLO11n tuned (80ep, cls=1.0)",
+    # e7_final_11n_recall was planned but not completed (training stopped to meet
+    # the deadline); it is intentionally excluded so no partial model is benchmarked.
 }
 DATA_YAML = paths.PROCESSED_DATA_YAML
 
@@ -99,6 +102,17 @@ def main() -> int:
     winner = df.iloc[0]
     log.info("Selected final model: %s (score=%.4f)", winner.experiment,
              winner.selection_score)
+
+    # Preserve the finalised threshold / test metrics when the winner has NOT
+    # changed: benchmarking re-selecting the same model must not wipe the values
+    # that scripts/evaluate_final.py wrote (and must not force a needless
+    # re-evaluation of the held-out test set, which is evaluated exactly once).
+    prior = {}
+    if paths.FINAL_MODEL_METADATA_PATH.exists():
+        prior = yaml.safe_load(
+            paths.FINAL_MODEL_METADATA_PATH.read_text(encoding="utf-8")) or {}
+    winner_unchanged = prior.get("experiment_id") == winner.experiment
+
     src_weights = paths.PROJECT_ROOT / winner.weights
     paths.FINAL_MODEL_DIR.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src_weights, paths.FINAL_MODEL_PATH)
@@ -122,10 +136,20 @@ def main() -> int:
             "latency_ms": float(winner.latency_ms),
         },
         "model_size_mb": float(winner.model_size_mb),
-        # thresholds are finalised by scripts/evaluate_final.py
-        "confidence_threshold": None,
+        # thresholds/test metrics are finalised by scripts/evaluate_final.py; carry
+        # them forward when the winner is unchanged, reset to None when it changed
+        # (a new final model must be re-evaluated on the test set).
+        "confidence_threshold": prior.get("confidence_threshold") if winner_unchanged else None,
         "iou_threshold": 0.50,
     }
+    if winner_unchanged and "test_metrics" in prior:
+        metadata["test_metrics"] = prior["test_metrics"]
+    if winner_unchanged and "measured_speed" in prior:
+        metadata["measured_speed"] = prior["measured_speed"]
+    log.info("Winner %s vs prior %s -> %s",
+             winner.experiment, prior.get("experiment_id"),
+             "preserved threshold/test metrics" if winner_unchanged
+             else "reset for re-evaluation")
     with paths.FINAL_MODEL_METADATA_PATH.open("w", encoding="utf-8") as fh:
         yaml.safe_dump(metadata, fh, sort_keys=False)
     with (paths.BENCHMARK_OUTPUT_DIR / "selection_report.json").open("w", encoding="utf-8") as fh:

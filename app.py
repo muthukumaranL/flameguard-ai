@@ -109,8 +109,6 @@ with st.sidebar:
                               index=int(defaults["video_frame_skip"]) - 1,
                               help="Skipping frames speeds up video processing "
                                    "but reduces temporal coverage.")
-    st.divider()
-    st.caption(CFG["disclaimer"])
 
 tab_live, tab_image, tab_video, tab_perf, tab_about = st.tabs(
     ["Live Camera", "Image Detection", "Video Detection", "Model Performance", "About"])
@@ -453,4 +451,4 @@ camera frame leaves the computer, and no identity recognition is performed.
 
 **Course.** AASD 4014 - Deep Learning II, Final Project.
 """)
-    st.warning(CFG["disclaimer"])
+    st.warning(CFG.get("disclaimer_short", CFG["disclaimer"]))

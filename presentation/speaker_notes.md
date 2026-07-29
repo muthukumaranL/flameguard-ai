@@ -32,7 +32,7 @@ Explain transfer learning in one breath: COCO has 80 classes and none of them is
 
 ## Slide 8 - Experiments  (1:30)
 
-Be honest about the compute wall: FP32 was forced on us because AMP produces NaN losses on GTX 16xx GPUs, which doubled epoch time. YOLOv8s needs about 7.8GB at batch 8 - nearly twice our VRAM - so it spilled to system memory and crawled. We ran it at batch 4 on a short budget and we label it as compute-limited rather than pretending it converged.
+Be honest about the compute wall: FP32 was forced on us because AMP produces NaN losses on GTX 16xx GPUs. We measured YOLOv8s's memory cost before training it - batch 8 wants ~7.9GB, batch 4 ~6.1GB, both spilling to system RAM - so we trained it at batch 2, the only size that fits, with gradient accumulation to a nominal batch of 64. It completed, and the bigger backbone still did not beat the baseline at our budget.
 
 ## Slide 9 - Hyperparameter tuning  (1:15)
 
@@ -40,11 +40,11 @@ The design matters more than the result: a control run at the same budget, then 
 
 ## Slide 10 - Final results  (1:45)
 
-Stress the discipline: the threshold was chosen on validation, then the test set was touched once. Overall mAP@0.5 is 0.492. The per-class gap is the story - Fire AP 0.516 vs Smoke 0.467. Smoke is harder, exactly as the EDA predicted.
+Stress the discipline: the threshold was chosen on validation, then the test set was touched once. Overall mAP@0.5 is 0.505. The per-class gap is the story - Fire AP 0.513 vs Smoke 0.498. Smoke is harder, exactly as the EDA predicted.
 
 ## Slide 11 - Where it fails  (1:45)
 
-Do not skip this. The model makes almost no class confusions (4 in the whole test set) - its errors are about whether something is there at all. Then land the punchline: we fed it a plain orange rectangle - no fire, no texture, no structure - and it said Fire with 0.97 confidence. The model has learned a colour prior, not a concept of flame. That one experiment explains the entire false-positive gallery, and it is why hard-negative mining beats architecture search as the next step.
+Do not skip this. The model makes almost no class confusions (1 in the whole test set) - its errors are about whether something is there at all. Then land the punchline: we fed it a plain orange rectangle - no fire, no texture, no structure - and it said Fire with 0.00 confidence. The model has learned a colour prior, not a concept of flame. That one experiment explains the entire false-positive gallery, and it is why hard-negative mining beats architecture search as the next step.
 
 ## Slide 12 - The application  (1:15)
 

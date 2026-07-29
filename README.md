@@ -209,7 +209,7 @@ recorded in the report's appendix.
 |---|---|
 | `Model not found at models/final/best.pt` | Training has not been run. Run the pipeline in §5, or drop a trained `.pt` there. |
 | Training is very slow | Expected on GTX 16xx: AMP is auto-disabled (NaN-loss bug), so FP32 is used. |
-| CUDA out of memory | Lower `batch` in `config/training_config.yaml`. YOLOv8s needs ~7.8 GB at batch 8 — on a 4 GB card use batch 4. |
+| CUDA out of memory | Lower `batch` in `config/training_config.yaml`. Measured on a 4 GB card, YOLOv8s needs 7.94 GB @batch 8 and 6.08 GB @batch 4 (both spill to shared RAM) — only **batch 2** fits (~1.0 GB). See `scripts/vram_probe.py`. |
 | `Dataset '...' images not found` | Run `scripts/validate_dataset.py` first; it writes the resolved `data.yaml`. |
 | Browser camera never starts | Not on localhost/HTTPS, permission denied, camera in use, or WebRTC blocked. Use `python src/webcam_inference.py`. |
 | Processed video will not play in the browser | The H.264 conversion failed. Check that `imageio-ffmpeg` is installed; the file still downloads and plays in VLC. |

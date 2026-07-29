@@ -1,17 +1,25 @@
 {
-  "winner": "e5_final",
+  "winner": "e6_final_11n",
   "ranking": [
     {
-      "experiment": "e5_final",
-      "selection_score": 0.44308809590713627
+      "experiment": "e6_final_11n",
+      "selection_score": 0.4453255202137424
     },
     {
-      "experiment": "e3_compare_11n",
-      "selection_score": 0.36823307693008506
+      "experiment": "e5_final",
+      "selection_score": 0.4265789064132303
     },
     {
       "experiment": "e1_baseline_v8n",
-      "selection_score": 0.2926846238983562
+      "selection_score": 0.4106542459595134
+    },
+    {
+      "experiment": "e3_compare_11n",
+      "selection_score": 0.33936902301474126
+    },
+    {
+      "experiment": "e2_stronger_v8s",
+      "selection_score": 0.19177942539902804
     }
   ],
   "criteria": "0.35*mAP50-95 + 0.25*recall + 0.25*smoke_recall + 0.15*speed"

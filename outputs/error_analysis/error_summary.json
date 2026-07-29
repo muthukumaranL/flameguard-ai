@@ -2,25 +2,25 @@
   "operating_confidence": 0.3,
   "images": 533,
   "category_counts": {
-    "true_negative": 207,
-    "true_positive": 136,
-    "localization": 89,
-    "false_negative": 50,
-    "false_positive": 31,
-    "mixed_error": 20
+    "true_negative": 205,
+    "true_positive": 146,
+    "localization": 86,
+    "false_negative": 57,
+    "mixed_error": 20,
+    "false_positive": 19
   },
   "total": {
-    "tp": 371,
-    "fp": 118,
-    "fn": 306,
-    "loc": 101
+    "tp": 351,
+    "fp": 79,
+    "fn": 332,
+    "loc": 95
   },
   "missed_by_class": {
-    "Smoke": 91,
-    "Fire": 215
+    "Smoke": 96,
+    "Fire": 236
   },
   "false_positives_by_class": {
-    "Fire": 87,
-    "Smoke": 31
+    "Fire": 52,
+    "Smoke": 27
   }
 }

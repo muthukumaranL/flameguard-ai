@@ -25,13 +25,13 @@
     }
   },
   "speed_ms_per_image": {
-    "preprocess": 1.0640501887603435,
-    "inference": 5.532451415047893,
-    "loss": 0.0018439623296594705,
-    "postprocess": 1.1147904717187695
+    "preprocess": 1.550434528333014,
+    "inference": 5.63477999998865,
+    "loss": 0.0010675471921271276,
+    "postprocess": 2.5701185849065267
   },
-  "total_ms_per_image": 7.713136037856666,
-  "fps_estimate": 129.6489514889823,
+  "total_ms_per_image": 9.756400660420319,
+  "fps_estimate": 102.49681566038912,
   "model_size_mb": 5.96,
   "confusion_counts": {
     "true_positives": 768,
