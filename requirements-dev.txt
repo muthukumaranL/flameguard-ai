@@ -1,0 +1,35 @@
+# FlameGuard AI - full development environment.
+#
+# Everything the app needs at runtime, plus the tooling that builds the dataset
+# audit, EDA, benchmarks, report, slides and tests. scripts/setup_environment.sh
+# (.bat) installs this file after it has installed torch with the right CUDA or
+# CPU wheel for the machine.
+#
+# The deployed app installs requirements.txt only - keep app runtime deps there.
+-r requirements.txt
+
+# Analysis / plotting
+matplotlib>=3.9
+plotly>=5.24
+scikit-learn>=1.5
+imagehash>=4.3
+
+# Portable export (optional - scripts/export_model.py; never blocks the project)
+onnx>=1.17
+onnxruntime>=1.19
+
+# Documents
+python-docx>=1.1
+python-pptx>=1.0
+reportlab>=4.2
+pypdf>=5.0            # used by scripts/verify_project.py to validate the built PDF
+
+# Notebooks
+nbformat>=5.10
+nbclient>=0.10
+ipykernel>=6.29
+
+# Testing
+pytest>=8.3
+playwright>=1.47      # drives the app for screenshots + the manual test matrix
+                      # after installing: python -m playwright install chromium

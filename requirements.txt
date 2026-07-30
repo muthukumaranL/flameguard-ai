@@ -1,44 +1,29 @@
-# FlameGuard AI - project dependencies
-# NOTE: torch/torchvision are intentionally NOT listed here.
-# Install them first via scripts/setup_environment.sh (or .bat), which picks a
-# CUDA wheel index when a GPU is present and falls back to CPU wheels otherwise.
+# FlameGuard AI - runtime dependencies for the deployed Streamlit app.
+#
+# Streamlit Community Cloud installs from this file, so it stays lean: only what
+# app.py imports at runtime. Analysis, export, document and test tooling lives in
+# requirements-dev.txt, which scripts/setup_environment.sh (.bat) installs.
+#
+# torch/torchvision are pinned to the CPU builds on Linux. The default PyPI wheels
+# are CUDA builds that pull in several GB of nvidia-* packages and exhaust the
+# Cloud's install budget. The sys_platform marker means local Windows setups keep
+# whatever CUDA wheel setup_environment installed - these lines are skipped there.
 
-# Core CV / training
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.11.0+cpu ; sys_platform == "linux"
+torchvision==0.26.0+cpu ; sys_platform == "linux"
+
+# Core inference
 ultralytics>=8.3,<9
-opencv-python>=4.10
+opencv-python>=4.10   # imports cv2, which needs libgl1 - see packages.txt
 numpy>=2.0
 pillow>=10.0
 PyYAML>=6.0
 pandas>=2.2
-imagehash>=4.3
-
-# Analysis / plotting
-matplotlib>=3.9
-plotly>=5.24
-scikit-learn>=1.5
-
-# Portable export (optional - scripts/export_model.py; never blocks the project)
-onnx>=1.17
-onnxruntime>=1.19
 
 # Application
 streamlit>=1.40
 streamlit-webrtc>=0.62
 av>=13.0
 imageio-ffmpeg>=0.5
-
-# Documents
-python-docx>=1.1
-python-pptx>=1.0
-reportlab>=4.2
-pypdf>=5.0            # used by scripts/verify_project.py to validate the built PDF
-
-# Notebooks
-nbformat>=5.10
-nbclient>=0.10
-ipykernel>=6.29
-
-# Testing
-pytest>=8.3
-playwright>=1.47      # drives the app for screenshots + the manual test matrix
-                      # after installing: python -m playwright install chromium

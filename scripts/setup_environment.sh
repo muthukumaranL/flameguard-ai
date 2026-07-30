@@ -56,7 +56,9 @@ if torch.cuda.is_available():
 PYEOF
 
 echo "-- Installing project dependencies"
-"$VPY" -m pip install -r requirements.txt
+# requirements-dev.txt pulls in requirements.txt (the app runtime) plus the
+# analysis, document and test tooling. The deployed app installs only the latter.
+"$VPY" -m pip install -r requirements-dev.txt
 
 echo "-- Done. Activate with:"
 echo "   source .venv/Scripts/activate   (Git Bash on Windows)"

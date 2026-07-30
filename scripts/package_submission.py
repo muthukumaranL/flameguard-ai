@@ -34,7 +34,8 @@ INCLUDE_DIRS = [
     "outputs", "report", "presentation", "agile",
 ]
 INCLUDE_FILES = [
-    "app.py", "README.md", "requirements.txt", "environment.yml",
+    "app.py", "README.md", "requirements.txt", "requirements-dev.txt",
+    "packages.txt", "environment.yml",
     "LICENSE_NOTES.md", "CHANGELOG.md", ".gitignore",
 ]
 MODEL_FILES = ["models/final/best.pt", "models/final/model_metadata.yaml"]

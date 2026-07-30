@@ -36,7 +36,9 @@ echo -- Verifying torch
 "%VPY%" -c "import torch; print('torch', torch.__version__, '| cuda:', torch.cuda.is_available())" || goto :error
 
 echo -- Installing project dependencies
-"%VPY%" -m pip install -r requirements.txt || goto :error
+rem requirements-dev.txt pulls in requirements.txt (the app runtime) plus the
+rem analysis, document and test tooling. The deployed app installs only the latter.
+"%VPY%" -m pip install -r requirements-dev.txt || goto :error
 
 echo -- Done. Activate with: .venv\Scripts\activate
 exit /b 0
