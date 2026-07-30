@@ -13,12 +13,19 @@
 
 # Core inference
 ultralytics>=8.3,<9
-# ultralytics hard-requires opencv-python, whose cv2 links libGL and libgthread -
-# system libraries a bare container lacks. On Linux we also install the headless
-# build; it is listed last, so it lands after opencv-python and provides the cv2
-# module without any GL/X11 linkage. packages.txt still installs libgl1 as a
-# fallback. The marker keeps Windows on the full build, because the OpenCV desktop
-# fallback (src/webcam_inference.py) needs cv2.imshow, which headless omits.
+# ultralytics hard-requires opencv-python, whose cv2 links two libraries a bare
+# container does not ship: libGL.so.1 and libgthread-2.0.so.0. packages.txt installs
+# them as libgl1 and libglib2.0-0t64 - Streamlit Cloud runs Debian trixie, where the
+# glib package carries the t64 suffix from the 64-bit time_t transition (the older
+# name libglib2.0-0 does not resolve, and one unknown name fails the whole apt step).
+# Keep packages.txt free of comments: the apt step can be fed through xargs, which
+# would pass '#' and the comment words along as package names.
+#
+# On Linux we additionally install the headless build, listed last so it lands after
+# opencv-python and provides a cv2 with no GL/X11 linkage at all - belt and braces if
+# a further system library turns up missing. The marker keeps Windows on the full
+# build, because the OpenCV desktop fallback (src/webcam_inference.py:119) calls
+# cv2.imshow, which the headless build omits.
 opencv-python>=4.10
 opencv-python-headless>=4.10 ; sys_platform == "linux"
 numpy>=2.0
