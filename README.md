@@ -1,7 +1,7 @@
 # FlameGuard AI
 
 **Real-Time Fire and Smoke Detection Using Transfer Learning**
-AASD 4014 — Deep Learning II · Final Project · Group `[GROUP NUMBER]`
+AASD 4014 — Deep Learning II · Final Project · Group `4`
 
 FlameGuard AI detects **Fire** and **Smoke** in uploaded images, uploaded videos and a
 live camera stream. The detector is a YOLO model **fine-tuned on a custom fire/smoke
