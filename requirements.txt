@@ -4,15 +4,12 @@
 # app.py imports at runtime. Analysis, export, document and test tooling lives in
 # requirements-dev.txt, which scripts/setup_environment.sh (.bat) installs.
 #
-# torch/torchvision are pinned to the CPU builds on Linux. The default PyPI wheels
-# are CUDA builds that pull in several GB of nvidia-* packages and exhaust the
-# Cloud's install budget. The sys_platform marker means local Windows setups keep
-# whatever CUDA wheel setup_environment installed - these lines are skipped there.
-
---extra-index-url https://download.pytorch.org/whl/cpu
-
-torch==2.11.0+cpu ; sys_platform == "linux"
-torchvision==0.26.0+cpu ; sys_platform == "linux"
+# torch/torchvision are intentionally NOT pinned here. ultralytics pulls them in,
+# and the Cloud installed them without trouble. Pinning the +cpu wheels needs an
+# --extra-index-url, which resolvers treat inconsistently (uv's default
+# first-index strategy never reaches the extra index for a +cpu local version),
+# so an explicit pin is more fragile here, not less. Locally,
+# scripts/setup_environment.* installs the CUDA wheel before this file is read.
 
 # Core inference
 ultralytics>=8.3,<9
