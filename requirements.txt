@@ -13,7 +13,14 @@
 
 # Core inference
 ultralytics>=8.3,<9
-opencv-python>=4.10   # imports cv2, which needs libgl1 - see packages.txt
+# ultralytics hard-requires opencv-python, whose cv2 links libGL and libgthread -
+# system libraries a bare container lacks. On Linux we also install the headless
+# build; it is listed last, so it lands after opencv-python and provides the cv2
+# module without any GL/X11 linkage. packages.txt still installs libgl1 as a
+# fallback. The marker keeps Windows on the full build, because the OpenCV desktop
+# fallback (src/webcam_inference.py) needs cv2.imshow, which headless omits.
+opencv-python>=4.10
+opencv-python-headless>=4.10 ; sys_platform == "linux"
 numpy>=2.0
 pillow>=10.0
 PyYAML>=6.0
