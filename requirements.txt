@@ -42,3 +42,4 @@ ipykernel>=6.29
 pytest>=8.3
 playwright>=1.47      # drives the app for screenshots + the manual test matrix
                       # after installing: python -m playwright install chromium
+opencv-python-headless
