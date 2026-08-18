@@ -446,9 +446,6 @@ camera quality and scene conditions.
 **Privacy.** All processing runs locally on this machine. No image, video or
 camera frame leaves the computer, and no identity recognition is performed.
 
-**Team.** Group `[GROUP NUMBER]` - `[Project Manager]`, `[Dataset & EDA Lead]`,
-`[Model Training Lead]`, `[Application Lead]`, `[Evaluation & Documentation Lead]`.
-
 **Course.** AASD 4014 - Deep Learning II, Final Project.
 """)
     st.warning(CFG.get("disclaimer_short", CFG["disclaimer"]))
