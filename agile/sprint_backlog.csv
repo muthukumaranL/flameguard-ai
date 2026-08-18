@@ -1,31 +1,31 @@
 sprint,sprint_name,goal,item_id,task,owner,story_points,status
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-01,Analyse project requirements and rubric,[Project Manager],2,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-02,Define team roles and communication plan,[Project Manager],1,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-03,Acquire Roboflow fire/smoke dataset (v1) and verify licence,[Dataset & EDA Lead],2,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-04,"Validate dataset integrity (images, labels, classes, duplicates)",[Dataset & EDA Lead],3,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-05,Detect and repair train/valid/test leakage (grouped re-split),[Dataset & EDA Lead],5,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-06,Exploratory data analysis package (charts + review tables),[Dataset & EDA Lead],5,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-07,Annotation-quality review and outlier report,[Dataset & EDA Lead],2,Done
-1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-08,Create initial product backlog and risk register,[Project Manager],2,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-09,Set up Python environment (CUDA PyTorch + Ultralytics),[Model Training Lead],2,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-10,"Train YOLOv8n baseline (transfer learning, 40 epochs)",[Model Training Lead],3,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-11,Train YOLOv8s comparison model,[Model Training Lead],3,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-12,Optional YOLO11n architecture comparison,[Model Training Lead],2,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-13,Analyse training curves and validation metrics,[Evaluation & Documentation Lead],2,Done
-2,Baseline & model comparison,Create the baseline and compare architectures,FG-14,Create experiment log and benchmark table,[Evaluation & Documentation Lead],2,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-15,Hyperparameter tuning probes (optimizer / augmentation / loss),[Model Training Lead],5,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-16,Train tuned final model and select by recall-weighted criteria,[Model Training Lead],3,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-17,Streamlit app skeleton with sidebar controls and tabs,[Application Development Lead],3,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-18,Image upload detection with downloads (PNG/CSV/JSON),[Application Development Lead],3,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-19,Video upload processing with progress and frame CSV,[Application Development Lead],5,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-20,Browser live webcam detection (streamlit-webrtc),[Application Development Lead],5,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-21,OpenCV desktop webcam fallback,[Application Development Lead],2,Done
-3,Tuning & application,Select the final model and build the detection interface,FG-22,Automated pytest suite for pipeline and app components,[Evaluation & Documentation Lead],3,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-23,Confidence-threshold analysis and final threshold selection,[Evaluation & Documentation Lead],2,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-24,One-time test-set evaluation with full metric package,[Evaluation & Documentation Lead],3,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-25,Structured error analysis (TP/FP/FN/localization galleries),[Evaluation & Documentation Lead],3,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-26,Ten sample predictions with interpretations,[Evaluation & Documentation Lead],2,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-27,Final report (DOCX + PDF) with real figures,[Evaluation & Documentation Lead],5,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-28,"Presentation slides, speaker notes and demo script",[Project Manager],3,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-29,"Scrum evidence package (board, burndown, retrospectives)",[Project Manager],2,Done
-4,Evaluation & delivery,Complete academic and submission deliverables,FG-30,Final submission ZIP and verification loop,[Project Manager],2,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-01,Analyse project requirements and rubric,Muthukumaran,2,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-02,Define team roles and communication plan,Muthukumaran,1,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-03,Acquire Roboflow fire/smoke dataset (v1) and verify licence,Muthukumaran,2,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-04,"Validate dataset integrity (images, labels, classes, duplicates)",Muthukumaran,3,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-05,Detect and repair train/valid/test leakage (grouped re-split),Muthukumaran,5,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-06,Exploratory data analysis package (charts + review tables),Muthukumaran,5,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-07,Annotation-quality review and outlier report,Muthukumaran,2,Done
+1,Project planning & data,"Establish scope, validate the dataset, complete EDA",FG-08,Create initial product backlog and risk register,Muthukumaran,2,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-09,Set up Python environment (CUDA PyTorch + Ultralytics),Muthukumaran,2,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-10,"Train YOLOv8n baseline (transfer learning, 40 epochs)",Muthukumaran,3,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-11,Train YOLOv8s comparison model,Muthukumaran,3,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-12,Optional YOLO11n architecture comparison,Muthukumaran,2,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-13,Analyse training curves and validation metrics,Muthukumaran,2,Done
+2,Baseline & model comparison,Create the baseline and compare architectures,FG-14,Create experiment log and benchmark table,Muthukumaran,2,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-15,Hyperparameter tuning probes (optimizer / augmentation / loss),Muthukumaran,5,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-16,Train tuned final model and select by recall-weighted criteria,Muthukumaran,3,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-17,Streamlit app skeleton with sidebar controls and tabs,Muthukumaran,3,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-18,Image upload detection with downloads (PNG/CSV/JSON),Muthukumaran,3,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-19,Video upload processing with progress and frame CSV,Muthukumaran,5,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-20,Browser live webcam detection (streamlit-webrtc),Muthukumaran,5,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-21,OpenCV desktop webcam fallback,Muthukumaran,2,Done
+3,Tuning & application,Select the final model and build the detection interface,FG-22,Automated pytest suite for pipeline and app components,Muthukumaran,3,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-23,Confidence-threshold analysis and final threshold selection,Muthukumaran,2,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-24,One-time test-set evaluation with full metric package,Muthukumaran,3,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-25,Structured error analysis (TP/FP/FN/localization galleries),Muthukumaran,3,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-26,Ten sample predictions with interpretations,Muthukumaran,2,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-27,Final report (DOCX + PDF) with real figures,Muthukumaran,5,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-28,"Presentation slides, speaker notes and demo script",Muthukumaran,3,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-29,"Scrum evidence package (board, burndown, retrospectives)",Muthukumaran,2,Done
+4,Evaluation & delivery,Complete academic and submission deliverables,FG-30,Final submission ZIP and verification loop,Muthukumaran,2,Done

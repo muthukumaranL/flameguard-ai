@@ -2,13 +2,9 @@
 
 **AASD 4014 - Deep Learning II**
 
-**Group [GROUP NUMBER]**
+**Group 5**
 
-- [Project Manager]  -  Project Manager
-- [Dataset & EDA Lead]
-- [Model Training Lead]
-- [Application Development Lead]
-- [Evaluation & Documentation Lead]
+- Muthukumaran  -  all five roles (solo project)
 
 Submission date: [SUBMISSION DATE]
 
@@ -50,11 +46,11 @@ No number in this document was typed in by hand. Every metric, table and figure 
 
 | Team member | Role | Primary tasks | Report sections | Status |
 |---|---|---|---|---|
-| [Project Manager] | Project Manager | Coordination, timelines, Scrum artefacts, presentation assembly | Sections 1, 2, 9 | Complete |
-| [Dataset & EDA Lead] | Dataset & EDA Lead | Dataset validation, leakage repair, re-split, EDA package | Section 3 | Complete |
-| [Model Training Lead] | Model Training Lead | Transfer-learning experiments, tuning probes, final model | Sections 4, 6 | Complete |
-| [Application Development Lead] | Application Development Lead | Streamlit app, live webcam, video pipeline, OpenCV fallback | Section 8 | Complete |
-| [Evaluation & Documentation Lead] | Evaluation & Documentation Lead | Test evaluation, threshold analysis, error analysis, report, tests | Sections 5, 7, 10-15 | Complete |
+| Muthukumaran | Project Manager | Coordination, timelines, Scrum artefacts, presentation assembly | Sections 1, 2, 9 | Complete |
+| Muthukumaran | Dataset & EDA Lead | Dataset validation, leakage repair, re-split, EDA package | Section 3 | Complete |
+| Muthukumaran | Model Training Lead | Transfer-learning experiments, tuning probes, final model | Sections 4, 6 | Complete |
+| Muthukumaran | Application Development Lead | Streamlit app, live webcam, video pipeline, OpenCV fallback | Section 8 | Complete |
+| Muthukumaran | Evaluation & Documentation Lead | Test evaluation, threshold analysis, error analysis, report, tests | Sections 5, 7, 10-15 | Complete |
 
 
 ---

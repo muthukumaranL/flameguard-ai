@@ -8,7 +8,7 @@
 
 ## Template - Sprint Planning
 
-- **Date:** [YYYY-MM-DD]  |  **Sprint:** [n]  |  **Facilitator:** [Project Manager]
+- **Date:** [YYYY-MM-DD]  |  **Sprint:** [n]  |  **Facilitator:** Muthukumaran
 - **Attendees:** [names]
 - **Sprint goal agreed:** [goal]
 - **Items committed:** [item ids from product_backlog.csv]

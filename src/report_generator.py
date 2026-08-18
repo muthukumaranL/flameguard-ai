@@ -25,6 +25,7 @@ log = setup_logging("flameguard.report")
 
 TITLE = "FlameGuard AI: Real-Time Fire and Smoke Detection Using Transfer Learning"
 COURSE = "AASD 4014 - Deep Learning II"
+AUTHOR = "Muthukumaran"
 
 DISCLAIMER = ("FlameGuard AI is an educational computer-vision prototype. It is not a "
               "certified fire-detection or emergency-response system and must not "
@@ -160,11 +161,8 @@ class ReportBuilder:
         fast = gpu_s or cpu_s
 
         self.blocks.append(("cover", {
-            "title": TITLE, "course": COURSE, "group": "Group [GROUP NUMBER]",
-            "team": ["[Project Manager]  -  Project Manager",
-                     "[Dataset & EDA Lead]", "[Model Training Lead]",
-                     "[Application Development Lead]",
-                     "[Evaluation & Documentation Lead]"],
+            "title": TITLE, "course": COURSE, "group": "Group 5",
+            "team": [f"{AUTHOR}  -  all five roles (solo project)"],
             "date": "[SUBMISSION DATE]",
         }))
         self.pagebreak()

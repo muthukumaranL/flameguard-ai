@@ -24,11 +24,11 @@ from src.utils import setup_logging
 log = setup_logging("flameguard.agile")
 
 ROLES = {
-    "PM": "[Project Manager]",
-    "DATA": "[Dataset & EDA Lead]",
-    "MODEL": "[Model Training Lead]",
-    "APP": "[Application Development Lead]",
-    "EVAL": "[Evaluation & Documentation Lead]",
+    "PM": "Muthukumaran",
+    "DATA": "Muthukumaran",
+    "MODEL": "Muthukumaran",
+    "APP": "Muthukumaran",
+    "EVAL": "Muthukumaran",
 }
 
 # (id, sprint, story, task, owner_role, points, status)
@@ -256,7 +256,7 @@ def write_minutes_template() -> None:
 
 ## Template - Sprint Planning
 
-- **Date:** [YYYY-MM-DD]  |  **Sprint:** [n]  |  **Facilitator:** [Project Manager]
+- **Date:** [YYYY-MM-DD]  |  **Sprint:** [n]  |  **Facilitator:** Muthukumaran
 - **Attendees:** [names]
 - **Sprint goal agreed:** [goal]
 - **Items committed:** [item ids from product_backlog.csv]

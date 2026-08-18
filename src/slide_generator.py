@@ -164,8 +164,7 @@ def build_deck(art: Any) -> tuple[Presentation, list[tuple[str, str, str]]]:
     r.font.color.rgb = GREY
     p = tf.add_paragraph()
     r = p.add_run()
-    r.text = ("[Project Manager] · [Dataset & EDA Lead] · [Model Training Lead] · "
-              "[Application Lead] · [Evaluation & Documentation Lead]")
+    r.text = "Muthukumaran"
     r.font.size = Pt(12)
     r.font.color.rgb = GREY
     note1 = ("Open: 'Fire kills, and the clock starts at ignition - not at alarm.' "
